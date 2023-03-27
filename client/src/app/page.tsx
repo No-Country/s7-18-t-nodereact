@@ -5,6 +5,7 @@ export default function Home() {
     <div className='grid grid-cols-2'>
       {/* <DrawerMenu /> */}
       <ModalSearch />
+      <DrawerMenu />
     </div>
   );
 }

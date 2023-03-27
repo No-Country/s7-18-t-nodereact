@@ -2,19 +2,14 @@ import Image from 'next/image';
 import ButtonSearch from './ButtonSearch';
 import { navbar, ulUserMenu } from './classes';
 import { InputSearch } from '..';
+import BurgerButton from './BurgerButton';
 
 const Header = () => {
   return (
     <div className={navbar}>
       {/* Burger menu */}
       <div>
-        <div className='flex-none lg:hidden'>
-          <label htmlFor='my-drawer-2' className='btn btn-square btn-ghost'>
-            <svg fill='none' viewBox='0 0 24 24' className='inline-block w-6 h-6 stroke-current'>
-              <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M4 6h16M4 12h16M4 18h16'></path>
-            </svg>
-          </label>
-        </div>
+        <BurgerButton />
         <div className='flex-0'>
           <a className='btn btn-ghost normal-case text-xl'>Food recipes</a>
         </div>
