@@ -5,11 +5,11 @@ import { hideModal } from '@/redux/slices/sliceModals';
 import Drawer from 'react-modern-drawer';
 import 'react-modern-drawer/dist/index.css';
 
-const DrawerMenu = (props: any) => {
-  const { drawerMenu } = useAppSelector((state) => state.modalsReducer);
+const DrawerMenuLeft = (props: any) => {
+  const { drawerMenuLeft } = useAppSelector((state) => state.modalsReducer);
   const dispatch = useAppDispatch();
   return (
-    <Drawer size={350} open={drawerMenu} onClose={() => dispatch(hideModal('drawerMenu'))} direction='left'>
+    <Drawer size={350} open={drawerMenuLeft} onClose={() => dispatch(hideModal('drawerMenuLeft'))} direction='left'>
       <ul className='menu w-full text-base-content p-0'>
         <li>
           <a>Sidebar Item 1</a>
@@ -21,4 +21,4 @@ const DrawerMenu = (props: any) => {
     </Drawer>
   );
 };
-export default DrawerMenu;
+export default DrawerMenuLeft;

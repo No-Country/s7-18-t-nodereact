@@ -3,12 +3,14 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 export interface ModalsState {
   modalSearch: boolean;
-  drawerMenu: boolean;
+  drawerMenuLeft: boolean;
+  drawerMenuRight: boolean;
 }
 
 const initialState: ModalsState = {
   modalSearch: false,
-  drawerMenu: false,
+  drawerMenuLeft: false,
+  drawerMenuRight: false,
 };
 
 export const modals = createSlice({
