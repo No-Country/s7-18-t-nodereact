@@ -21,7 +21,7 @@ Descrip.
 
 ✔️ **Diseñadora UX/UI:** Jacqueline Higa | [LinkedIn](.)
 
-✔️ **Desarrollador front-end:** Kelly Chara | [LinkedIn](.) | [GitHub](.)
+✔️ **Desarrollador front-end:** Kelly Chara | [LinkedIn](http://linkedin.com/in/kelly-chara) | [GitHub](.)
 
 ✔️ **Desarrollador front-end:** Lucas Santamaría | [LinkedIn](.) | [GitHub](.)
 
