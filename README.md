@@ -13,7 +13,7 @@ Descrip.
 * Testing: X.
 
 ### Integrantes 👩🏻‍💻👨🏽‍💻
-✔️ QA Tester: Tatiana Montoya | [LinkedIn](.)
+✔️ **QA Tester: Tatiana Montoya** | [LinkedIn](.)
 ✔️ Diseñadora UX/UI: María Belén Fernández Morales | [LinkedIn](.)
 ✔️ Diseñadora UX/UI: Jacqueline Higa | [LinkedIn](.)
 ✔️ Desarrollador front-end: Kelly Chara | [LinkedIn](.) | [GitHub](.)
