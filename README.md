@@ -6,7 +6,7 @@
 
 Descrip.
 
-### Tecnologías 🚀
+### Tecnologías 🚀:
 * FrontEnd: X | X | X | X |
 * BackEnd: Javascript | Node.js | Express.js | MongoDB |
 * Diseño UX: Figma.
@@ -37,5 +37,5 @@ Descrip.
 
 ✔️ **Desarrollador back-end:** Oscar Ardila | [LinkedIn](.) | [GitHub](.)
 
-### Team Leader 👨‍🚀
-* Matías Carballo.
+### Team Leader 👨‍🚀:
+✔️ Matías Carballo.
