@@ -1,6 +1,6 @@
 <h1 align = "center">Nombre del project</h1>
 
-<p align = "center">Un proyecto del equipo: S7-18-T-NodeReact</p>
+<p align = "center">Un proyecto del equipo: S7-18-T-NodeReact.</p>
 
 ## Breve descripción del proyecto 📜 (¿o cómo nace la idea?)
 
