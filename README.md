@@ -12,6 +12,8 @@ Descrip.
 * Diseño UX: Figma.
 * Testing: X.
 
+### URL del proyecto desplegado 🔗:
+
 ## Integrantes 👩🏻‍💻👨🏽‍💻
 ✔️ **QA Tester:** Tatiana Montoya | [LinkedIn](.)
 
@@ -37,5 +39,3 @@ Descrip.
 
 ### Team Leader 👨‍🚀
 * Matías Carballo.
-
-### Link al proyecto desplegado (deploy) 🔗:
