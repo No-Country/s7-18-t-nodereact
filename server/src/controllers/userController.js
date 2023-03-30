@@ -1,28 +1,28 @@
-import Admin from "../models/Admin.js"
+import User from "../models/User.js"
 import generateJWT from "../helpers/generateJWT.js";
 import generateId from "../helpers/generateId.js";
-import registerEmailAdmin from "../helpers/emailRegisterAdmin";
-import emailNewPasswordAdmin from "../helpers/forgottenPasswordEmailAdmin.js";
+import registerEmail from "../helpers/emailRegister.js";
+import emailNewPassword from "../helpers/forgottenPasswordEmail.js";
 
-const registerAdmin = async(req, res) => {
+const registerUser = async(req, res) => {
     const {email, name } = req.body;
-    const existAdmin = await Admin.findOne({email});
+    const existUser = await User.findOne({email});
 
-    if(existAdmin){
-        const error = new Error("Administrador ya registrado");
+    if(existUser){
+        const error = new Error("Usuario ya registrado");
         return res.status(400).json({msg: error.message});
     }
 
     try {
-        const admin = new Admin(req.body);
-        const savedAdmin = await admin.save();
+        const user = new User(req.body);
+        const savedUser = await user.save();
 
-        registerEmailAdmin({
+        registerEmail({
             email, 
             name,
-            token: savedAdmin.token
+            token: savedUser.token
         });
-        res.json(savedAdmin);
+        res.json(savedUser);
         
     } catch (error) {
         console.log(error)
@@ -30,42 +30,42 @@ const registerAdmin = async(req, res) => {
         
     }
 
-const adminProfile = async (req, res) => {
+const userProfile = async (req, res) => {
     try {
-        const profile = await Admin.findbyIdI(req.params.id).lean();
+        const profile = await User.findById(req.params.id).lean();
         res.json(profile);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 }
 
-const confirmAdmin= async (req, res) => {
+const confirmUser = async (req, res) => {
     const {token} = req.params;
-    const adminConfirm = await Admin.findOne({token});
+    const userConfirm = await User.findOne({token});
 
-    if(!adminConfirm){
+    if(!userConfirm){
         const error = new Error("Token no válido");
         return res.status(400).json({msg: error.message});
     }
 
     try {
-        adminConfirm.token = null;
-        adminConfirm.confirmed = true;
-        await adminConfirm.save();
+        userConfirm.token = null;
+        userConfirm.confirmed = true;
+        await userConfirm.save();
         res.json({msg: "Usuario confirmado correctamente"})
     } catch (error) {
         console.log(error)
     }
 }
 
-const authenticateAdmin = async (req, res) => {
+const authenticateUser = async (req, res) => {
     const {email, password} = req.body;
-    const user = await Admin.findOne({email});
+    const user = await User.findOne({email});
     if(!user){
-        const error = new Error("El administrador no existe");
+        const error = new Error("El usuario no existe");
         return res.status(403).json({msg: error.message});
     }
-    if(await admin.checkAdminPassword(password)){
+    if(await user.checkUserPassword(password)){
         res.json({token: generateJWT(user.id)});
     }else{
         const error = new Error("La contraseña es incorrecta");
@@ -75,18 +75,18 @@ const authenticateAdmin = async (req, res) => {
 
 const forgottenPassword = async (req, res) => {
     const {email} = req.body;
-    const existAdmin = await Admin.findOne({email});
-    if(!existAdmin){
-        const error = new Error("El administrador no existe");
+    const existUser = await User.findOne({email});
+    if(!existUser){
+        const error = new Error("El usuario no existe");
         return res.status(400).json({ msg: error.message });
     }
     try {
-        existAdmin.token = generateId();
-        await existAdmin.save();
-        emailNewPasswordAdmin({
+        existUser.token = generateId();
+        await existUser.save();
+        emailNewPassword({
             email,
-            name: existAdmin.name,
-            token: existAdmin.token
+            name: existUser.name,
+            token: existUser.token
         })
         res.json({
             msg: "Se ha enviado un email con las instrucciones para cambiar la contraseña"
@@ -96,29 +96,29 @@ const forgottenPassword = async (req, res) => {
     }
 }
 
-const checkAdminToken = async (req, res) => {
+const checkUserToken = async (req, res) => {
     const {token} = req.params;
-    const validToken = await Admin.findOne({token});
+    const validToken = await User.findOne({token});
     if(validToken){
-        res.json({msg: "Token válido, el administrador existe"});
+        res.json({msg: "Token válido, el usuario existe"});
     }else{
         const error = new Error("Token no válido");
         return res.status(400).json({msg: error.message});
     }
 }
 
-const newAdminPassword = async (req, res) => {
+const newUserPassword = async (req, res) => {
     const {token} = req.params;
     const {password} = req.body;
-    const admin = await Admin.findOne({token});
-    if(!admin){
+    const user = await User.findOne({token});
+    if(!user){
         const error = new Error("Hubo un error");
         res.status(400).json({ msg: error.message });
     }
     try {
-        admin.token = null;
-        admin.password = password;
-        await admin.save();
+        user.token = null;
+        user.password = password;
+        await user.save();
         res.json({msg: "Password modificado correctamente"});
     } catch (error) {
         console.log(error)
@@ -126,11 +126,11 @@ const newAdminPassword = async (req, res) => {
 }
 
 export {
-    registerAdmin,
-    adminProfile,
-    confirmAdmin,
-    authenticateAdmin,
+    registerUser,
+    userProfile,
+    confirmUser,
+    authenticateUser,
     forgottenPassword,
-    checkAdminToken,
-    newAdminPassword,
+    checkUserToken,
+    newUserPassword,
 }
