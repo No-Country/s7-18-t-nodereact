@@ -23,7 +23,7 @@ Descrip.
 
 ✔️ **Desarrollador front-end:** Kelly Chara | [LinkedIn](http://linkedin.com/in/kelly-chara) | [GitHub](.)
 
-✔️ **Desarrollador front-end:** Lucas Santamaría | [LinkedIn](.) | [GitHub](.)
+✔️ **Desarrollador front-end:** Lucas Santamaria | [LinkedIn](.) | [GitHub](.)
 
 ✔️ **Desarrollador front-end:** Gilmar Fasabi Morales | [LinkedIn](.) | [GitHub](.)
 
