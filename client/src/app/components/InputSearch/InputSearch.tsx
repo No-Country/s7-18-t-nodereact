@@ -1,14 +1,12 @@
 'use client';
 
-import { useAppSelector } from '@/redux/hooks';
 import { useState } from 'react';
-import { search } from './classes';
 
 const InputSearch = () => {
   const [value, setValue] = useState('');
 
   return (
-    <div className={search}>
+    <div className='search'>
       <span className='flex-shrink-0 text-gray-500 hover:text-slate-800'>
         <svg className='w-6 h-6 cursor-pointer' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
           <path

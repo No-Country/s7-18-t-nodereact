@@ -5,3 +5,8 @@ export { default as Header } from './Header/Header';
 export { default as InputSearch } from './InputSearch/InputSearch';
 export { default as InputSearchMobile } from './InputSearch/InputSearchMobile';
 export { default as ModalSearch } from './Modals/ModalSearch/ModalSearch';
+export { default as SidebarFollow } from './Sidebars/SidebarFollow';
+export { default as SidebarUser } from './Sidebars/SidebarUser';
+export { default as InfoRecipe } from './InfoRecipe/InfoRecipe';
+export { default as Ingredients } from './Ingredients/Ingredients';
+export { default as Preparation } from './Preparation/Preparation';

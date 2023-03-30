@@ -4,7 +4,7 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ['encrypted-tbn0.gstatic.com'],
+    domains: ['images.unsplash.com'],
   },
 };
 

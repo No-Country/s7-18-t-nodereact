@@ -2,12 +2,11 @@
 
 import { useAppDispatch } from '@/redux/hooks';
 import { showModal } from '@/redux/slices/sliceModals';
-import { buttonSearch } from './classes';
 
 const ButtonSearch = () => {
   const dispatch = useAppDispatch();
   return (
-    <span className={buttonSearch} onClick={() => dispatch(showModal('modalSearch'))}>
+    <span className='buttonSearch' onClick={() => dispatch(showModal('modalSearch'))}>
       <svg className='w-8 h-8 cursor-pointer' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
         <path
           strokeLinecap='round'
