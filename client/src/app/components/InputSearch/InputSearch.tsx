@@ -6,7 +6,7 @@ const InputSearch = () => {
   const [value, setValue] = useState('');
 
   return (
-    <div className='search'>
+    <div className='search bg-base-100'>
       <span className='flex-shrink-0 text-gray-500 hover:text-slate-800'>
         <svg className='w-6 h-6 cursor-pointer' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
           <path

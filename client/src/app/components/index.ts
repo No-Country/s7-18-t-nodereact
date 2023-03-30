@@ -11,3 +11,4 @@ export { default as InfoRecipe } from './InfoRecipe/InfoRecipe';
 export { default as Ingredients } from './Ingredients/Ingredients';
 export { default as Preparation } from './Preparation/Preparation';
 export { default as TitleRecipe } from './TitleRecipe/TitleRecipe';
+export { default as CardFollowers } from './CardFollowers/CardFollowers';

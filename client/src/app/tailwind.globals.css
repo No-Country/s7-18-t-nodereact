@@ -4,6 +4,7 @@
 
 * {
   user-select: none;
+  font-family: 'Inter', sans-serif;
 }
 *::-webkit-scrollbar {
   width: 4px;
@@ -22,5 +23,8 @@
   }
   .search {
     @apply hidden lg:flex gap-2 w-[400px] border border-gray-200 rounded-full py-2 px-6;
+  }
+  .btn-personalized-outline {
+    @apply btn btn-sm btn-outline border-[#ff823f] text-[#ff823f] rounded-md hover:bg-gradient-to-b from-[#ff823f] to-[#ffd700];
   }
 }

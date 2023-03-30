@@ -1,5 +1,5 @@
 import { Providers } from '@/redux/provider';
-import { Header, SidebarFollow, SidebarUser } from './components';
+import { DrawerMenuLeft, DrawerMenuRight, Header, ModalSearch, SidebarFollow, SidebarUser } from './components';
 import './tailwind.globals.css';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -19,6 +19,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <SidebarFollow />
             </div>
           </div>
+          <ModalSearch />
+          <DrawerMenuLeft />
+          <DrawerMenuRight />
         </Providers>
       </body>
     </html>

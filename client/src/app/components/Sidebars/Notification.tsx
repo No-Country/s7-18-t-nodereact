@@ -2,22 +2,22 @@ import { NotificationIcon, UserIcon } from '@/icons';
 
 const Notification = () => {
   return (
-    <div className='h-48 flex flex-col justify-start items-center gap-2 pl-4 px-4'>
-      <div className='flex items-center justify-start w-full gap-2 mb-5 mt-3'>
+    <div className='h-32 flex flex-col justify-start items-center gap-1 pl-4 px-4'>
+      <div className='flex items-center justify-start w-full gap-2 mb-2 mt-2'>
         <NotificationIcon />
         <h3 className='text-lg font-medium'>Notificación</h3>
       </div>
-      <div className='flex items-center justify-start w-full gap-2'>
+      <div className='flex items-center justify-start w-full gap-2 ml-5'>
         <UserIcon />
-        <h3 className='text-lg font-medium'>Nombre Falso</h3>
+        <h3 className='text-sm font-medium'>Nombre Falso</h3>
       </div>
-      <div className='flex items-center justify-start w-full gap-2'>
+      <div className='flex items-center justify-start w-full gap-2 ml-5'>
         <UserIcon />
-        <h3 className='text-lg font-medium'>Nombre Falso</h3>
+        <h3 className='text-sm font-medium'>Nombre Falso</h3>
       </div>
-      <div className='flex items-center justify-start w-full gap-2'>
+      <div className='flex items-center justify-start w-full gap-2 ml-5'>
         <UserIcon />
-        <h3 className='text-lg font-medium'>Nombre Falso</h3>
+        <h3 className='text-sm font-medium'>Nombre Falso</h3>
       </div>
     </div>
   );

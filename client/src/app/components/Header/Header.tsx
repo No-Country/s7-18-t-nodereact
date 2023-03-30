@@ -5,7 +5,7 @@ import { HeartIcon } from '@/icons';
 
 const Header = () => {
   return (
-    <div className='flex justify-between w-full navbar border-b-2 p-0'>
+    <div className='flex justify-between w-full navbar border-b-2 p-0 bg-gradient-to-b from-[#ff823f] to-[#ffd700]'>
       <div className='ml-1 sm:ml-10'>
         <BurgerButton position={'Left'} />
         <div className='flex-0'>

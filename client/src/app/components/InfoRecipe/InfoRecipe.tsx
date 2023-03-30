@@ -2,7 +2,7 @@ import { EasyIcon, GeometryIcon, UsersGroup } from '@/icons';
 
 const InfoRecipe = () => {
   return (
-    <div className='flex justify-center items-center w-auto gap-16'>
+    <div className='flex justify-center items-center w-auto gap-10 my-3'>
       <div className='flex flex-col'>
         <div className='flex justify-center items-center gap-2'>
           <EasyIcon />

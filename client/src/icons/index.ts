@@ -9,3 +9,7 @@ export { default as HeartIcon } from './HeartIcon';
 export { default as EasyIcon } from './EasyIcon';
 export { default as GeometryIcon } from './GeometryIcon';
 export { default as UsersGroup } from './UsersGroup';
+export { default as PointsMenu } from './PointsMenu';
+export { default as AvatarIcon } from './AvatarIcon';
+export { default as Settings } from './Settings';
+export { default as ArrowLeft } from './ArrowLeft';
