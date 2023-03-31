@@ -15,3 +15,4 @@ export { default as Settings } from './Settings';
 export { default as ArrowLeft } from './ArrowLeft';
 export { default as AddIcon } from './AddIcon';
 export { default as CommentBalloonIcon } from './CommentBalloonIcon';
+export { default as FollowUserIcon } from './FollowUserIcon';
