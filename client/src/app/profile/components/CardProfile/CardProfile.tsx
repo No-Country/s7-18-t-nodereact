@@ -2,7 +2,7 @@ import { AvatarIcon, Settings } from '@/icons';
 
 const CardProfile = () => {
   return (
-    <div className='flex flex-col card w-[100%] sm:w-3/4 md:w-3/5 lg:w-[90%] xl:w-[60%] 2xl:w-[50%] h-64  bg-base-100 shadow-xl pb-2'>
+    <div className='flex flex-col card w-[100%] sm:w-3/4 md:w-3/5 lg:w-[90%] xl:w-[60%] 2xl:w-[50%] h-64  bg-base-100 shadow-md pb-2'>
       <div className='h-1/2 bg-gradient-to-b from-[#ff823f] to-[#ffd700]'></div>
       <div className='flex h-1/2 w-[100%]'>
         <div className=' w-[20%] ml-3 mr-2 -mt-9 sm:-mt-11'>
