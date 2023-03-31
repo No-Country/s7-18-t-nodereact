@@ -1,5 +1,7 @@
-const mongoose = require('mongoose');
-require('dotenv').config();
+import mongoose from "mongoose";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 const uri = process.env.MONGO_ATLAS
 
 mongoose.set('strictQuery', false);

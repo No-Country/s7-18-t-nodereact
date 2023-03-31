@@ -1,10 +1,10 @@
-import { Router } from "express";
-import {createPost} from '../controllers/postController'
+import express from "express";
+import {createPost} from '../controllers/postController.js';
 
-const router = Router();
+const router = express.Router();
 
-router.post('/posts', upload.array('images'), createPost);
+router.post('/posts',createPost);
 
 
 
-module.exports = router;
+export default router;

@@ -1,6 +1,6 @@
-const userRouter = require("./userRoutes.js");
-const postRouter = require("./postRoutes.js");
-const commentRouter = require("./commentRoutes.js")
+import userRouter from "./userRoutes.js";
+import postRouter from "./postRoutes.js";
+import commentRouter from "./commentRoutes.js";
 
 const routerApi = (app) => {
   app.use("/api/v1/user", userRouter);
@@ -9,4 +9,4 @@ const routerApi = (app) => {
 };
 
 
-module.exports = routerApi;
+export default routerApi;

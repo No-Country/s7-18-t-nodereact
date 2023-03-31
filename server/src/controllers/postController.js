@@ -1,4 +1,4 @@
-import {Post} from '../models';
+import Post from '../models/Post.js';
 
 const createPost = async (req, res, next) => {
     const id = req.user.id;
@@ -28,7 +28,6 @@ const createPost = async (req, res, next) => {
     }
 }
 
-
-module.exports = {
+export {
     createPost
 }
