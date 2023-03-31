@@ -2,15 +2,13 @@ import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 
 dotenv.config();
-const uri = process.env.MONGO_ATLAS
 
-mongoose.set('strictQuery', false);
+connection().catch((err)=> console.log(err));
 
-mongoose.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
+async function connection (){
+    mongoose.set('strictQuery', false);
+    mongoose.connect(process.env.MONGO_ATLAS);
+    console.log('Coonectado a Mongo Atlas');
+}
 
-mongoose.connection.on('open', () => {
-    console.log('Conectado a ', uri);
-})
+export default connection;
