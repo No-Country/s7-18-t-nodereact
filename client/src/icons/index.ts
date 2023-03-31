@@ -13,3 +13,5 @@ export { default as PointsMenu } from './PointsMenu';
 export { default as AvatarIcon } from './AvatarIcon';
 export { default as Settings } from './Settings';
 export { default as ArrowLeft } from './ArrowLeft';
+export { default as AddIcon } from './AddIcon';
+export { default as CommentBalloonIcon } from './CommentBalloonIcon';

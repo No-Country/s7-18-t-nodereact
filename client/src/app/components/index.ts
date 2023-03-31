@@ -12,3 +12,6 @@ export { default as Ingredients } from './Ingredients/Ingredients';
 export { default as Preparation } from './Preparation/Preparation';
 export { default as TitleRecipe } from './TitleRecipe/TitleRecipe';
 export { default as CardFollowers } from './CardFollowers/CardFollowers';
+export { default as CardRecipe } from './CardRecipe/CardRecipe';
+export { default as CardProfile } from './CardProfile/CardProfile';
+export { default as CardStats } from './CardStats/CardStats';

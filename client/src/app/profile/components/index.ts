@@ -1,2 +1,1 @@
-export { default as CardProfile } from './CardProfile/CardProfile';
-export { default as CardStats } from './CardStats/CardStats';
+export { default as ButtonAddRecipe } from './ButtonAddRecipe/ButtonAddRecipe';
