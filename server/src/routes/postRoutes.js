@@ -1,10 +1,12 @@
-import { Router } from "express";
-import { createPost } from '../controllers/postController'
+import express from "express";
+import {createPost} from '../controllers/postController.js';
+import upload from "../middlewares/multer.js";
 
-const router = Router();
+const router = express.Router();
 
-router.post('/create', upload.array('images'), createPost);
+router.post('/posts',upload.array('images'), createPost);
 
 
 
-module.exports = router;
+export default router;
+

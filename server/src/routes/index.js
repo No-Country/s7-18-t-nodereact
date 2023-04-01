@@ -10,5 +10,5 @@ const routerApi = (app) => {
   app.use("/api/v1/comment", commentRouter);
 };
 
+export default routerApi;
 
-module.exports = routerApi;

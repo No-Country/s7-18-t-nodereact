@@ -64,5 +64,5 @@ commentSchema.virtual("reply",{
 
 const Comment = model('comment', commentSchema);
 
+export default Comment;
 
-module.exports = Comment;
