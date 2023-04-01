@@ -10,5 +10,5 @@ mongoose.connect(uri, {
 });
 
 mongoose.connection.on('open', () => {
-    console.log('Conectado a Mongo correctamente!', uri);
+    console.log('Conectado a ', uri);
 })
