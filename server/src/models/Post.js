@@ -71,3 +71,4 @@ postSchema.virtual('comments', {
 const Post = model('post', postSchema);
 
 export default Post;
+

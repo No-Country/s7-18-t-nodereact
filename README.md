@@ -7,7 +7,7 @@
 Descrip.
 
 ### Tecnologías 🚀:
-* FrontEnd: X | X | X | X |
+* FrontEnd: Next.js | Typescript | Taildwind | Redux-Toolkit |
 * BackEnd: Javascript | Node.js | Express.js | MongoDB |
 * Diseño UX: Figma.
 * Testing: X.

@@ -4,6 +4,7 @@ import morgan from "morgan";
 import cors from "cors";
 import connection from './src/database/config.js';
 import routerApi from "./src/routes/index.js";
+
 const app = express()
 
 const port = process.env.PORT || 5000;
