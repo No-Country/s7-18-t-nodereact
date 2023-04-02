@@ -13,11 +13,9 @@ const Header = () => {
         </div>
       </div>
       <InputSearch />
-
-      <div className='mr-1 sm:mr-10 gap-3'>
+      <div className='mr-3 sm:mr-10 gap-2'>
         <ButtonSearch />
         <HeartIcon />
-        <BurgerButton position={'Right'} />
       </div>
     </div>
   );

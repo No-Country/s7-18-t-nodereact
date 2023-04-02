@@ -1,5 +1,5 @@
-import { CardProfile, CardRecipe, CardStats } from '../components'; // common components
-import { BodyCardProfile, ButtonAddRecipe } from './components'; //profile components
+import { ButtonAddRecipe, CardProfile, CardThumbnailsRecipe, CardStats } from '../components'; // common components
+import { BodyCardProfile } from './components'; //profile components
 
 const recipes = new Array(20).fill('');
 
@@ -16,7 +16,7 @@ export default function page() {
       </div>
       <div className='flex flex-wrap justify-center gap-3 p-1 w-full'>
         {recipes.map((el, idx) => (
-          <CardRecipe key={idx} />
+          <CardThumbnailsRecipe key={idx} />
         ))}
       </div>
     </div>

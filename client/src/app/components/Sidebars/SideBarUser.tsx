@@ -11,15 +11,15 @@ const SidebarUser = () => {
         <h2 className='text-white font-bold text-xl p-1 pl-4'>MENÚ</h2>
         <Stat />
       </div>
-      <div className='h-12 flex justify-start items-center gap-2 pl-4 border-b border-gray-300'>
+      <div className='h-16 flex justify-start items-center gap-2 pl-4 border-b border-gray-300'>
         <HomeIcon />
         <h3 className='text-lg font-medium'>Inicio</h3>
       </div>
-      <div className='h-12 flex justify-start items-center gap-2 pl-4 border-b border-gray-300'>
+      <div className='h-16 flex justify-start items-center gap-2 pl-4 border-b border-gray-300'>
         <GlobeIcon />
         <h3 className='text-lg font-medium'>Explorar</h3>
       </div>
-      <div className='h-12 flex justify-start items-center gap-2 pl-4 border-b border-gray-300'>
+      <div className='h-16 flex justify-start items-center gap-2 pl-4 border-b border-gray-300'>
         <ArchivedIcon width={20} height={20} />
         <h3 className='text-lg font-medium'>Guardados</h3>
       </div>
