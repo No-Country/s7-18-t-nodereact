@@ -2,29 +2,23 @@
 import Post from '../models/Post.js';
 
 const createPost = async (req, res) => {
-    const id = req.user.id;
-    const {title, description} = req.body;
-    const images = req.files;
-    
+    //const id = req.user.id;
+    const { title, description } = req.body;
+    //const images = req.files;
+
     try {
-        const post = new Post({
-            author: id,
+        let post = new Post({
+            //author: id, //por el momento comentado para hacer las pruebas.
             title,
             description,
-            images: images.map((image) => image.filename)
+            //images: images.map((image) => image.filename) //por el momento comentado para hacer las pruebas.
         });
 
         await post.save()
 
-        res.status(201).json({
-            success: true,
-            message: 'Post creado con éxito',
-            post,
-        });
+        res.send( post );
     } catch (error) {
-        return res.status(500).json({
-            message: error.message
-        })
+        console.log(error.message);
     }
 }
 
