@@ -4,7 +4,8 @@ const postSchema = new Schema(
     {
         author: {
             type: Schema.Types.ObjectId,
-            ref: 'user'
+            ref: 'user',
+            required: true
         },
         title: {
             type: String,
@@ -35,12 +36,6 @@ postSchema.virtual('comments', {
     foreignField: 'post'
 });
 
-
-// postSchema.virtual('reactions', {
-//     ref: 'reaction',
-//     localField: '_id',
-//     foreignField: 'post'
-// });
 
 // postSchema.virtual('like', {
 //     ref: 'reaction',
