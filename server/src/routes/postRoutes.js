@@ -4,7 +4,7 @@ import upload from "../middlewares/multer.js";
 
 const router = express.Router();
 
-router.post('/posts',upload.array('images'), createPost);
+router.post('/',upload.array('images'), createPost);
 
 
 
