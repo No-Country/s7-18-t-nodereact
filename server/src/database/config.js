@@ -3,12 +3,12 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-connection().catch((err)=> console.log(err));
+connection().catch((err)=> res.send(err));
 
 async function connection (){
     mongoose.set('strictQuery', false);
     mongoose.connect(process.env.MONGO_ATLAS);
-    console.log('Coonectado a Mongo Atlas');
+    console.log('Conectado a Mongo Atlas');
 }
 
 export default connection;
