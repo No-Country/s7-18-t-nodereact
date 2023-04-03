@@ -11,3 +11,4 @@ router.put("/forgotten-password", forgottenPassword)
 router.get("/forgotten-password/:token", newUserPassword);
 
 export default router;
+

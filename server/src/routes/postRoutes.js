@@ -9,3 +9,4 @@ router.post('/posts',upload.array('images'), createPost);
 
 
 export default router;
+

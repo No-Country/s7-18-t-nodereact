@@ -1,3 +1,4 @@
+
 import Post from '../models/Post.js';
 
 const createPost = async (req, res, next) => {
@@ -14,20 +15,17 @@ const createPost = async (req, res, next) => {
         });
 
         await post.save()
-        
+
         res.status(201).json({
             success: true,
             message: 'Post creado con éxito',
             post,
         });
-        
-    }catch(error){
+    } catch (error) {
         return res.status(500).json({
             message: error.message
         })
     }
 }
 
-export {
-    createPost
-}
+export = { createPost }
