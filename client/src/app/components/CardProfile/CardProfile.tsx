@@ -6,7 +6,7 @@ export interface Props {
 const CardProfile = ({ children }: Props) => {
   return (
     <div className='flex flex-col card w-full h-64  bg-base-100 shadow-md pb-2'>
-      <div className='h-1/2 bg-gradient-to-b from-[#ff823f] to-[#ffd700]'></div>
+      <div className='h-1/2 bg-[url("/vegetables.webp")]'></div>
       <div className='flex h-1/2 w-full'>
         <div className='flex justify-end w-[20%] ml-3 mr-2 -translate-y-10'>
           <AvatarIcon width={80} height={80} />

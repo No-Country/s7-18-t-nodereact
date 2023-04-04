@@ -11,7 +11,11 @@ module.exports = {
     'node_modules/react-daisyui/dist/**/*.js',
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        '3xl': '1800px',
+      },
+    },
   },
   plugins: [require('daisyui')],
   daisyui: {

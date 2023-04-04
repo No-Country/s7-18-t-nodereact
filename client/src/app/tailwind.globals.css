@@ -27,4 +27,8 @@
   .btn-personalized-outline {
     @apply btn btn-sm btn-outline border-[#ff823f] text-[#ff823f] rounded-md hover:bg-gradient-to-b from-[#ff823f] to-[#ffd700];
   }
+  .btn-primary {
+    @apply bg-transparent shadow-md border border-[#ff823f] rounded-md hover:bg-gradient-to-r 
+    from-[#ff823f] to-[#ffd700] hover:text-white active:shadow-none;
+  }
 }

@@ -18,3 +18,4 @@ export { default as CommentBalloonIcon } from './CommentBalloonIcon';
 export { default as FollowUserIcon } from './FollowUserIcon';
 export { default as DropdownButtonIcon } from './DropdownButtonIcon';
 export { default as CheckedListIcon } from './CheckedListIcon';
+export { default as CutleryIcon } from './CutleryIcon';

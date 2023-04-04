@@ -1,8 +1,8 @@
 const PointsMenu = () => {
   return (
-    <div className=' cursor-pointer hover:scale-125'>
+    <div className=' cursor-pointer hover:scale-125 hover:fill-orange-500'>
       <svg width='15px' height='30px' viewBox='0 0 600.000000 600.000000' preserveAspectRatio='xMidYMid meet'>
-        <g transform='translate(0.000000,600.000000) scale(0.100000,-0.100000)' fill='#000000' stroke='none'>
+        <g transform='translate(0.000000,600.000000) scale(0.100000,-0.100000)' /* fill='#000000' */ stroke='none'>
           <path
             d='M2883 5990 c-129 -24 -277 -104 -366 -199 -196 -209 -240 -501 -115
               -761 33 -69 57 -101 127 -171 147 -147 303 -207 510 -196 244 12 450 147 560
