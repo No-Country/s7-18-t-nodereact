@@ -16,3 +16,5 @@ export { default as ArrowLeft } from './ArrowLeft';
 export { default as AddIcon } from './AddIcon';
 export { default as CommentBalloonIcon } from './CommentBalloonIcon';
 export { default as FollowUserIcon } from './FollowUserIcon';
+export { default as DropdownButtonIcon } from './DropdownButtonIcon';
+export { default as CheckedListIcon } from './CheckedListIcon';

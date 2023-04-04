@@ -10,7 +10,7 @@ export default function page() {
         <BodyCardProfile />
       </CardProfile>
       <CardStats />
-      <div className='flex w-full h-20 gap-3 self-start items-center'>
+      <div className='flex gap-3 self-start items-center w-full h-20 pl-1'>
         <ButtonAddRecipe />
         <p className=''>Agregar Receta</p>
       </div>
