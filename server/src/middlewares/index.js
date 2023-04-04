@@ -1,3 +1,4 @@
-module.exports={
-    multer:require('./multer')
+module.exports = {
+    multer: require('./multer'),
+
 }
