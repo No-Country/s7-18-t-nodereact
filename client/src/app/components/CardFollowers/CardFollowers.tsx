@@ -1,3 +1,4 @@
+//review
 import { AvatarIcon, FavoriteIcon, PointsMenu } from '@/icons';
 
 const CardFollowers = () => {

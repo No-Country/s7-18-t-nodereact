@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 const Profile = () => {
   return (
-    <div className='flex gap-2'>
+    <div className='flex justify-center gap-2'>
       <div className='avatar'>
         <div className='w-[80px] rounded-full border border-[#FF8C00]'>
           <Image
