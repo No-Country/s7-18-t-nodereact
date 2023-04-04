@@ -5,7 +5,10 @@ const recipes = new Array(20).fill('');
 
 export default function page() {
   return (
-    <div className='flex flex-col items-center my-10 gap-6 overflow-x-hidden w-full md:w-[90%] xl:w-3/4 mx-auto'>
+    <div
+      className='flex flex-col items-center my-10 gap-6 
+         overflow-x-hidden w-full md:w-[90%] xl:w-5/6 2xl:w-3/4 mx-auto'
+    >
       <CardProfile>
         <BodyCardProfile />
       </CardProfile>
