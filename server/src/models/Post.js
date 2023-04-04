@@ -4,7 +4,8 @@ const postSchema = new Schema(
     {
         author: {
             type: Schema.Types.ObjectId,
-            ref: 'user'
+            ref: 'user',
+            //required: true //por el momento comentado para hacer las pruebas.
         },
         title: {
             type: String,
@@ -16,17 +17,14 @@ const postSchema = new Schema(
         },
         images: [{
             type: String
-        }],
-        active: {
-            type: Boolean,
-            default: true
-        },
+        }]
     },
     {
         toObject: { virtuals: true },//En true , get canal especifico devuelve el conteo de reaccciones y commetnarios
         toJSON: { virtuals: true },
         timestamps: true,
-        versionKey: false
+        versionKey: false,
+        id: false //para que no aparezca el id (si se emilina, aparece un atributo _id y otro id, que tienen el mismo identificador)
     }
 );
 postSchema.virtual('comments', {
@@ -35,12 +33,6 @@ postSchema.virtual('comments', {
     foreignField: 'post'
 });
 
-
-// postSchema.virtual('reactions', {
-//     ref: 'reaction',
-//     localField: '_id',
-//     foreignField: 'post'
-// });
 
 // postSchema.virtual('like', {
 //     ref: 'reaction',
@@ -70,4 +62,5 @@ postSchema.virtual('comments', {
 
 const Post = model('post', postSchema);
 
-module.exports = Post;
+export default Post;
+
