@@ -7,3 +7,5 @@ export const routerApi = (app) => {
   app.use("/post", postRouter);
   app.use("/comment", commentRouter);
 };
+
+export default routerApi;
