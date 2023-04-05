@@ -1,4 +1,4 @@
-import {model, Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 
 const UserSchema = new Schema({
     name: {
@@ -41,12 +41,12 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     }]
-    },
+},
     {
-    toObject: { virtuals: false }, //console
-    toJSON: { virtuals: true }, //res
-    timestamps: true,
-    versionKey: false
+        toObject: { virtuals: false }, //console
+        toJSON: { virtuals: true }, //res
+        timestamps: true,
+        versionKey: false
     }
 );
 
