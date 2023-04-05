@@ -1,7 +1,5 @@
 export { default as InputSelect } from './InputSelect/InputSelect';
 export { default as InputSelectCountry } from './InputSelect/InputSelectCountry';
-export { default as InputSelect } from './InputSelect/InputSelect';
-export { default as InputSelectCountry } from './InputSelect/InputSelectCountry';
 export { default as DrawerMenuLeft } from './DrawerMenu/DrawerMenuLeft';
 export { default as ButtonSearch } from './Header/ButtonSearch';
 export { default as Header } from './Header/Header';
