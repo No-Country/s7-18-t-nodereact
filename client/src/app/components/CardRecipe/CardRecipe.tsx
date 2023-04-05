@@ -1,4 +1,4 @@
-import { PointsMenu } from '@/icons';
+import { PointsMenuIcon } from '@/icons';
 import CardImage from './CardImage';
 import LikesUsers from './LikesUsers';
 
@@ -12,7 +12,7 @@ const CardRecipe = () => {
           </svg>
           <h3 className='ml-3 font-semibold'>Nombre Usuario</h3>
         </div>
-        <PointsMenu />
+        <PointsMenuIcon />
       </header>
       <CardImage />
       <LikesUsers />

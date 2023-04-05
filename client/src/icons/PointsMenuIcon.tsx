@@ -1,4 +1,4 @@
-const PointsMenu = () => {
+const PointsMenuIcon = () => {
   return (
     <div className=' cursor-pointer hover:scale-125 hover:fill-orange-500'>
       <svg width='15px' height='30px' viewBox='0 0 600.000000 600.000000' preserveAspectRatio='xMidYMid meet'>
@@ -23,4 +23,4 @@ const PointsMenu = () => {
     </div>
   );
 };
-export default PointsMenu;
+export default PointsMenuIcon;
