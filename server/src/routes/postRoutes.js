@@ -1,7 +1,9 @@
-import { Router } from 'express';
+import express from 'express';
 import { createPost } from '../controllers/postController.js';
 import upload from "../middlewares/multer.js";
 
-export const router = Router();
+const router = express.Router();
 
-router.post('/create', upload.array('images'), createPost);
+router.post('/', upload.array('images'), createPost);
+
+export default router;
