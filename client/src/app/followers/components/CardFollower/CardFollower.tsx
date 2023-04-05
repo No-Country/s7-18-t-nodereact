@@ -1,10 +1,22 @@
-import { AvatarIcon, PointsMenu } from '@/icons';
+import { PointsMenu } from '@/app/components';
+import { AvatarIcon, EyeSlashIcon, TrashIcon } from '@/icons';
+
+const optionsMenu = [
+  {
+    label: 'Eliminar',
+    icon: <TrashIcon />,
+  },
+  {
+    label: 'Ocultar',
+    icon: <EyeSlashIcon />,
+  },
+];
 
 const CardFollower = () => {
   return (
     <div className='flex flex-col gap-1 md:gap-3 w-[154px] h-[104px] md:w-[183px] md:h-[225px] bg-white shadow-md rounded-xl'>
       <div className='flex justify-end pr-5'>
-        <PointsMenu />
+        <PointsMenu options={optionsMenu} />
       </div>
       <div className='flex justify-center'>
         <AvatarIcon width={30} height={30} />
@@ -15,7 +27,7 @@ const CardFollower = () => {
       <div className='hidden md:flex justify-center'>
         <p className='text-xs text-black text-center'>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
       </div>
-      <button className='btn-primary hidden md:block w-20 h-10 self-center'>Ver Perfil</button>
+      <button className='btn-primary hidden md:inline-block w-28 h-8 self-center'>Ver Perfil</button>
     </div>
   );
 };

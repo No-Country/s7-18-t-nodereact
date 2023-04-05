@@ -28,45 +28,6 @@ const getCountries = async () => {
   }
 };
 
-/* 
-  useEffect(() => {
-    setLabels(
-      countries.map((country) => ({
-        label: (
-          <div className='flex items-center'>
-            <div className='w-5'>
-              <Image width={30} height={30} src={country.flag} alt={country.abbreviation} />
-            </div>
-            <h3 className='ml-2'>{country.name}</h3>
-          </div>
-        ),
-        value: (
-          <div className='flex items-center gap-2'>
-            <div className='w-5'>
-              <Image width={20} height={20} src={country.flag} alt={country.abbreviation} />
-            </div>
-            <h3>{country.abbreviation}</h3>
-          </div>
-        ),
-      }))
-    );
-  }, [countries]);
-
-
- useEffect(() => {
-    getCountries().then((dataCountries) => {
-      setCountries(
-        dataCountries?.map((country: any) => ({
-          name: country.translations.spa.official,
-          abbreviation: country.cioc ?? country.cca3,
-          flag: country.flags.svg,
-        }))
-      );
-    });
-  }, []);
-
-*/
-
 const InputSelectCountry = ({ selected, setSelected, width = '100%' }: Props) => {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState<TOptionCountry[] | null>();

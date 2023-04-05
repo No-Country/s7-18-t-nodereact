@@ -31,4 +31,8 @@
     @apply bg-transparent shadow-md border border-[#ff823f] rounded-md hover:bg-gradient-to-r 
     from-[#ff823f] to-[#ffd700] hover:text-white active:shadow-none;
   }
+  .menu-item {
+    @apply flex items-center gap-2 rounded-none p-2 hover:bg-orange-100 active:bg-gradient-to-r 
+    from-[#ff823f] to-[#ffd700];
+  }
 }
