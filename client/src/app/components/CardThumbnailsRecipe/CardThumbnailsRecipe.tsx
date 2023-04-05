@@ -4,7 +4,7 @@ import { CommentBalloonIcon, CutleryIcon, HeartIcon } from '@/icons';
 const CardThumbnailsRecipe = () => {
   return (
     <div
-      className='flex flex-col justify-between w-[260px] h-[280px] lg:w-[200px] lg:h-[220px] 
+      className='flex flex-col justify-between w-[240px] h-[260px] lg:w-[200px] lg:h-[220px] 
                     xl:w-[240px] xl:h-[260px] 3xl:w-[280px] 3xl:h-[300px]
                     rounded-md shadow-md bg-cover bg-right-top
                     bg-no-repeat bg-[url("/background1.png")]
