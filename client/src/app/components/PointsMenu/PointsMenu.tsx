@@ -17,8 +17,8 @@ const BoxOptions = ({ options }: Props) => {
     <div
       className={`absolute top-[120%] -right-3
            flex flex-col
-           h-20           
-           w-40
+           min-w-max
+           h-[${options.length * 40}px]
            rounded-md 
            border border-gray-300 
            bg-base-100 shadow-md z-50
