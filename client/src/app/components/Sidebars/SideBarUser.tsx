@@ -1,9 +1,7 @@
 import { ArchivedIcon, GlobeIcon, HomeIcon } from '@/icons';
-import Favorite from './Favorite';
-import Logout from './Logout';
-import Notification from './Notification';
-import Profile from './Profile';
-import Stat from './Stats';
+import { LinkExplore, LinkHome, LinkSaved, Notification, Profile, Stats } from './components';
+import Favorite from './components/Favorite';
+import Logout from './components/Logout';
 
 const SidebarUser = () => {
   return (
@@ -12,20 +10,14 @@ const SidebarUser = () => {
       <div className='absolute top-1 left-1 w-full h-60 flex flex-col justify-between pb-8'>
         <h2 className='text-white font-bold text-xl p-1 pl-4'>MENÚ</h2>
         <Profile />
-        <Stat />
+        <Stats />
       </div>
-      <div className='flex justify-start items-center gap-2 pl-4 py-4 border-b border-gray-300'>
-        <HomeIcon />
-        <h3 className='text-lg font-medium'>Inicio</h3>
-      </div>
-      <div className='flex justify-start items-center gap-2 pl-4 py-4 border-b border-gray-300'>
-        <GlobeIcon />
-        <h3 className='text-lg font-medium'>Explorar</h3>
-      </div>
-      <div className='flex justify-start items-center gap-2 pl-4 py-4 border-b border-gray-300'>
-        <ArchivedIcon width={20} height={20} />
-        <h3 className='text-lg font-medium'>Guardados</h3>
-      </div>
+      <LinkHome />
+
+      <LinkExplore />
+
+      <LinkSaved />
+
       <Favorite />
       <Notification />
 
