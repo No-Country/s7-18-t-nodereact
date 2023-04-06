@@ -2,6 +2,7 @@ import { Providers } from '@/redux/provider';
 import {
   DrawerMenuLeft,
   Header,
+  ModalDetailsRecipe,
   ModalNewRecipe,
   ModalSearch,
   SidebarFollow,
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ModalSearch />
           <DrawerMenuLeft />
           <ModalNewRecipe />
+          <ModalDetailsRecipe />
         </Providers>
       </body>
     </html>

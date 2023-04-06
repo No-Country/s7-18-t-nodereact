@@ -1,9 +1,14 @@
-import Image from 'next/image';
+'use client';
+
 import { CommentBalloonIcon, CutleryIcon, HeartIcon } from '@/icons';
+import { useAppDispatch } from '@/redux/hooks';
+import { showModal } from '@/redux/slices/sliceModals';
 
 const CardThumbnailsRecipe = () => {
+  const dispatch = useAppDispatch();
   return (
     <div
+      onClick={() => dispatch(showModal('modalDetailsRecipe'))}
       className='flex flex-col justify-between w-[240px] h-[260px] lg:w-[200px] lg:h-[220px] 
                     xl:w-[240px] xl:h-[260px] 3xl:w-[280px] 3xl:h-[300px]
                     rounded-md shadow-md bg-cover bg-right-top

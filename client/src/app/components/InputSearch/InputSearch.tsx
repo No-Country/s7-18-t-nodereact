@@ -18,7 +18,6 @@ const InputSearch = () => {
         </svg>
       </span>
       <input
-        type='text'
         value={value}
         onChange={(e) => setValue(e.currentTarget.value)}
         className='w-full outline-none bg-transparent'

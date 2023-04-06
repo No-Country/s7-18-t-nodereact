@@ -14,7 +14,7 @@ const TrashIcon = ({ width = '20', height = '20', color = '#212529' }: Props) =>
       stroke='currentColor'
       fill='none'
       strokeLinecap='round'
-      stroke-linejoin='round'
+      strokeLinejoin='round'
     >
       <path stroke='none' d='M0 0h24v24H0z' fill='none' />
       <path d='M4 7l16 0' />

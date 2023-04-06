@@ -5,12 +5,14 @@ export interface ModalsState {
   modalSearch: boolean;
   drawerMenuLeft: boolean;
   modalNewRecipe: boolean;
+  modalDetailsRecipe: boolean;
 }
 
 const initialState: ModalsState = {
   modalSearch: false,
   drawerMenuLeft: false,
   modalNewRecipe: false,
+  modalDetailsRecipe: false,
 };
 
 export const modals = createSlice({
