@@ -21,6 +21,9 @@ const postSchema = new Schema(
             type: Boolean,
             default: true
         },
+        country: {
+            type: String
+        }
     },
     {
         toObject: { virtuals: true },//En true , get canal especifico devuelve el conteo de reaccciones y commetnarios

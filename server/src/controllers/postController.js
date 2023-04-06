@@ -28,4 +28,4 @@ const createPost = async (req, res, next) => {
     }
 }
 
-export = { createPost }
+export { createPost }
