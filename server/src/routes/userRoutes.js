@@ -1,6 +1,7 @@
 import { Router } from "express";
 import authMiddleware from "../middlewares/auth";
-import { registerUser, authenticateUser, confirmUser, userProfile, forgottenPassword, newUserPassword } from "../controllers/userController.js ";
+import { registerUser, authenticateUser, confirmUser, userProfile, forgottenPassword, newUserPassword, addSavedPost, addFavoritePost } from "../controllers/userController.js ";
+import { addFavoritePost } from "../controllers/userController";
 
 export const router = Router();
 
@@ -10,3 +11,5 @@ router.get("/confirm/:token", confirmUser);
 router.post("/authenticate", authenticateUser);
 router.put("/forgotten-password", forgottenPassword);
 router.get("/forgotten-password/:token", newUserPassword);
+router.post('/:userId/saved-posts', addSavedPost);
+router.post('/:userId/favorite-posts', addFavoritePost)
