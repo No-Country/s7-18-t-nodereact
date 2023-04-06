@@ -1,8 +1,10 @@
+import { LinkFollowed, LinkFollowers } from './components';
+
 const SidebarFollow = () => {
   return (
     <div className='flex flex-col justify-center items-center w-full h-full gap-10 py-4'>
       <div className='card w-[90%] bg-stone-100 border-2 shadow-md h-[45%] py-2'>
-        <h2 className='card-title py-3 px-6'>Siguiendo 308</h2>
+        <LinkFollowed />
         <div className='card-body overflow-y-auto'>
           <div className='flex justify-center items-center flex-wrap gap-5'>
             <div className='flex flex-col justify-center items-center'>
@@ -63,7 +65,7 @@ const SidebarFollow = () => {
         </div>
       </div>
       <div className='card w-[90%] bg-stone-100 border-2 shadow-md h-[45%] py-2'>
-        <h2 className='card-title py-3 px-6'>Seguidores 132</h2>
+        <LinkFollowers />
         <div className='card-body overflow-y-auto'>
           <div className='flex justify-center items-center flex-wrap gap-5'>
             <div className='flex flex-col justify-center items-center'>

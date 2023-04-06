@@ -6,3 +6,5 @@ export { default as Stats } from './Stats';
 export { default as LinkHome } from './LinkHome';
 export { default as LinkExplore } from './LinkExplore';
 export { default as LinkSaved } from './LinkSaved';
+export { default as LinkFollowed } from './LinkFollowed';
+export { default as LinkFollowers } from './LinkFollowers';
