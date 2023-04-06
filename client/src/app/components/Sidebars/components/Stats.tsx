@@ -1,6 +1,6 @@
-import { Statfollowed, Statfollowers, StatPublications } from '../Stats';
+import { Statfollowed, Statfollowers, StatPublications } from '../../Stats';
 
-const Stat = () => {
+const Stats = () => {
   return (
     <div className='flex justify-center items-start py-0 px-["5px"] gap-["10px"]'>
       <StatPublications />
@@ -9,6 +9,6 @@ const Stat = () => {
     </div>
   );
 };
-export default Stat;
+export default Stats;
 
 /* absolute top-44 left-12 */
