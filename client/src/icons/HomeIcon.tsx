@@ -6,12 +6,12 @@ const HomeIcon = () => {
       width='20px'
       height='20px'
       viewBox='394.5 418.584 212 206.25'
-      enable-background='new 394.5 418.584 212 206.25'
+      enableBackground='new 394.5 418.584 212 206.25'
       fill='#82878B'
       stroke='#82878B'
-      stroke-width='2'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     >
       <path
         d='M600.116,503.301l-88.955-77.062c-0.298-0.254-0.656-0.472-1.059-0.639c-5.693-4.32-13.557-4.119-19.049,0.639

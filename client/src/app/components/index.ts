@@ -7,6 +7,7 @@ export { default as InputSearch } from './InputSearch/InputSearch';
 export { default as InputSearchMobile } from './InputSearch/InputSearchMobile';
 export { default as ModalSearch } from './Modals/ModalSearch/ModalSearch';
 export { default as ModalNewRecipe } from './Modals/ModalNewRecipe/ModalNewRecipe';
+export { default as ModalDetailsRecipe } from './Modals/ModalDetailsRecipe/ModalDetailsRecipe';
 export { default as SidebarFollow } from './Sidebars/SidebarFollow';
 export { default as InfoRecipe } from './InfoRecipe/InfoRecipe';
 export { default as Ingredients } from './Ingredients/Ingredients';

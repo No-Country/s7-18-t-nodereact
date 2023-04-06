@@ -5,16 +5,16 @@ const EasyIcon = () => {
       <path
         d='M6.5 14.2859L9.92857 10.8573L12.2143 13.143L17.9286 7.42871'
         stroke='black'
-        stroke-width='1.14286'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.14286'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
       <path
         d='M17.9286 10.8573V7.42871H14.5'
         stroke='black'
-        stroke-width='1.14286'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.14286'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
     </svg>
   );
