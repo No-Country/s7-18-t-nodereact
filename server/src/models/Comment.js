@@ -32,10 +32,10 @@ const commentSchema = new Schema(
 );
 
 
-commentSchema.virtual("reply",{
-    ref:"comment",
-    localField:"_id" ,
-    foreignField:"replieOf",
+commentSchema.virtual("reply", {
+    ref: "comment",
+    localField: "_id",
+    foreignField: "replieOf",
 })
 
 // commentSchema.virtual("reactions",{
