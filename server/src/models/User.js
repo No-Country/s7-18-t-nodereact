@@ -41,6 +41,10 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     }],
+    isOnline:{
+        type: Boolean,
+        default: false
+    },
     posts: [{
         type: Schema.Types.ObjectId,
         ref: 'post'

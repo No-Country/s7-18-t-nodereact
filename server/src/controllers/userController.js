@@ -119,26 +119,26 @@ const addSavedPost = async (req, res) => {
     const userId = req.user.id;
     
     try {
-      await User.findByIdAndUpdate(userId, { $addToSet: { savedPosts: postId } });
-      res.json({ msg: "Post guardado correctamente" });
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({ msg: error.message });
+        await User.findByIdAndUpdate(userId, { $addToSet: { savedPosts: postId } });
+        res.json({ msg: "Post guardado correctamente" });
+        } catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: error.message });
+        }
     }
-  }
-  
-  const addFavoritePost = async (req, res) => {
-    const { postId } = req.body;
-    const userId = req.user.id;
     
-    try {
-      await User.findByIdAndUpdate(userId, { $addToSet: { favorites: postId } });
-      res.json({ msg: "Post añadido a favoritos correctamente" });
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({ msg: error.message });
+    const addFavoritePost = async (req, res) => {
+        const { postId } = req.body;
+        const userId = req.user.id;
+        
+        try {
+        await User.findByIdAndUpdate(userId, { $addToSet: { favorites: postId } });
+        res.json({ msg: "Post añadido a favoritos correctamente" });
+        } catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: error.message });
+        }
     }
-  }
 
 export {
     registerUser,
@@ -146,6 +146,7 @@ export {
     confirmUser,
     authenticateUser,
     forgottenPassword,
+    // checkUserToken,
     newUserPassword,
     addSavedPost,
     addFavoritePost
