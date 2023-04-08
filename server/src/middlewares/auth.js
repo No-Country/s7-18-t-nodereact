@@ -1,5 +1,5 @@
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+import jwt from 'jsonwebtoken'
+import "dotenv/config.js";
 
 export const authMiddleware = (req, res, next) => {
   let { authorization: token } = req.headers;

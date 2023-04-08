@@ -44,7 +44,19 @@ const UserSchema = new Schema({
     isOnline:{
         type: Boolean,
         default: false
-    }
+    },
+    posts: [{
+        type: Schema.Types.ObjectId,
+        ref: 'post'
+    }],
+    savedPosts: [{
+        type: Schema.Types.ObjectId, 
+        ref: 'post'
+    }],
+    favorites: [{
+        type: Schema.Types.ObjectId,
+        ref: 'post'
+    }]
 },
     {
         toObject: { virtuals: false }, //console

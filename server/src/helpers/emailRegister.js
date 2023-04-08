@@ -1,12 +1,12 @@
 //pidanme el archivo .env
-import transport from "./mailer.js";
+import {transporter} from "./mailer.js";
 import "dotenv/config.js";
 
-export default emailRegister = async (datos) => {
+const emailRegister = async (datos) => {
 
     const { email, name, token } = datos;
 
-    const info = await transport.sendMail({
+    const info = await transporter.sendMail({
         from: '"Red Social Comida"<correo@redsocialcomida.com',
         to: `${email}`,
         subject: "Valida tu cuenta en Red Social Comida",
@@ -20,3 +20,5 @@ export default emailRegister = async (datos) => {
     });
     console.log("Mensaje enviado: %s", info.messageId)
 };
+
+export default emailRegister;

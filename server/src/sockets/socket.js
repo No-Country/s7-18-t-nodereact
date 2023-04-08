@@ -1,8 +1,10 @@
-import  createPost  from '../controllers/postController.js';
-import socketIo from 'socket.io' 
+import  {createPost}  from '../controllers/postController.js';
+import { Server } from 'socket.io'
+import EventEmitter from 'events';
+EventEmitter.defaultMaxListeners = 20;
 
-export default createSocketServer = (server) => {
-    const io = socketIo(server, {
+export default function createSocketServer(server){
+    const io = new Server(server, {
         cors: {
             origin: '*',
         },
