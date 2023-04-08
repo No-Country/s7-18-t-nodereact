@@ -16,9 +16,22 @@ const createPost = async (req, res) => {
 
         await post.save()
 
-        res.send(post);
+        //await User.findByIdAndUpdate(userId, { $push: { posts: post._id } });
+
+        res.send( post );
     } catch (error) {
         console.log(error.message);
+    }
+};
+
+const getPostByUserId = async(req, res) => {
+    const userId = req.params.userId;
+    try {
+        const posts = await Post.find({author: userId}).populate('author');
+        res.json(posts);
+    }catch(error){
+        console.log(error);
+        res.status(500).json({ message: 'Error al obtener los posts del usuario' });
     }
 }
 
@@ -41,4 +54,4 @@ const updatePost = async (req, res) => {
     }
 }
 
-export { createPost, updatePost }
+export { createPost, updatePost, getPostByUserId }

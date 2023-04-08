@@ -1,14 +1,16 @@
-import express from "express";
-import { registerUser, authenticateUser, confirmUser, userProfile, forgottenPassword, newUserPassword } from "../controllers/userController.js ";
+import { Router } from "express";
+import authMiddleware from "../middlewares/auth.js";
+import { registerUser, authenticateUser, confirmUser, userProfile, forgottenPassword, newUserPassword, addSavedPost, addFavoritePost } from "../controllers/userController.js ";
 
-const router = express.Router();
+const router = Router();
 
-router.post("/register-user", registerUser);
-router.get("/user-profile/:id", userProfile);
+router.post("/register", registerUser);
+router.get("/profile/:id", authMiddleware, userProfile);
 router.get("/confirm/:token", confirmUser);
-router.post("/authenticate-user", authenticateUser);
-router.put("/forgotten-password", forgottenPassword)
+router.post("/authenticate", authenticateUser);
+router.put("/forgotten-password", forgottenPassword);
 router.get("/forgotten-password/:token", newUserPassword);
+router.post('/:userId/saved-posts', addSavedPost);
+router.post('/:userId/favorite-posts', addFavoritePost);
 
 export default router;
-
