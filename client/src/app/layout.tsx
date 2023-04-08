@@ -14,6 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='es' data-theme='cupcake'>
       <body>
+          {/* {children}  */}
         <Providers>
           <Header />
           <div className='grid grid-cols-12'>
