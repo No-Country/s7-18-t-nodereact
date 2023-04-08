@@ -16,10 +16,29 @@ const createPost = async (req, res) => {
 
         await post.save()
 
-        res.send( post );
+        res.send(post);
     } catch (error) {
         console.log(error.message);
     }
 }
 
-export { createPost }
+const updatePost = async (req, res) => {
+    const { id } = req.params;
+    const { title, description } = req.body;
+
+    try {
+        let modifiedPost=await Post.findOneAndUpdate(
+            {_id: id},
+            {title,description}
+        );
+
+        if(!modifiedPost){
+            return res.send({message: "Esta publicación no existe."})
+        }
+        res.send(modifiedPost);
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+export { createPost, updatePost }
