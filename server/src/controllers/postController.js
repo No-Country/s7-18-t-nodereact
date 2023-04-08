@@ -47,7 +47,8 @@ const updatePost = async (req, res) => {
         if(!modifiedPost){
             return res.send({message: "Esta publicación no existe."})
         }
-        res.send(modifiedPost);
+        let post= await Post.findById({_id:id});
+        res.send(post);
     } catch (error) {
         console.log(error.message);
     }
