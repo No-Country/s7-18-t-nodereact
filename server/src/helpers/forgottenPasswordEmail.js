@@ -1,10 +1,10 @@
-import transport from "./mailer";
+import transporter from "./mailer.js";
 
-export const emailNewPassword = async (data) => {
+const emailNewPassword = async (data) => {
 
     const { email, name, token } = data;
 
-    const info = await transport.sendMail({
+    const info = await transporter.sendMail({
         from: '"Red Social Comida"<correo@redsocialcomida.com',
         to: `${email}`,
         subject: "Restablece tu contraseña en Red Social Comida",
@@ -17,3 +17,5 @@ export const emailNewPassword = async (data) => {
     });
     console.log("Mensaje enviado: %s", info.messageId)
 };
+
+export default emailNewPassword;

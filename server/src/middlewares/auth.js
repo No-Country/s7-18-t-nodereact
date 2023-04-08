@@ -1,7 +1,9 @@
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+import jwt from "jsonwebtoken";
+import * as dotenv from "dotenv";
 
-export const authMiddleware = (req, res, next) => {
+dotenv.config();
+
+const authMiddleware = (req, res, next) => {
   let { authorization: token } = req.headers;
   if (token) {
     token = token.replace("Bearer ", "");
@@ -21,3 +23,5 @@ export const authMiddleware = (req, res, next) => {
     res.status(400).json({ error: "No token provided", message: "No se proporcionó token de autenticación" });
   }
 };
+
+export default authMiddleware;

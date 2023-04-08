@@ -1,4 +1,1 @@
-module.exports = {
-    multer: require('./multer'),
-
-}
+export {default as multer} from './multer.js'

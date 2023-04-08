@@ -1,4 +1,3 @@
-
 import Post from '../models/Post.js';
 
 const createPost = async (req, res) => {
@@ -16,7 +15,7 @@ const createPost = async (req, res) => {
 
         await post.save()
 
-        await User.findByIdAndUpdate(userId, { $push: { posts: post._id } });
+        //await User.findByIdAndUpdate(userId, { $push: { posts: post._id } });
 
         res.send( post );
     } catch (error) {
@@ -35,4 +34,24 @@ const getPostByUserId = async(req, res) => {
     }
 }
 
-export { createPost, getPostByUserId }
+const updatePost = async (req, res) => {
+    const { id } = req.params;
+    const { title, description } = req.body;
+
+    try {
+        let modifiedPost=await Post.findOneAndUpdate(
+            {_id: id},
+            {title,description}
+        );
+
+        if(!modifiedPost){
+            return res.send({message: "Esta publicación no existe."})
+        }
+        let post= await Post.findById({_id:id});
+        res.send(post);
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+export { createPost, updatePost, getPostByUserId }
