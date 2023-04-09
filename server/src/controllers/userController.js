@@ -140,6 +140,45 @@ const addSavedPost = async (req, res) => {
         }
     }
 
+    const followUser = async (req, res) => {
+      try {
+        const { userId, userToFollowId } = req.body;
+
+        if (!userId || !userToFollowId) {
+          return res
+            .status(400)
+            .json({ message: "Debe proporcionar los IDs de usuario" });
+        }
+
+        if (userId === userToFollowId) {
+          return res
+            .status(400)
+            .json({ message: "No puedes seguirte a ti mismo" });
+        }
+
+        const user = await User.findById(userId);
+
+        if (!user) {
+          return res.status(404).json({ message: "Usuario no encontrado" });
+        }
+
+        if (user.following.includes(userToFollowId)) {
+          return res.status(400).json({ message: "Ya sigues a este usuario" });
+        }
+
+        user.following.push(userToFollowId);
+
+        await user.save();
+
+        return res
+          .status(200)
+          .json({ message: "Has comenzado a seguir a este usuario" });
+      } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Error en el servidor" });
+      }
+    };
+
 export {
     registerUser,
     userProfile,
@@ -149,5 +188,6 @@ export {
     // checkUserToken,
     newUserPassword,
     addSavedPost,
-    addFavoritePost
+    addFavoritePost,
+    followUser
 }
