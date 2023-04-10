@@ -1,10 +1,7 @@
-import { CardRecipe, CardRecipeShare } from './components';
+import { redirect } from 'next/navigation';
 
-export default async function Home() {
-  return (
-    <div className='flex flex-col mt-10 p-0 sm:w-[430px] mx-auto gap-16'>
-      <CardRecipeShare />
-      <CardRecipe />
-    </div>
-  );
-}
+const index = () => {
+  redirect('/auth/signIn');
+};
+
+export default index;

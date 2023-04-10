@@ -19,10 +19,10 @@ export const modals = createSlice({
   name: 'modals',
   initialState,
   reducers: {
-    showModal: (state: any, { payload }: PayloadAction<string>) => {
+    showModal: (state: ModalsState, { payload }: PayloadAction<string>) => {
       state[payload] = true;
     },
-    hideModal: (state: any, { payload }: PayloadAction<string>) => {
+    hideModal: (state: ModalsState, { payload }: PayloadAction<string>) => {
       state[payload] = false;
     },
   },
