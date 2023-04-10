@@ -5,7 +5,7 @@ const recipes = new Array(20).fill('');
 
 const page = () => {
   return (
-    <div className='flex flex-col items-center gap-5 w-full h-full mx-auto pt-1'>
+    <div className='flex flex-col items-center gap-5 w-full h-full mx-auto pt-1 2xl:w-3/4'>
       <Image
         width={1366}
         height={500}
