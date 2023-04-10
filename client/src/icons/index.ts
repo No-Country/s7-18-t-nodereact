@@ -21,5 +21,6 @@ export { default as CheckedListIcon } from './CheckedListIcon';
 export { default as CutleryIcon } from './CutleryIcon';
 export { default as TrashIcon } from './TrashIcon';
 export { default as EyeSlashIcon } from './EyeSlashIcon';
+export { default as Eye } from './Eye';
 export { default as StarIcon } from './StarIcon';
 export { default as RemoveUserIcon } from './RemoveUserIcon';

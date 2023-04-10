@@ -35,4 +35,7 @@
     @apply flex items-center gap-2 rounded-none py-2 px-4 hover:bg-orange-100 active:bg-gradient-to-r 
     from-[#ff823f] to-[#ffd700];
   }
+  .textbox {
+    @apply rounded-md w-full outline-none border border-gray-400 transition-all text-sm lg:text-base xl:text-lg bg-slate-50 focus:shadow focus:shadow-blue-500 focus:border-blue-500 p-2;
+  }
 }
