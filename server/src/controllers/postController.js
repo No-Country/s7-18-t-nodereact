@@ -53,5 +53,37 @@ const updatePost = async (req, res) => {
         console.log(error.message);
     }
 }
+const likePost = async (req, res) => {
+  const postId = req.params.id;
+  const userId = req.user.id;
 
-export { createPost, updatePost, getPostByUserId }
+  try {
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ message: "Post no encontrado" });
+    }
+
+    // Verificar si el usuario ya dio like al post
+    const alreadyLiked = post.likes.some(
+      (like) => like.user.toString() === userId
+    );
+
+    if (alreadyLiked) {
+      return res.status(400).json({ message: "Post ya tiene me gusta" });
+    }
+
+    // Agregar el like al post
+    post.likes.push({ user: userId });
+    await post.save();
+
+    res.json(post.likes);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+  
+
+
+export { createPost, updatePost, getPostByUserId, likePost }

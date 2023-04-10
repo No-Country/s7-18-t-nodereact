@@ -17,6 +17,16 @@ const postSchema = new Schema(
         },
         images: [{
             type: String
+        }],
+        likes: [{
+            user: {
+                type: Schema.Types.ObjectId,
+                ref: 'user'
+            },
+            date: {
+                type: Date,
+                default: Date.now
+            }
         }]
     },
     {
