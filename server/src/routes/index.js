@@ -1,4 +1,4 @@
-import {router} from './userRoutes.js'
+import router from './userRoutes.js'
 import postRouter from './postRoutes.js'
 import commentRouter from './commentRoutes.js'
 

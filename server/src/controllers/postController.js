@@ -15,7 +15,7 @@ const createPost = async (req, res) => {
 
         await post.save()
 
-        await User.findByIdAndUpdate(userId, { $push: { posts: post._id } });
+        //await User.findByIdAndUpdate(userId, { $push: { posts: post._id } });
 
         res.send( post );
     } catch (error) {
@@ -34,4 +34,56 @@ const getPostByUserId = async(req, res) => {
     }
 }
 
-export { createPost, getPostByUserId }
+const updatePost = async (req, res) => {
+    const { id } = req.params;
+    const { title, description } = req.body;
+
+    try {
+        let modifiedPost=await Post.findOneAndUpdate(
+            {_id: id},
+            {title,description}
+        );
+
+        if(!modifiedPost){
+            return res.send({message: "Esta publicación no existe."})
+        }
+        let post= await Post.findById({_id:id});
+        res.send(post);
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+const likePost = async (req, res) => {
+  const postId = req.params.id;
+  const userId = req.user.id;
+
+  try {
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ message: "Post no encontrado" });
+    }
+
+    // Verificar si el usuario ya dio like al post
+    const alreadyLiked = post.likes.some(
+      (like) => like.user.toString() === userId
+    );
+
+    if (alreadyLiked) {
+      return res.status(400).json({ message: "Post ya tiene me gusta" });
+    }
+
+    // Agregar el like al post
+    post.likes.push({ user: userId });
+    await post.save();
+
+    res.json(post.likes);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+  
+
+
+export { createPost, updatePost, getPostByUserId, likePost }

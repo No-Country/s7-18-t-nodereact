@@ -1,4 +1,4 @@
-import {transporter} from "./mailer.js";
+import transporter from "./mailer.js";
 
 const emailNewPassword = async (data) => {
 

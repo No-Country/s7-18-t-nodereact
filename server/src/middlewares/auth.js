@@ -1,7 +1,9 @@
-import jwt from 'jsonwebtoken'
-import "dotenv/config.js";
+import jwt from "jsonwebtoken";
+import * as dotenv from "dotenv";
 
-export const authMiddleware = (req, res, next) => {
+dotenv.config();
+
+const authMiddleware = (req, res, next) => {
   let { authorization: token } = req.headers;
   if (token) {
     token = token.replace("Bearer ", "");
@@ -22,4 +24,4 @@ export const authMiddleware = (req, res, next) => {
   }
 };
 
-export default authMiddleware
+export default authMiddleware;

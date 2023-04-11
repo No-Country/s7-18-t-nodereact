@@ -1,5 +1,5 @@
 //pidanme el archivo .env
-import {transporter} from "./mailer.js";
+import transporter from "./mailer.js";
 import "dotenv/config.js";
 
 const emailRegister = async (datos) => {
