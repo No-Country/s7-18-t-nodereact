@@ -1,4 +1,5 @@
 import { model, Schema } from 'mongoose';
+import generateId from '../helpers/generateId.js';
 
 const UserSchema = new Schema({
     name: {
@@ -18,6 +19,10 @@ const UserSchema = new Schema({
         type: Boolean,
         default: true //TODO: CAMBIAR EN PRODUCCIÓN
     },
+    token: {
+        type: String,
+        default: generateId(),
+      },
     img_avatar: {
         type: String,
         default: 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
