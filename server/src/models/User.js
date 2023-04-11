@@ -1,4 +1,5 @@
 import { model, Schema } from 'mongoose';
+import generateJWT from '../helpers/generateJWT.js';
 import generateId from '../helpers/generateId.js';
 
 const UserSchema = new Schema({
@@ -19,10 +20,6 @@ const UserSchema = new Schema({
         type: Boolean,
         default: true //TODO: CAMBIAR EN PRODUCCIÓN
     },
-    token: {
-        type: String,
-        default: generateId(),
-      },
     img_avatar: {
         type: String,
         default: 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
@@ -46,7 +43,7 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     }],
-    isOnline:{
+    isOnline: {
         type: Boolean,
         default: false
     },
@@ -54,8 +51,16 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'post'
     }],
+    id: {
+        type: String,
+        default: generateId(),
+    },
+    token: {
+        type: String,
+        default: generateJWT()
+    },
     savedPosts: [{
-        type: Schema.Types.ObjectId, 
+        type: Schema.Types.ObjectId,
         ref: 'post'
     }],
     favorites: [{
