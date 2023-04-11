@@ -1,6 +1,7 @@
 import  {createPost}  from '../controllers/postController.js';
 import { Server } from 'socket.io'
 import EventEmitter from 'events';
+import User from '../models/User.js'
 EventEmitter.defaultMaxListeners = 20;
 
 export default function createSocketServer(server){
