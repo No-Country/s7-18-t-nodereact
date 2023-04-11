@@ -1,4 +1,6 @@
 import { model, Schema } from 'mongoose';
+import generateJWT from '../helpers/generateJWT.js';
+import generateId from '../helpers/generateId.js';
 
 const UserSchema = new Schema({
     name: {
@@ -41,7 +43,7 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     }],
-    isOnline:{
+    isOnline: {
         type: Boolean,
         default: false
     },
@@ -49,8 +51,16 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'post'
     }],
+    id: {
+        type: String,
+        default: generateId(),
+    },
+    token: {
+        type: String,
+        default: generateJWT()
+    },
     savedPosts: [{
-        type: Schema.Types.ObjectId, 
+        type: Schema.Types.ObjectId,
         ref: 'post'
     }],
     favorites: [{
