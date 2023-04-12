@@ -70,7 +70,11 @@ const UserSchema = new Schema({
     following: [{
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    }],
+    favoriteUsers: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+      }]
 },
     {
         toObject: { virtuals: false }, //console
