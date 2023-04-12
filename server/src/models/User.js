@@ -1,6 +1,7 @@
 import { model, Schema } from 'mongoose';
 import generateJWT from '../helpers/generateJWT.js';
 import generateId from '../helpers/generateId.js';
+import bcrypt from "bcryptjs";
 
 const UserSchema = new Schema({
     name: {
@@ -80,6 +81,62 @@ const UserSchema = new Schema({
     }
 );
 
+UserSchema.pre("save", function (next) {
+    if (this.isModified("password") || this.isNew) {
+        const hash = bcrypt.hashSync(this.password, 10);
+        this.password = hash
+        next();
+    } else {
+        return next()
+    }
+})
+
+
+
 const User = model('User', UserSchema);
+
+/**
+ * @openapi
+ * components:
+ *   schema:
+ *     register:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *           example: Andres
+ *         email:
+ *           type: string
+ *           example: andres@gmail.com
+ *         password:
+ *           type: string
+ *           example: password123
+ *     login:
+ *       type: object
+ *       properties:
+ *         email:
+ *           type: string
+ *           example: andres@gmail.com
+ *         password:
+ *           type: string
+ *           example: password123
+ *     loginResponse:
+ *       type: object
+ *       properties:
+ *         email: 
+ *           type: string
+ *           example: andres@gmail.com
+ *         id:
+ *           type: integer
+ *           example: 2
+ *         token:
+ *           type: string
+ *           example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ */
 
 export default User;
