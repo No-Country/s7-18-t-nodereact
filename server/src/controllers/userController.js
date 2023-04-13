@@ -3,6 +3,7 @@ import generateJWT from "../helpers/generateJWT.js";
 import generateId from "../helpers/generateId.js";
 import emailRegister from "../helpers/emailRegister.js";
 import emailNewPassword from "../helpers/forgottenPasswordEmail.js";
+import comparePassword from "../helpers/comparePassword.js";
 
 const registerUser = async (req, res) => {
     const { email, name } = req.body;
@@ -22,8 +23,7 @@ const registerUser = async (req, res) => {
             name,
             token: savedUser.token
         });
-        res.json(savedUser);
-
+        res.json({ id: savedUser.id, name: savedUser.name, email: savedUser.email });
     } catch (error) {
         console.log(error)
     }
@@ -47,7 +47,6 @@ const confirmUser = async (req, res) => {
         const error = new Error("Token no válido");
         res.status(400).json({ msg: error.message });
     }
-
     try {
         userConfirm.token = null;
         userConfirm.confirmed = true;
@@ -60,13 +59,17 @@ const confirmUser = async (req, res) => {
 
 const authenticateUser = async (req, res) => {
     const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (!user) {
+    const result = await comparePassword({ email, password })
+    if (!result) {
         const error = new Error("El usuario no existe");
         res.status(403).json({ msg: error.message });
     }
-    if (await user.checkUserPassword(password)) {
-        res.json({ token: generateJWT(user.id) });
+    if (result.isValid) {
+        const { username, id, email } = result.user;
+        const userData = { username, email, id };
+        const token = generateJWT(userData);
+        userData.token = token;
+        res.json(userData);
     } else {
         const error = new Error("La contraseña es incorrecta");
         res.status(403).json({ msg: error.message });
@@ -117,67 +120,65 @@ const newUserPassword = async (req, res) => {
 const addSavedPost = async (req, res) => {
     const { postId } = req.body;
     const userId = req.user.id;
-    
+
     try {
         await User.findByIdAndUpdate(userId, { $addToSet: { savedPosts: postId } });
         res.json({ msg: "Post guardado correctamente" });
-        } catch (error) {
+    } catch (error) {
         console.log(error);
         res.status(500).json({ msg: error.message });
-        }
     }
-    
-    const addFavoritePost = async (req, res) => {
-        const { postId } = req.body;
-        const userId = req.user.id;
-        
-        try {
+}
+
+const addFavoritePost = async (req, res) => {
+    const { postId } = req.body;
+    const userId = req.user.id;
+
+    try {
         await User.findByIdAndUpdate(userId, { $addToSet: { favorites: postId } });
         res.json({ msg: "Post añadido a favoritos correctamente" });
-        } catch (error) {
+    } catch (error) {
         console.log(error);
         res.status(500).json({ msg: error.message });
-        }
     }
+}
 
-    const followUser = async (req, res) => {
-      try {
+const followUser = async (req, res) => {
+    try {
         const { userId, userToFollowId } = req.body;
 
         if (!userId || !userToFollowId) {
-          return res
-            .status(400)
-            .json({ message: "Debe proporcionar los IDs de usuario" });
+            return res
+                .status(400)
+                .json({ message: "Debe proporcionar los IDs de usuario" });
         }
 
         if (userId === userToFollowId) {
-          return res
-            .status(400)
-            .json({ message: "No puedes seguirte a ti mismo" });
+            return res
+                .status(400)
+                .json({ message: "No puedes seguirte a ti mismo" });
         }
 
         const user = await User.findById(userId);
 
         if (!user) {
-          return res.status(404).json({ message: "Usuario no encontrado" });
+            return res.status(404).json({ message: "Usuario no encontrado" });
         }
 
         if (user.following.includes(userToFollowId)) {
-          return res.status(400).json({ message: "Ya sigues a este usuario" });
+            return res.status(400).json({ message: "Ya sigues a este usuario" });
         }
 
         user.following.push(userToFollowId);
-
         await user.save();
-
         return res
-          .status(200)
-          .json({ message: "Has comenzado a seguir a este usuario" });
-      } catch (error) {
+            .status(200)
+            .json({ message: "Has comenzado a seguir a este usuario" });
+    } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Error en el servidor" });
-      }
-    };
+    }
+};
 
 export {
     registerUser,
@@ -185,7 +186,6 @@ export {
     confirmUser,
     authenticateUser,
     forgottenPassword,
-    // checkUserToken,
     newUserPassword,
     addSavedPost,
     addFavoritePost,
