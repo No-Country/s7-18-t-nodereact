@@ -1,4 +1,5 @@
 import NextAuth, { RequestInternal } from 'next-auth';
+import NextAuth, { RequestInternal } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import axios from 'axios';
@@ -10,6 +11,37 @@ export const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
     }),
     CredentialsProvider({
+      credentials: {
+        email: {
+          type: 'text',
+        },
+        password: {
+          type: 'text',
+        },
+      },
+      //@ts-ignore
+      async authorize(credentials: any) {
+        try {
+          const nextAuthUrl = new URL(process.env.NEXTAUTH_URL || '');
+
+          /* const user = await axios.post(`${process.env.SERVER_URL_BASE}/user/authenticate`, {
+            email: credentials?.email,
+            password: credentials?.password,
+          }); */
+          const user = { email: credentials?.email, password: credentials?.password };
+
+          if (user) {
+            return {
+              user,
+            };
+          }
+          return null;
+        } catch (e) {
+          return null;
+        }
+      },
+    }),
+    /* CredentialsProvider({
       id: 'credentials',
       name: 'Credentials',
       credentials: {
@@ -22,13 +54,14 @@ export const authOptions = {
           type: 'password',
         },
       },
-      //@ts-ignore
-      async authorize(credentials: Record<'email' | 'password', string> | undefined) {
+      async authorize(data,req) {
         let user: any;
         try {
+          console.log('entre');
+
           user = await axios.post(`${process.env.SERVER_URL_BASE}/user/authenticate`, {
-            email: credentials?.email,
-            password: credentials?.password,
+            email: data?.email,
+            password: data?.password,
           });
           console.log({ user });
         } catch (error) {
@@ -41,7 +74,7 @@ export const authOptions = {
           return null;
         }
       },
-    }),
+    }), */
   ],
   pages: {
     signIn: '/auth/signIn',
