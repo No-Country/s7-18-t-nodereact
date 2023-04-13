@@ -1,8 +1,7 @@
 import  {createPost}  from '../controllers/postController.js';
-import { Server } from 'socket.io'
-import EventEmitter from 'events';
-import User from '../models/User.js'
-EventEmitter.defaultMaxListeners = 20;
+import { Server } from 'socket.io';
+import User from '../models/User.js';
+
 
 export default function createSocketServer(server){
     const io = new Server(server, {
@@ -35,14 +34,14 @@ export default function createSocketServer(server){
             }
         });
         
-        socket.on('get-comments', async ({ place, docId }) => {
-            try {
-            const comments = await getComments(place, docId);
-            io.to(socket.id).emit('comments', comments);
-            } catch (err) {
-            console.error(err);
-            }
-        });
+        // socket.on('get-comments', async ({ place, docId }) => {
+        //     try {
+        //     const comments = await getComments(place, docId);
+        //     io.to(socket.id).emit('comments', comments);
+        //     } catch (err) {
+        //     console.error(err);
+        //     }
+        // });
     
     
         socket.on('create-post', async ({ payload }) => {

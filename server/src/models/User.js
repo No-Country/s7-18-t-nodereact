@@ -70,7 +70,10 @@ const UserSchema = new Schema({
     following: [{
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    }], 
+    socketId: {
+        type: String
+    }
 },
     {
         toObject: { virtuals: false }, //console
