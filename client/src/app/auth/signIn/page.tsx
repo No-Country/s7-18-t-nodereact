@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaLogin, schemaRegister } from './schema';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
+import axios from '../../libs/axios';
 
 interface IForm {
   name: string;
@@ -50,14 +50,12 @@ const LoginPage = () => {
   };
 
   const registerUser = async ({ email, password, ...restData }) => {
-    console.log({ email, password, ...restData });
-
-    const user = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL_BASE}/user/register`, {
+    const user = await axios.post(`/users/register`, {
       email,
       password,
       ...restData,
     });
-    console.log(user);
+    console.log({ user });
   };
 
   const onSubmit = (data: IForm) => (isLogin ? loginUser(data) : registerUser(data));
