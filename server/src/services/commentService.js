@@ -26,4 +26,6 @@ const create = async (payload,place,docId,id) =>{
 
 }
 
-export default create
+export {
+    create
+}

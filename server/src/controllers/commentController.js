@@ -1,31 +1,14 @@
 import Comment from '../models/Comment.js'
-import create from '../services/commentService.js';
-
-
-// const createComment = async (payload, place, docId, socketId) => {
-//     const { body, attached, author } = payload;
-//     const newComment = new Comment({ body, attached, author, socketId });
-    
-//         if (place === 'comment') {
-//         newComment.replieOf = docId;
-//         } else {
-//         newComment.post = docId;
-//         }
-    
-//         await newComment.save();
-//         const comment = await newComment.populate('author', 'username').execPopulate();
-    
-//         return comment;
-// };
+import {create} from '../services/commentService.js'
 
 const createComment = async (req, res) => {
     
     const { body } = req.body;
     const { id, place } = req.params;
-    const author = req.params.user._id
+    const author = req.params.id
     console.log(author)
     try {
-        const comment = await commentServices.create(body, place, id, author);
+        const comment = await create(body, place, id, author);
         res.json(comment)
     } catch (error) {
         if (error.message === 'no-doc')
@@ -37,8 +20,8 @@ const createComment = async (req, res) => {
 const updateComment = async (req, res) => {
     const body = req.body;
     const { id } = req.params;
-
-
+    const auth = req.params.id
+    console.log(id)
     try {
         const comment = await Comment.findById(id);
 
@@ -46,7 +29,7 @@ const updateComment = async (req, res) => {
             res.status(404).json({msg: 'Comment not found'})
         }
 
-        if (comment.author.toString() !== id) {
+        if (comment.author.toString() !== auth) {
             return response.error(req,res,'You dont have permission to update this comment',401);
         }
 
@@ -62,7 +45,7 @@ const updateComment = async (req, res) => {
     }
 };
 const replyComment = async (req, res) => {
-    const authorId = req.params.user._id;
+    const authorId = req.params.id;
     const { id } = req.params;
     const { message } = req.body;
 
@@ -92,9 +75,27 @@ const replyComment = async (req, res) => {
 
 const deleteComment = async (req,res) =>{
     const {id} = req.params
-    
+
 
 };
+
+// const createComment = async (payload, place, docId, socketId) => {
+//     const { body, attached, author } = payload;
+//     const newComment = new Comment({ body, attached, author, socketId });
+    
+//         if (place === 'comment') {
+//         newComment.replieOf = docId;
+//         } else {
+//         newComment.post = docId;
+//         }
+    
+//         await newComment.save();
+//         const comment = await newComment.populate('author', 'username').execPopulate();
+    
+//         return comment;
+// };
+
+
 // const getComments = async (place, docId) => {
 //     let query = { post: docId };
 //     if (place === 'comment') {

@@ -5,6 +5,6 @@ const router = Router();
 
 
 router
-    .post('/new/:id/:place', createComment)
+    .post('/:id/:place', createComment)
     .put('/edit/:id', updateComment)
 export default router;
