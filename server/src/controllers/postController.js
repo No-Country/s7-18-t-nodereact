@@ -89,6 +89,36 @@ const likePost = async (req, res) => {
   }
 };
 
+const unlikePost = async (req, res) => {
+  const postId = req.params.id;
+  const userId = req.user.id;
+
+  try {
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ message: "Post no encontrado" });
+    }
+
+    // Verificar si el usuario no ha dado like al post
+    const notLiked = post.likes.every(
+      (like) => like.user.toString() !== userId
+    );
+
+    if (notLiked) {
+      return res.status(400).json({ message: "Post no tiene me gusta" });
+    }
+
+    // Remover el like del post
+    post.likes = post.likes.filter((like) => like.user.toString() !== userId);
+    await post.save();
+
+    res.json(post.likes);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
 
 
-export { createPost, updatePost, getPostByUserId, likePost }
+export { createPost, updatePost, getPostByUserId, likePost, unlikePost }
