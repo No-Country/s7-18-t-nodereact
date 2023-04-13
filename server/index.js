@@ -15,14 +15,14 @@ const port = process.env.PORT || 5000;
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
-routerApi(app);
 app.use(
     cors({
+        origin: '*',
         exposedHeaders: '*',
         allowedHeaders: '*'
     })
-);
-
+    );
+routerApi(app);
 
 app.listen(port, () => {
     console.log(`Servidor corriendo en el puerto ${port}`);
