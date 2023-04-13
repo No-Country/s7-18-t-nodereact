@@ -2,7 +2,7 @@ import Post from '../models/Post.js';
 
 const createPost = async (req, res) => {
   //const id = req.user.id;
-  const { title, description, category, difficulty, ingredients, portions, country } = req.body;
+  const { title, description, category, difficulty, ingredients, preparation, portions, country } = req.body;
   const images = req.files;
 
   try {
