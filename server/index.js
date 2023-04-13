@@ -5,8 +5,10 @@ import morgan from "morgan";
 import cors from "cors";
 import connection from './src/database/config.js';
 import routerApi from "./src/routes/index.js";
-import  createSocketServer  from './src/sockets/socket.js';
+import createSocketServer from './src/sockets/socket.js';
 import http from 'http'
+import swaggerDocs from "./swagger.js";
+
 const app = express()
 const server = http.createServer(app);
 
@@ -26,6 +28,7 @@ routerApi(app);
 
 app.listen(port, () => {
     console.log(`Servidor corriendo en el puerto ${port}`);
+    swaggerDocs(app, port);
 });
 
 createSocketServer(server);
