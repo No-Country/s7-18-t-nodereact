@@ -111,6 +111,18 @@ const User = model('User', UserSchema);
  *         password:
  *           type: string
  *           example: password123
+ *     registerResponse:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           example: 6434daf028a9c3cf3a42f6e8
+ *         name:
+ *           type: string
+ *           example: Andres
+ *         email:
+ *           type: string
+ *           example: andres@gmail.com
  *     login:
  *       type: object
  *       properties:
@@ -128,7 +140,7 @@ const User = model('User', UserSchema);
  *           example: andres@gmail.com
  *         id:
  *           type: integer
- *           example: 2
+ *           example: 6434daf028a9c3cf3a42f6e8
  *         token:
  *           type: string
  *           example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c

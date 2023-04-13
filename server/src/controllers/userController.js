@@ -23,7 +23,7 @@ const registerUser = async (req, res) => {
             name,
             token: savedUser.token
         });
-        res.json({ id: savedUser.id, name: savedUser.name, email: savedUser.email });
+        res.status(201).json({ id: savedUser.id, name: savedUser.name, email: savedUser.email });
     } catch (error) {
         console.log(error)
     }
@@ -62,17 +62,17 @@ const authenticateUser = async (req, res) => {
     const result = await comparePassword({ email, password })
     if (!result) {
         const error = new Error("El usuario no existe");
-        res.status(403).json({ msg: error.message });
+        res.status(404).json({ msg: error.message });
     }
     if (result.isValid) {
-        const { username, id, email } = result.user;
-        const userData = { username, email, id };
+        const { id, email, name, img_avatar: imgAvatar } = result.user;
+        const userData = { email, id, name, imgAvatar };
         const token = generateJWT(userData);
         userData.token = token;
         res.json(userData);
     } else {
         const error = new Error("La contraseña es incorrecta");
-        res.status(403).json({ msg: error.message });
+        res.status(401).json({ msg: error.message });
     }
 }
 

@@ -4,10 +4,10 @@ import { registerUser, authenticateUser, confirmUser, userProfile, forgottenPass
 
 const router = Router();
 
-router.post("/register", registerUser);
+router.post("/register", registerUser); // YA
 router.get("/profile/:id", authMiddleware, userProfile);
 router.get("/confirm/:token", confirmUser);
-router.post("/authenticate", authenticateUser);
+router.post("/authenticate", authenticateUser); //YA
 router.put("/forgotten-password", forgottenPassword);
 router.get("/forgotten-password/:token", newUserPassword);
 router.post('/:userId/saved-posts', addSavedPost);
@@ -34,11 +34,7 @@ router.post('/:userId/follow', followUser);
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties: 
- *                 message:
- *                   type: string
- *                   example: User registered successfully!
+ *               $ref: '#/components/schema/registerResponse'
  *       400:
  *         description: Validation error
  *         content:
@@ -48,8 +44,8 @@ router.post('/:userId/follow', followUser);
  *               properties: 
  *                 message:
  *                   type: string
- *                   example: Validation error
- * /api/v1/auth/login:
+ *                   example: Usuario ya registrado
+ * /api/v1/user/authenticate:
  *   post:
  *     summary: Logs an user into the app.
  *     requestBody:
@@ -66,8 +62,9 @@ router.post('/:userId/follow', followUser);
  *         description: OK
  *         content:
  *           application/json:
- *             $ref: '#/components/schema/loginResponse'
- *       400:
+ *             schema:
+ *               $ref: '#/components/schema/loginResponse'
+ *       404:
  *         description: Not Found
  *         content:
  *           application/json:
@@ -76,7 +73,56 @@ router.post('/:userId/follow', followUser);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: User not found / Something went wrong / No email or password provided
+ *                   example: El usuario no existe
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: La contraseña es incorrecta
+ * /api/v1/user/confirm/{token}:
+ *   post:
+ *     summary: Logs an user into the app.
+ *     requestBody:
+ *       description: Required fields to log in an user.
+ *       required: true
+ *       content: 
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schema/login'
+ *     tags:
+ *       - [Auth]
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schema/loginResponse'
+ *       404:
+ *         description: Not Found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: El usuario no existe
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: La contraseña es incorrecta
  */
 
 
