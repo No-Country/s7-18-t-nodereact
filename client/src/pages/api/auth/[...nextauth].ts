@@ -1,8 +1,7 @@
 import NextAuth, { RequestInternal } from 'next-auth';
-import NextAuth, { RequestInternal } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import axios from 'axios';
+import axios from '@/app/libs/axios';
 
 export const authOptions = {
   providers: [
@@ -24,57 +23,26 @@ export const authOptions = {
         try {
           const nextAuthUrl = new URL(process.env.NEXTAUTH_URL || '');
 
-          /* const user = await axios.post(`${process.env.SERVER_URL_BASE}/user/authenticate`, {
+          const {
+            data: { name, id, email, imgAvatar, token },
+          } = await axios.post(`${process.env.SERVER_URL_BASE}/users/authenticate`, {
             email: credentials?.email,
             password: credentials?.password,
-          }); */
-          const user = { email: credentials?.email, password: credentials?.password };
+          });
+          const user = {
+            name,
+            email,
+            image: imgAvatar,
+          };
 
-          if (user) {
-            return {
-              user,
-            };
-          }
+          if (user) return user;
+
           return null;
         } catch (e) {
           return null;
         }
       },
     }),
-    /* CredentialsProvider({
-      id: 'credentials',
-      name: 'Credentials',
-      credentials: {
-        email: {
-          label: 'Email',
-          type: 'text',
-        },
-        password: {
-          label: 'Password',
-          type: 'password',
-        },
-      },
-      async authorize(data,req) {
-        let user: any;
-        try {
-          console.log('entre');
-
-          user = await axios.post(`${process.env.SERVER_URL_BASE}/user/authenticate`, {
-            email: data?.email,
-            password: data?.password,
-          });
-          console.log({ user });
-        } catch (error) {
-          console.log({ error });
-        }
-
-        if (user) {
-          return user;
-        } else {
-          return null;
-        }
-      },
-    }), */
   ],
   pages: {
     signIn: '/auth/signIn',
