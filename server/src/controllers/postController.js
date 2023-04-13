@@ -3,7 +3,7 @@ import Post from '../models/Post.js';
 const createPost = async (req, res) => {
   //const id = req.user.id;
   const { title, description, category, difficulty, ingredients, portions, country } = req.body;
-  //const images = req.files;
+  const images = req.files;
 
   try {
     let post = new Post({
@@ -13,9 +13,10 @@ const createPost = async (req, res) => {
       category,
       difficulty,
       ingredients,
+      preparation,
       portions,
       country,
-      //images: images.map((image) => image.filename) //por el momento comentado para hacer las pruebas.
+      images: images.map((image) => image.filename) //por el momento comentado para hacer las pruebas.
     });
 
     await post.save()
@@ -41,12 +42,13 @@ const getPostByUserId = async (req, res) => {
 
 const updatePost = async (req, res) => {
   const { id } = req.params;
-  const { title, description, category, difficulty, ingredients, portions, country } = req.body;
+  const { title, description, images, category, difficulty, ingredients, preparation, portions, country } = req.body;
+  //const images = req.files;
 
   try {
     let modifiedPost = await Post.findOneAndUpdate(
       { _id: id },
-      { title, description, category, difficulty, ingredients, portions, country }
+      { title, description, images, category, difficulty, ingredients, preparation, portions, country }
     );
 
     if (!modifiedPost) {
