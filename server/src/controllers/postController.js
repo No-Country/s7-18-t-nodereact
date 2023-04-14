@@ -2,8 +2,7 @@ import Post from '../models/Post.js';
 
 const createPost = async (req, res) => {
   //const id = req.user.id;
-  const { title, description, category, difficulty, ingredients, preparation, portions, country } = req.body;
-  const images = req.files;
+  const { title, description, category, difficulty, ingredients, preparation, portions, country, images } = req.body;
 
   try {
     let post = new Post({
@@ -16,7 +15,7 @@ const createPost = async (req, res) => {
       preparation,
       portions,
       country,
-      images: images.map((image) => image.filename) //por el momento comentado para hacer las pruebas.
+      images
     });
 
     await post.save()
