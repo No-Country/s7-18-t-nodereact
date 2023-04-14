@@ -48,7 +48,7 @@ const AddIngredients = () => {
       >
         {ingredients?.map((ingredient, index) => (
           <li key={index} className='text-xs lg:text-base'>
-            <span className='text-sm lg:text-base text-green-700 mr-2'>✓</span>
+            <span className='text-sm lg:text-base text-orange-500 mr-2'>✓</span>
             {ingredient}
           </li>
         ))}

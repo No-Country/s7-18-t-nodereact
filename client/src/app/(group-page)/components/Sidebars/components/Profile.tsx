@@ -2,14 +2,14 @@
 
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const Profile = () => {
-  const { data: session, status } = useSession();
-
-  console.log({ session });
+  const { data: session } = useSession();
+  const router = useRouter();
 
   return (
-    <div className='flex justify-center gap-2'>
+    <div className='flex justify-center gap-2 cursor-pointer' onClick={() => router.push('/profile')}>
       <div className='avatar'>
         <div className='w-[80px] rounded-full border border-[#FF8C00]'>
           <Image width='100' height='100' alt='Profile' src={session?.user?.image || ''} />
