@@ -135,6 +135,7 @@ export {
   updatePost, 
   getPostByUserId, 
   likePost,
-  getPosts
+  getPosts,
+  unlikePost
 }
 

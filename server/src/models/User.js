@@ -52,10 +52,10 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'post'
     }],
-    id: {
-        type: String,
-        default: generateId(),
-    },
+    // id: {
+    //     type: String,
+    //     default: generateId(),
+    // },
     token: {
         type: String,
         default: generateJWT()
@@ -74,12 +74,11 @@ const UserSchema = new Schema({
     }], 
     socketId: {
         type: String
-    }
-    }],
+    },
     favoriteUsers: [{
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    }],
 },
     {
         toObject: { virtuals: false }, //console

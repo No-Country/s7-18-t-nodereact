@@ -18,30 +18,29 @@ const createComment = async (req, res) => {
 };
 
 const updateComment = async (req, res) => {
-    const body = req.body;
     const { id } = req.params;
-    const auth = req.params.id
-    console.log(id)
+    const body = req.body;
+    // const uid = req.user.id;
+
     try {
-        const comment = await Comment.findById(id);
+            const comment = await Comment.findById(id);
+        
+            if (!comment) {
+                return res.status(404).json({ message: 'Comment not found.' });
+            }
+            // if (comment.author.toString() !== uid) {
+            //     // console.log(uid)
+            //     return res.status(401).json({ message: 'You dont have permission to update this comment'});
+            // }
+            const updatedComment = await Comment.findByIdAndUpdate(
+                {_id: id},
+                { ...body },
+                { new: true }
+            );
 
-        if (!comment) {
-            res.status(404).json({msg: 'Comment not found'})
-        }
-
-        if (comment.author.toString() !== auth) {
-            return response.error(req,res,'You dont have permission to update this comment',401);
-        }
-
-        const updatedComment = await Comment.findByIdAndUpdate(
-            { _id: id },
-            { ...body },
-            { new: true }
-        );
-
-        res.status(201).json({msg:'Comment modified successfully', updatedComment});
+            res.json(updatedComment)
     } catch (error) {
-        res.status(500).json({msg:'Contact Admin'})
+        console.log(error)
     }
 };
 const replyComment = async (req, res) => {
@@ -75,9 +74,23 @@ const replyComment = async (req, res) => {
 
 const deleteComment = async (req,res) =>{
     const {id} = req.params
+    try{
+        const comment = await Comment.findById(id)
 
+        if (comment) {
+            await Comment.deleteMany({replieOf: comment.id})
+        }
+        const commentDeleted = await Comment.findByIdAndDelete(id)
+        if (!commentDeleted) {
+            return res.status(404).json({msg: 'Comment  not found'})
+        }
+        return res.status(200).json({msg: 'Comment Deleted successfully'})
 
+    }catch(error){
+        console.log(error)
+    }
 };
+
 
 // const createComment = async (payload, place, docId, socketId) => {
 //     const { body, attached, author } = payload;
@@ -108,6 +121,7 @@ const deleteComment = async (req,res) =>{
 export { 
     updateComment, 
     createComment, 
+    deleteComment,
     // getComments,
     replyComment
 }

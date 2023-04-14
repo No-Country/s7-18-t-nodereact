@@ -1,19 +1,19 @@
 import { Router } from "express";
 import authMiddleware from "../middlewares/auth.js";
 import {
-  registerUser,
-  authenticateUser,
-  confirmUser,
-  userProfile,
-  forgottenPassword,
-  newUserPassword,
-  addSavedPost,
-  addFavoritePost,
-  followUser,
-  unfollowUser,
-  getFollowing,
-  addFavoriteUser,
-  removeFavoriteUser
+    registerUser,
+    authenticateUser,
+    confirmUser,
+    userProfile,
+    forgottenPassword,
+    newUserPassword,
+    addSavedPost,
+    addFavoritePost,
+    followUser,
+    unfollowUser,
+    getFollowing,
+    addFavoriteUser,
+    removeFavoriteUser
 } from "../controllers/userController.js ";
 
 const router = Router();
