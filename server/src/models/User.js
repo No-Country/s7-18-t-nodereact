@@ -127,15 +127,6 @@ const User = model('User', UserSchema);
  *         email:
  *           type: string
  *           example: andres@gmail.com
- *     login:
- *       type: object
- *       properties:
- *         email:
- *           type: string
- *           example: andres@gmail.com
- *         password:
- *           type: string
- *           example: password123
  *     loginResponse:
  *       type: object
  *       properties:
@@ -148,6 +139,24 @@ const User = model('User', UserSchema);
  *         token:
  *           type: string
  *           example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+ *         name:
+ *           type: string
+ *           example: Andres
+ *         imgAvatar:
+ *           type: string
+ *           example: https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y
+ *     user-profile:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *           example: Andres
+ *         email:
+ *           type: string
+ *           example: andres@gmail.com
+ *         password:
+ *           type: string
+ *           example: password123
  *   securitySchemes:
  *     bearerAuth:
  *       type: http
