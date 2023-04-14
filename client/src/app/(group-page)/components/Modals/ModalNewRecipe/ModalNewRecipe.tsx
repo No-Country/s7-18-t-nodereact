@@ -5,13 +5,48 @@ import { useAppSelector } from '@/redux/hooks';
 import { hideModal } from '@/redux/slices/sliceModals';
 import { Button, Modal } from 'react-daisyui';
 import { useAppDispatch } from '@/redux/hooks';
-import { SelectNationality, SelectDifficulty, SelectCategory, QuantityPortions, AddIngredients, Preparation } from '.';
+import { useState } from 'react';
+import axios from 'axios';
+import {
+  SelectNationality,
+  SelectDifficulty,
+  SelectCategory,
+  QuantityPortions,
+  AddIngredients,
+  Preparation,
+  DropZone,
+} from '.';
 
 const ModalNewRecipe = () => {
+  const [numberServings, setNumberServings] = useState(1);
+  const [urlImage, setUrlImage] = useState<string[]>([]);
+  const [files, setFiles] = useState<File[]>([]);
   const { modalNewRecipe } = useAppSelector((state) => state.modalsReducer);
   const dispatch = useAppDispatch();
 
   const closeModal = () => dispatch(hideModal('modalNewRecipe'));
+
+  const uploadingImagesToCloudinary = async () => {
+    const uploaders = files.map((file) => {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('tags', 'codeinfuse,medium,gist');
+      formData.append('upload_preset', 'appetit');
+      formData.append('api_key', '737717731758567');
+      return axios
+        .post('https://api.cloudinary.com/v1_1/dviha8xhw/image/upload', formData, {
+          headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        })
+        .then(({ data }) => {
+          setUrlImage((prev) => [...prev, data.secure_url]);
+        });
+    });
+    return await axios.all(uploaders);
+  };
+
+  const saveRecipe = async () => {
+    await uploadingImagesToCloudinary();
+  };
 
   return (
     <Modal
@@ -24,7 +59,12 @@ const ModalNewRecipe = () => {
           <ArrowLeft width={25} height={25} />
           <p className='text-xs'>Crear una nueva Receta</p>
           <div className='flex items-center'>
-            <p className='text-xs sm:text-sm mr-2 font-light text-blue-300'>Compartir</p>
+            <p
+              className='text-xs sm:text-sm mr-2 font-light text-blue-300 cursor-pointer'
+              onClick={uploadingImagesToCloudinary}
+            >
+              Compartir
+            </p>
             <Button size='sm' shape='circle' color='ghost' onClick={closeModal}>
               ✕
             </Button>
@@ -42,8 +82,10 @@ const ModalNewRecipe = () => {
         <div
           className='w-full h-1/4 lg:h-full lg:w-3/5 bg-cover 
                      bg-no-repeat bg-top
-                     bg-[url("https://lacomidatipica.com/wp-content/uploads/2019/02/tacos1.jpg")]'
-        ></div>
+                     bg-[url("/dropzone.png")] bg-base-200'
+        >
+          <DropZone files={files} setFiles={setFiles} />
+        </div>
         <div className='flex flex-col w-full lg:w-2/5 h-3/4 lg:h-full gap-3 px-3'>
           <div className='form-control w-full'>
             <label>
@@ -61,7 +103,7 @@ const ModalNewRecipe = () => {
           <SelectNationality />
           <SelectDifficulty />
           <SelectCategory />
-          <QuantityPortions />
+          <QuantityPortions numberServings={numberServings} setNumberServings={setNumberServings} />
           <AddIngredients />
           <Preparation />
         </div>

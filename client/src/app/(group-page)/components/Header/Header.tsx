@@ -2,6 +2,7 @@ import ButtonSearch from './ButtonSearch';
 import { InputSearch } from '..';
 import BurgerButton from './BurgerButton';
 import { HeartIcon } from '@/icons';
+import Link from 'next/link';
 
 const Header = () => {
   return (
@@ -9,7 +10,9 @@ const Header = () => {
       <div className='ml-1 sm:ml-10'>
         <BurgerButton position={'Left'} />
         <div className='flex-0'>
-          <a className='btn btn-ghost normal-case text-xl'>Food recipes</a>
+          <Link href={'/home'} className='btn btn-ghost normal-case text-2xl text-white'>
+            Appétit
+          </Link>
         </div>
       </div>
       <InputSearch />
