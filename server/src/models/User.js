@@ -1,6 +1,5 @@
 import { model, Schema } from 'mongoose';
 import generateJWT from '../helpers/generateJWT.js';
-import generateId from '../helpers/generateId.js';
 import bcrypt from "bcryptjs";
 
 const UserSchema = new Schema({
@@ -52,10 +51,6 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'post'
     }],
-    // id: {
-    //     type: String,
-    //     default: generateId(),
-    // },
     token: {
         type: String,
         default: generateJWT()
@@ -64,14 +59,6 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'post'
     }],
-    favorites: [{
-        type: Schema.Types.ObjectId,
-        ref: 'post'
-    }],
-    following: [{
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    }], 
     socketId: {
         type: String
     },
