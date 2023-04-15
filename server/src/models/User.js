@@ -68,14 +68,9 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'post'
     }],
-    following: [{
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    }], 
     socketId: {
         type: String
-    }
-    }],
+    },
     favoriteUsers: [{
         type: Schema.Types.ObjectId,
         ref: 'User'

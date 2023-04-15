@@ -59,7 +59,7 @@ const postSchema = new Schema(
             required: true
         },
         category: {
-            type: [String],
+            type: [String]
             //required: true //en Postman: "category": ["a", "b", "c", "d"]
         },
         difficulty: {
@@ -68,7 +68,10 @@ const postSchema = new Schema(
             required: true
         },
         ingredients: {
-            type: String
+            type: [String]
+        },
+        preparation: {
+            type: [String]
         },
         portions: {
             type: String
@@ -78,9 +81,9 @@ const postSchema = new Schema(
             enum: countries,
             required: true
         },
-        images: [{
-            type: String
-        }],
+        images: {
+            type: [String]
+        },
         likes: [{
             user: {
                 type: Schema.Types.ObjectId,
