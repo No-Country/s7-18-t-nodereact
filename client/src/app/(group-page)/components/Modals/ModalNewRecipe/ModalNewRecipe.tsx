@@ -5,7 +5,7 @@ import { useAppSelector } from '@/redux/hooks';
 import { hideModal } from '@/redux/slices/sliceModals';
 import { Button, Modal } from 'react-daisyui';
 import { useAppDispatch } from '@/redux/hooks';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import axios from 'axios';
 import {
   SelectNationality,
@@ -17,12 +17,37 @@ import {
   DropZone,
 } from '.';
 
+export interface IOption {
+  label: string;
+  value: string;
+}
+
+interface IRecipe {
+  title: string;
+  description: string;
+  category: string[];
+  difficulty: string;
+  ingredients: string[];
+  portions: string;
+  country: string;
+}
+
+const initialRecipe: IRecipe = {
+  title: '',
+  description: '',
+  category: [],
+  difficulty: '',
+  ingredients: [],
+  portions: '1',
+  country: '',
+};
+
 const ModalNewRecipe = () => {
-  const [numberServings, setNumberServings] = useState(1);
-  const [urlImage, setUrlImage] = useState<string[]>([]);
+  const [recipe, setRecipe] = useState(initialRecipe);
   const [files, setFiles] = useState<File[]>([]);
   const { modalNewRecipe } = useAppSelector((state) => state.modalsReducer);
   const dispatch = useAppDispatch();
+  const urlImages = useRef<File[]>([]);
 
   const closeModal = () => dispatch(hideModal('modalNewRecipe'));
 
@@ -38,14 +63,18 @@ const ModalNewRecipe = () => {
           headers: { 'X-Requested-With': 'XMLHttpRequest' },
         })
         .then(({ data }) => {
-          setUrlImage((prev) => [...prev, data.secure_url]);
+          //setUrlImage((prev) => [...prev, data.secure_url]);
+          urlImages.current.push(data.secure_url);
         });
     });
     return await axios.all(uploaders);
   };
 
+  const handleChange = (data: any) =>
+    setRecipe((prev) => ({ ...prev, [Object.keys(data)[0]]: Object.values(data)[0] }));
+
   const saveRecipe = async () => {
-    await uploadingImagesToCloudinary();
+    await uploadingImagesToCloudinary();  
   };
 
   return (
@@ -93,19 +122,21 @@ const ModalNewRecipe = () => {
             </label>
             <input
               type='text'
+              value={recipe.title}
               placeholder='Ingresar título de receta'
+              onChange={(e) => handleChange({ title: e.currentTarget.value })}
               className='input input-bordered 
                        h-10 w-full 
                        rounded-md bg-zinc-100
                        border-gray-300'
             />
           </div>
-          <SelectNationality />
-          <SelectDifficulty />
-          <SelectCategory />
-          <QuantityPortions numberServings={numberServings} setNumberServings={setNumberServings} />
-          <AddIngredients />
-          <Preparation />
+          <SelectNationality handleChange={handleChange} />
+          <SelectDifficulty handleChange={handleChange} />
+          <SelectCategory handleChange={handleChange} />
+          <QuantityPortions numberServings={+recipe.portions} setNumberServings={handleChange} />
+          <AddIngredients ingredients={recipe.ingredients} handleChange={handleChange} />
+          <Preparation value={recipe.description} handleChange={handleChange} />
         </div>
       </Modal.Body>
     </Modal>

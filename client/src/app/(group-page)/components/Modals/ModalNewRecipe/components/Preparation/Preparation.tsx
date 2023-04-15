@@ -1,4 +1,9 @@
-const Preparation = () => {
+interface Props {
+  value: string;
+  handleChange: (data: any) => void;
+}
+
+const Preparation = ({ value, handleChange }: Props) => {
   return (
     <div className='form-control w-full'>
       <label>
@@ -6,11 +11,13 @@ const Preparation = () => {
       </label>
       <textarea
         className='textarea textarea-md
-                   lg:h-40 xl:h-72
+                   lg:h-40 xl:h-64
                    textarea-warning rounded-md 
-                   border-gray-300 mb-2
+                   border-gray-300 mb-1
                    resize-none'
         placeholder='Escribe la preparación'
+        value={value}
+        onChange={(e) => handleChange({ description: e.currentTarget.value })}
       ></textarea>
     </div>
   );

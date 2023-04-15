@@ -1,22 +1,49 @@
 'use client';
 
-import { InputSelect } from '@/app/(group-page)/components';
-import { TOption } from '@/app/(group-page)/components/InputSelect/InputSelect';
-import { useEffect, useState } from 'react';
+import Select from 'react-select';
+import { IOption } from '../../ModalNewRecipe';
 
 const options = [
-  { label: 'Postres', value: 'sweet' },
+  { label: 'Postres', value: 'Postres' },
   { label: 'Pastas', value: 'Pastas' },
-  { label: 'Ensaladas', value: 'salads' },
+  { label: 'Ensaladas', value: 'Ensaladas' },
 ];
 
-const SelectCategory = () => {
-  const [selected, setSelected] = useState<TOption | null>(null);
+interface Props {
+  handleChange: (data: any) => void;
+}
+
+const SelectCategory = ({ handleChange }: Props) => {
+  const onChange = (values: IOption[]) =>
+    handleChange({
+      category: values.reduce((acc: string[], el) => {
+        acc = [...acc, el.value];
+        return acc;
+      }, []),
+    });
 
   return (
-    <>
-      <InputSelect placeholder='Categoria' selected={selected} setSelected={setSelected} Options={options} />
-    </>
+    <Select
+      isMulti
+      name='category'
+      options={options}
+      classNames={{
+        control: (state) => 'h-10',
+      }}
+      classNamePrefix='select'
+      placeholder='Categoria'
+      onChange={onChange}
+      theme={(theme) => ({
+        ...theme,
+        borderRadius: 6,
+        colors: {
+          ...theme.colors,
+          primary25: '#fdbb74e0',
+          primary: '#d1d5db',
+          neutral0: '#F4F4F5',
+        },
+      })}
+    />
   );
 };
 export default SelectCategory;

@@ -11,6 +11,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaLogin, schemaRegister } from './schema';
 import { useRouter } from 'next/navigation';
 import axios from '../../libs/axios';
+import { useAppDispatch } from '@/redux/hooks';
+import { IUser, setLogin } from '@/redux/slices/sliceUser';
 
 interface IForm {
   name: string;
@@ -29,33 +31,71 @@ const initialForm = {
 const LoginPage = () => {
   const [visiblePassword, setVisiblePassword] = useState<boolean>(false);
   const [isLogin, setIsLogin] = useState<boolean>(true);
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<IForm>({
     resolver: yupResolver(isLogin ? schemaLogin : schemaRegister),
   });
 
   const loginUser = async ({ email, password }) => {
-    const res: any = await signIn('credentials', {
+    const res = await signIn('credentials', {
       redirect: false,
       email,
       password,
       callbackUrl: `${window.location.origin}`,
     });
-    res.error ? console.log({ res }) : router.push('/home');
+
+    res?.ok ? router.push('/home') : console.log(res?.error);
+
+    /*  const {
+      data: { name, email, imgAvatar, token },
+    } = await axios.post(`/users/authenticate`, {
+      email: data?.email,
+      password: data?.password,
+    });
+
+    if (data) {
+      await signIn('credentials', {
+        redirect: false,
+        email,
+        imgAvatar,
+        callbackUrl: `${window.location.origin}`,
+      });
+      const user: IUser = {
+        authenticated: true,
+        user: {
+          name,
+          email,
+          image: imgAvatar,
+        },
+        token,
+      };
+      dispatch(setLogin(user));
+      router.push('/home');
+    } else {
+      console.log('Error');
+    } */
   };
 
   const registerUser = async ({ email, password, ...restData }) => {
-    const user = await axios.post(`/users/register`, {
-      email,
-      password,
-      ...restData,
-    });
-    console.log({ user });
+    try {
+      const user = await axios.post(`/users/register`, {
+        email,
+        password,
+        ...restData,
+      });
+
+      loginUser({
+        email,
+        password,
+      });
+    } catch (error) {
+      console.log({ error });
+    }
   };
 
   const onSubmit = (data: IForm) => (isLogin ? loginUser(data) : registerUser(data));
