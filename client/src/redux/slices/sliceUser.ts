@@ -6,32 +6,32 @@ export interface Profile {
   email: string | null | undefined;
   image: string | null | undefined;
 }
-export interface UserState {
+export interface IUser {
   authenticated?: boolean;
   user: Profile;
-  expires: Date | null;
+  token: string | null | undefined;
 }
 
-const initialState: UserState = {
+const initialState: IUser = {
   authenticated: false,
   user: {
     name: null,
     email: null,
     image: null,
   },
-  expires: null,
+  token: null,
 };
 
 export const user = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setLogin: (state: UserState, { payload }: PayloadAction<UserState>) => {
+    setLogin: (state: IUser, { payload }: PayloadAction<IUser>) => {
       state.authenticated = true;
       state.user = payload.user;
-      state.expires = payload.expires;
+      state.token = payload.token;
     },
-    setLogout: (state: UserState) => {
+    setLogout: (state: IUser) => {
       state = initialState;
     },
   },

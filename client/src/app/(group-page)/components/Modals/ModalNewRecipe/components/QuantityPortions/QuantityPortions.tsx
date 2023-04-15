@@ -2,14 +2,14 @@ import { UsersGroup } from '@/icons';
 
 interface Props {
   numberServings: number;
-  setNumberServings: (value: number) => void;
+  setNumberServings: (value: {}) => void;
 }
 const QuantityPortions = ({ numberServings, setNumberServings }: Props) => {
   const handleDecrease = () => {
-    numberServings > 1 && setNumberServings(numberServings - 1);
+    numberServings > 1 && setNumberServings({ portions: String(numberServings - 1) });
   };
 
-  const handleIncrease = () => setNumberServings(numberServings + 1);
+  const handleIncrease = () => setNumberServings({ portions: String(numberServings + 1) });
 
   return (
     <div className='flex flex-col'>

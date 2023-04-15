@@ -1,4 +1,4 @@
-import NextAuth, { RequestInternal } from 'next-auth';
+import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import axios from '@/app/libs/axios';
@@ -23,20 +23,18 @@ export const authOptions = {
         try {
           const nextAuthUrl = new URL(process.env.NEXTAUTH_URL || '');
 
-          const {
-            data: { name, id, email, imgAvatar, token },
-          } = await axios.post(`${process.env.SERVER_URL_BASE}/users/authenticate`, {
+          const { data } = await axios.post(`${process.env.SERVER_URL_BASE}/users/authenticate`, {
             email: credentials?.email,
             password: credentials?.password,
           });
-          const user = {
-            name,
-            email,
-            image: imgAvatar,
-          };
-
-          if (user) return user;
-
+          if (data) {
+            const user = {
+              name: data.name,
+              email: data.email,
+              image: data.imgAvatar,
+            };
+            return user;
+          }
           return null;
         } catch (e) {
           return null;

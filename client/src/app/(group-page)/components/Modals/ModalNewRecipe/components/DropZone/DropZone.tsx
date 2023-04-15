@@ -56,24 +56,22 @@ const DropZone = ({ files, setFiles }: Props) => {
 
   const renderSlides = (isMain: boolean) =>
     files.map((file) => (
-      <SplideSlide key={file.name} className='flex items-center'>
-        <div className='relative top-0 left-0 w-full h-full '>
-          {isMain && (
-            <button
-              className='btn btn-circle btn-outline glass absolute right-3 top-3 z-30'
-              onClick={() => removeImage(file.name)}
-            >
-              <TrashIcon />
-            </button>
-          )}
-          <Image
-            width={800}
-            height={800}
-            className='w-full h-full object-contain object-center'
-            src={URL.createObjectURL(file)}
-            alt={`image ${file.name}`}
-          />
-        </div>
+      <SplideSlide key={file.name} className='relative w-full h-full'>
+        {isMain && (
+          <button
+            className='btn btn-circle btn-outline glass absolute right-3 top-3 z-30 text-white hover:text-red-500'
+            onClick={() => removeImage(file.name)}
+          >
+            <TrashIcon />
+          </button>
+        )}
+        <Image
+          width={800}
+          height={800}
+          className='h-full w-full object-contain object-center'
+          src={URL.createObjectURL(file)}
+          alt={`image ${file.name}`}
+        />
       </SplideSlide>
     ));
 
@@ -90,7 +88,7 @@ const DropZone = ({ files, setFiles }: Props) => {
           name='files[]'
         />
         <div className='absolute top-left w-full h-full flex flex-col justify-between'>
-          {files.length && (
+          {files.length ? (
             <>
               <Splide
                 //@ts-ignore
@@ -98,7 +96,7 @@ const DropZone = ({ files, setFiles }: Props) => {
                 options={mainOptions}
                 draggable
                 aria-label='My Favorite Images'
-                className='bg-base-200 w-full h-full overflow-hidden'
+                className='bg-base-200 w-full h-full overflow-hidden flex flex-col justify-center items-center'
               >
                 {renderSlides(true)}
               </Splide>
@@ -112,7 +110,7 @@ const DropZone = ({ files, setFiles }: Props) => {
                 {renderSlides(false)}
               </Splide>
             </>
-          )}
+          ) : null}
         </div>
       </div>
     </>

@@ -3,17 +3,24 @@
 import { CheckedListIcon } from '@/icons';
 import { useRef, useState } from 'react';
 
-const AddIngredients = () => {
-  const [ingredients, setIngredients] = useState<string[]>([]);
+interface Props {
+  handleChange: (data: any) => void;
+  ingredients: string[];
+}
+
+const AddIngredients = ({ handleChange, ingredients }: Props) => {
   const [ingredient, setIngredient] = useState<string>('');
   const inputRef = useRef();
 
-  const addNewIngredients = () => {
-    setIngredients([...ingredients, ingredient]);
+  const addNewIngredient = () => {
+    handleChange({ ingredients: [...ingredients, ingredient] });
     setIngredient('');
     //@ts-ignore
     inputRef?.current?.focus();
   };
+
+  const deleteIngredient = (ingredient: string) =>
+    handleChange({ ingredients: ingredients.filter((el) => el.toLowerCase() !== ingredient.toLowerCase()) });
 
   return (
     <div className='flex flex-col gap-3'>
@@ -25,7 +32,7 @@ const AddIngredients = () => {
             ref={inputRef}
             value={ingredient}
             onChange={(e) => setIngredient(e.currentTarget.value)}
-            onKeyDown={(e) => e.key === 'Enter' && addNewIngredients()}
+            onKeyDown={(e) => e.key === 'Enter' && addNewIngredient()}
             type='text'
             placeholder='Ingredientes'
             className='w-full
@@ -35,7 +42,7 @@ const AddIngredients = () => {
         </div>
         <p
           className='flex justify-center items-center text-lg text-gray-400 py-1 px-2 mb-1 rounded-full hover:bg-orange-100'
-          onClick={addNewIngredients}
+          onClick={addNewIngredient}
         >
           +
         </p>
@@ -46,10 +53,18 @@ const AddIngredients = () => {
                     xl:max-h-[120px]
                     overflow-auto`}
       >
-        {ingredients?.map((ingredient, index) => (
-          <li key={index} className='text-xs lg:text-base'>
-            <span className='text-sm lg:text-base text-orange-500 mr-2'>✓</span>
-            {ingredient}
+        {ingredients?.map((ingredient) => (
+          <li key={ingredient} className='text-xs lg:text-base flex justify-between hover:bg-orange-100 w-full p-2'>
+            <div>
+              <span className='text-sm lg:text-base text-orange-500 mr-2'>✓</span>
+              {ingredient}
+            </div>
+            <span
+              className='text-xs lg:text-base text-red-500 cursor-pointer'
+              onClick={() => deleteIngredient(ingredient)}
+            >
+              x
+            </span>
           </li>
         ))}
       </ul>

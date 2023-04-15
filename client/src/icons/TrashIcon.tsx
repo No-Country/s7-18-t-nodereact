@@ -4,15 +4,15 @@ interface Props {
   color?: string;
 }
 
-const TrashIcon = ({ width = '20', height = '20', color = '#212529' }: Props) => {
+const TrashIcon = ({ width = '24', height = '24', color = 'currentColor' }: Props) => {
   return (
     <svg
       width={width}
       height={height}
       viewBox='0 0 24 24'
       strokeWidth='2'
-      stroke='currentColor'
-      fill='none'
+      stroke={color}
+      fill={'none'}
       strokeLinecap='round'
       strokeLinejoin='round'
     >
