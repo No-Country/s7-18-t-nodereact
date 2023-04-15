@@ -38,7 +38,15 @@ const getPostByUserId = async (req, res) => {
     res.status(500).json({ message: 'Error al obtener los posts del usuario' });
   }
 }
-
+const getPosts = async (req,res) =>{
+  
+  try{
+    const post = await Post.find()
+    res.json(post)
+  }catch(error){
+    console.log(error.message)
+  }
+}
 const updatePost = async (req, res) => {
   const { id } = req.params;
   const { title, description, images, category, difficulty, ingredients, preparation, portions, country } = req.body;
@@ -122,4 +130,12 @@ const unlikePost = async (req, res) => {
 };
 
 
-export { createPost, updatePost, getPostByUserId, likePost, unlikePost }
+
+export { 
+  createPost, 
+  updatePost, 
+  getPostByUserId, 
+  likePost,
+  getPosts
+}
+

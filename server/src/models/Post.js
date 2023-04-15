@@ -93,7 +93,10 @@ const postSchema = new Schema(
                 type: Date,
                 default: Date.now
             }
-        }]
+        }],
+        socketId: {
+            type: String
+        }
     },
     {
         toObject: { virtuals: true },//En true , get canal especifico devuelve el conteo de reaccciones y commetnarios
