@@ -74,8 +74,7 @@ const ModalNewRecipe = () => {
     setRecipe((prev) => ({ ...prev, [Object.keys(data)[0]]: Object.values(data)[0] }));
 
   const saveRecipe = async () => {
-    await uploadingImagesToCloudinary();
-    console.log(urlImages);
+    await uploadingImagesToCloudinary();  
   };
 
   return (
