@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-export interface Profile {
+export interface IProfile {
   name: string | null | undefined;
   email: string | null | undefined;
   img_avatar: string | null | undefined;
@@ -9,6 +9,8 @@ export interface Profile {
   createdAt: string | null | undefined;
   favoriteUsers: string[] | null | undefined;
   favorites: string[] | null | undefined;
+  followers: string[] | null | undefined;
+  following: string[] | null | undefined;
   isOnline: boolean;
   location: string | null | undefined;
   posts: string[] | null | undefined;
@@ -17,7 +19,7 @@ export interface Profile {
   _id: string | null | undefined;
 }
 export interface IUser {
-  user: Profile;
+  user: IProfile;
   token: string | null | undefined;
 }
 
@@ -30,6 +32,8 @@ const initialState: IUser = {
     createdAt: null,
     favoriteUsers: null,
     favorites: null,
+    followers: null,
+    following: null,
     isOnline: false,
     location: null,
     posts: null,

@@ -17,7 +17,7 @@ const Preparation = ({ value, handleChange }: Props) => {
                    resize-none'
         placeholder='Escribe la preparación'
         value={value}
-        onChange={(e) => handleChange({ description: e.currentTarget.value })}
+        onChange={(e) => handleChange({ preparation: e.currentTarget.value })}
       ></textarea>
     </div>
   );

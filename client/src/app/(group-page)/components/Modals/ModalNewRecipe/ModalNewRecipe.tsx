@@ -27,7 +27,7 @@ export interface IOption {
 
 interface IRecipe {
   title: string;
-  description: string;
+  preparation: string;
   category: string[];
   difficulty: string;
   ingredients: string[];
@@ -38,7 +38,7 @@ interface IRecipe {
 
 const initialRecipe: IRecipe = {
   title: '',
-  description: '',
+  preparation: '',
   category: [],
   difficulty: '',
   ingredients: [],
@@ -78,11 +78,10 @@ const ModalNewRecipe = () => {
   const saveRecipe = async () => {
     closeModal();
     await uploadingImagesToCloudinary();
-    toast.promise(axiosApi.post(`/posts/${user._id}`, recipe), {
+    toast.promise(axiosApi.post(`/posts/${user._id}`, { ...recipe }), {
       loading: 'Creando receta..',
       success: (data) => {
         console.log({ data });
-
         return toast.success('Receta creada');
       },
       error: () => {
@@ -148,11 +147,11 @@ const ModalNewRecipe = () => {
             <SelectCategory handleChange={handleChange} />
             <QuantityPortions numberServings={+recipe.portions} setNumberServings={handleChange} />
             <AddIngredients ingredients={recipe.ingredients} handleChange={handleChange} />
-            <Preparation value={recipe.description} handleChange={handleChange} />
+            <Preparation value={recipe.preparation} handleChange={handleChange} />
           </div>
         </Modal.Body>
       </Modal>
-      <Toaster position='top-center' richColors />
+      <Toaster position='top-center' expand visibleToasts={4} />
     </>
   );
 };
