@@ -1,5 +1,5 @@
 import express from 'express';
-import { createPost, getPostByUserId, updatePost, likePost, unlikePost, getTopPosts } from '../controllers/postController.js';
+import { createPost, getPostByUserId, updatePost, likePost, unlikePost, getTopPosts, getPostsByDate } from '../controllers/postController.js';
 
 import upload from "../middlewares/multer.js";
 
@@ -12,5 +12,6 @@ router.get('/:userId/posts', getPostByUserId);
 router.post('/:id/like', likePost);
 router.delete('/posts/:id/unlike', unlikePost);
 router.get('/posts/top', getTopPosts);
+router.get('/posts/ordered', getPostsByDate);
 
 export default router;

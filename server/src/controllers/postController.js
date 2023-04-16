@@ -156,6 +156,17 @@ const getTopPosts = async (req, res) => {
   }
 };
 
+const getPostsByDate = async (req, res) => {
+  const limit = parseInt(req.query.limit) || 10; // Si no se especifica el límite, traer 10 por defecto
+  try {
+    const posts = await Post.find().sort({createdAt: -1}).limit(limit);
+    res.json(posts);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: 'Error al obtener los posts' });
+  }
+}
+
 
 export { 
   createPost, 
@@ -164,7 +175,8 @@ export {
   likePost,
   getPosts,
   unlikePost, 
-  getTopPosts
+  getTopPosts,
+  getPostsByDate
 }
 
 
