@@ -27,7 +27,7 @@ export interface IOption {
 
 interface IRecipe {
   title: string;
-  preparation: string;
+  description: string;
   category: string[];
   difficulty: string;
   ingredients: string[];
@@ -38,7 +38,7 @@ interface IRecipe {
 
 const initialRecipe: IRecipe = {
   title: '',
-  preparation: '',
+  description: '',
   category: [],
   difficulty: '',
   ingredients: [],
@@ -147,7 +147,7 @@ const ModalNewRecipe = () => {
             <SelectCategory handleChange={handleChange} />
             <QuantityPortions numberServings={+recipe.portions} setNumberServings={handleChange} />
             <AddIngredients ingredients={recipe.ingredients} handleChange={handleChange} />
-            <Preparation value={recipe.preparation} handleChange={handleChange} />
+            <Preparation value={recipe.description} handleChange={handleChange} />
           </div>
         </Modal.Body>
       </Modal>
