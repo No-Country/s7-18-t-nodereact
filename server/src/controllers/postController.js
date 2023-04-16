@@ -98,6 +98,7 @@ const likePost = async (req, res) => {
   }
 };
 
+
 const unlikePost = async (req, res) => {
   const postId = req.params.id;
   const userId = req.user.id;
@@ -139,4 +140,5 @@ export {
   getPosts,
   unlikePost
 }
+
 
