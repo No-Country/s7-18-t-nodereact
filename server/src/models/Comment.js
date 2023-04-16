@@ -7,7 +7,8 @@ const commentSchema = new Schema(
             ref: 'user'
         },
         body: {
-            type: String
+            type: String,
+            require: true
         },
         post: {
             type: Schema.Types.ObjectId,
@@ -21,6 +22,9 @@ const commentSchema = new Schema(
         replieOf: {
             type: Schema.Types.ObjectId,
             ref: 'comment'
+        },
+        socketId: {
+            type: String
         }
     },
     {

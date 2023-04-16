@@ -3,9 +3,9 @@ import postRouter from './postRoutes.js'
 import commentRouter from './commentRoutes.js'
 
 const routerApi = (app) => {
-    app.use("/user", router);
-    app.use("/post", postRouter);
-    app.use("/comment", commentRouter);
+    app.use("/api/v1/users", router);
+    app.use("/api/v1/posts", postRouter);
+    app.use("/api/v1/comments", commentRouter);
 };
 
 

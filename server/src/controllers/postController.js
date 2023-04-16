@@ -1,57 +1,71 @@
 import Post from '../models/Post.js';
 
 const createPost = async (req, res) => {
-    //const id = req.user.id;
-    const { title, description } = req.body;
-    //const images = req.files;
+  //const id = req.user.id;
+  const { title, description, category, difficulty, ingredients, preparation, portions, country, images } = req.body;
 
-    try {
-        let post = new Post({
-            //author: id, //por el momento comentado para hacer las pruebas.
-            title,
-            description,
-            //images: images.map((image) => image.filename) //por el momento comentado para hacer las pruebas.
-        });
+  try {
+    let post = new Post({
+      //author: id, //por el momento comentado para hacer las pruebas.
+      title,
+      description,
+      category,
+      difficulty,
+      ingredients,
+      preparation,
+      portions,
+      country,
+      images
+    });
 
-        await post.save()
+    await post.save()
 
-        //await User.findByIdAndUpdate(userId, { $push: { posts: post._id } });
+    //await User.findByIdAndUpdate(userId, { $push: { posts: post._id } });
 
-        res.send( post );
-    } catch (error) {
-        console.log(error.message);
-    }
+    res.send(post);
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
-const getPostByUserId = async(req, res) => {
-    const userId = req.params.userId;
-    try {
-        const posts = await Post.find({author: userId}).populate('author');
-        res.json(posts);
-    }catch(error){
-        console.log(error);
-        res.status(500).json({ message: 'Error al obtener los posts del usuario' });
-    }
+const getPostByUserId = async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const posts = await Post.find({ author: userId }).populate('author');
+    res.json(posts);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Error al obtener los posts del usuario' });
+  }
 }
-
+const getPosts = async (req,res) =>{
+  
+  try{
+    const post = await Post.find()
+    res.json(post)
+  }catch(error){
+    console.log(error.message)
+  }
+}
 const updatePost = async (req, res) => {
-    const { id } = req.params;
-    const { title, description } = req.body;
+  const { id } = req.params;
+  const { title, description, images, category, difficulty, ingredients, preparation, portions, country } = req.body;
+  //const images = req.files;
 
-    try {
-        let modifiedPost=await Post.findOneAndUpdate(
-            {_id: id},
-            {title,description}
-        );
+  try {
+    let modifiedPost = await Post.findOneAndUpdate(
+      { _id: id },
+      { title, description, images, category, difficulty, ingredients, preparation, portions, country }
+    );
 
-        if(!modifiedPost){
-            return res.send({message: "Esta publicación no existe."})
-        }
-        let post= await Post.findById({_id:id});
-        res.send(post);
-    } catch (error) {
-        console.log(error.message);
+    if (!modifiedPost) {
+      return res.send({ message: "Esta publicación no existe." })
     }
+    let post = await Post.findById({ _id: id });
+    res.send(post);
+  } catch (error) {
+    console.log(error.message);
+  }
 }
 const likePost = async (req, res) => {
   const postId = req.params.id;
@@ -84,6 +98,7 @@ const likePost = async (req, res) => {
   }
 };
 
+
 const unlikePost = async (req, res) => {
   const postId = req.params.id;
   const userId = req.user.id;
@@ -115,7 +130,15 @@ const unlikePost = async (req, res) => {
   }
 };
 
-  
 
 
-export { createPost, updatePost, getPostByUserId, likePost, unlikePost }
+export { 
+  createPost, 
+  updatePost, 
+  getPostByUserId, 
+  likePost,
+  getPosts,
+  unlikePost
+}
+
+
