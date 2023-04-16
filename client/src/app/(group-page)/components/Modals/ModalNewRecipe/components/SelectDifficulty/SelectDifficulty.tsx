@@ -5,7 +5,7 @@ import Select from 'react-select';
 
 const options = [
   { label: 'Fácil', value: 'Fácil' },
-  { label: 'Media', value: 'Media' },
+  { label: 'Regular', value: 'Regular' },
   { label: 'Difícil', value: 'Difícil' },
 ];
 

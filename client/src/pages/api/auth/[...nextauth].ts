@@ -22,20 +22,14 @@ export const authOptions = {
       async authorize(credentials: any) {
         try {
           const nextAuthUrl = new URL(process.env.NEXTAUTH_URL || '');
-
-          const { data } = await axios.post(`${process.env.SERVER_URL_BASE}/users/authenticate`, {
+          const user = {
+            name: credentials?.name,
             email: credentials?.email,
-            password: credentials?.password,
-          });
-          if (data) {
-            const user = {
-              name: data.name,
-              email: data.email,
-              image: data.imgAvatar,
-            };
+            image: credentials?.image,
+          };
+          if (user) {
             return user;
-          }
-          return null;
+          } else return null;
         } catch (e) {
           return null;
         }
