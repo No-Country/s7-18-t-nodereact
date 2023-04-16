@@ -130,6 +130,31 @@ const unlikePost = async (req, res) => {
   }
 };
 
+const getTopPosts = async (req, res) => {
+  try {
+    const topPosts = await Post.aggregate([
+      
+      { $unwind: "$likes" },
+      
+      { $group: { _id: "$_id", likes: { $sum: 1 } } },
+      
+      { $sort: { likes: -1 } },
+      
+      { $limit: 10 },
+      
+      { $lookup: { from: "posts", localField: "_id", foreignField: "_id", as: "post" } },
+      
+      { $unwind: "$post" },
+      
+      { $project: { _id: "$post._id", title: "$post.title", likes: 1 } }
+    ]);
+
+    res.json(topPosts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
 
 
 export { 
@@ -138,7 +163,8 @@ export {
   getPostByUserId, 
   likePost,
   getPosts,
-  unlikePost
+  unlikePost, 
+  getTopPosts
 }
 
 
