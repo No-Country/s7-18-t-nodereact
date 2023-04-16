@@ -5,8 +5,11 @@ import { useAppSelector } from '@/redux/hooks';
 import { hideModal } from '@/redux/slices/sliceModals';
 import { Button, Modal } from 'react-daisyui';
 import { useAppDispatch } from '@/redux/hooks';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
+import axiosApi from '@/app/libs/axios';
+import { Toaster, toast } from 'sonner';
+
 import {
   SelectNationality,
   SelectDifficulty,
@@ -30,6 +33,7 @@ interface IRecipe {
   ingredients: string[];
   portions: string;
   country: string;
+  images: string[];
 }
 
 const initialRecipe: IRecipe = {
@@ -40,19 +44,20 @@ const initialRecipe: IRecipe = {
   ingredients: [],
   portions: '1',
   country: '',
+  images: [],
 };
 
 const ModalNewRecipe = () => {
   const [recipe, setRecipe] = useState(initialRecipe);
   const [files, setFiles] = useState<File[]>([]);
   const { modalNewRecipe } = useAppSelector((state) => state.modalsReducer);
+  const { user } = useAppSelector((state) => state.userReducer);
   const dispatch = useAppDispatch();
-  const urlImages = useRef<File[]>([]);
 
   const closeModal = () => dispatch(hideModal('modalNewRecipe'));
 
   const uploadingImagesToCloudinary = async () => {
-    const uploaders = files.map((file) => {
+    const uploaders = files.map((file: File) => {
       const formData = new FormData();
       formData.append('file', file);
       formData.append('tags', 'codeinfuse,medium,gist');
@@ -62,10 +67,7 @@ const ModalNewRecipe = () => {
         .post('https://api.cloudinary.com/v1_1/dviha8xhw/image/upload', formData, {
           headers: { 'X-Requested-With': 'XMLHttpRequest' },
         })
-        .then(({ data }) => {
-          //setUrlImage((prev) => [...prev, data.secure_url]);
-          urlImages.current.push(data.secure_url);
-        });
+        .then(({ data }) => setRecipe((prev) => ({ ...prev, images: [...prev.images, data.secure_url] })));
     });
     return await axios.all(uploaders);
   };
@@ -74,72 +76,84 @@ const ModalNewRecipe = () => {
     setRecipe((prev) => ({ ...prev, [Object.keys(data)[0]]: Object.values(data)[0] }));
 
   const saveRecipe = async () => {
-    await uploadingImagesToCloudinary();  
+    closeModal();
+    await uploadingImagesToCloudinary();
+    toast.promise(axiosApi.post(`/posts/${user._id}`, recipe), {
+      loading: 'Creando receta..',
+      success: (data) => {
+        console.log({ data });
+
+        return toast.success('Receta creada');
+      },
+      error: () => {
+        return toast.error('Hubo un error al crear la receta');
+      },
+    });
   };
 
   return (
-    <Modal
-      open={modalNewRecipe}
-      onClickBackdrop={closeModal}
-      className='w-11/12 max-w-5xl h-full lg:h-11/12 p-0 overflow-hidden'
-    >
-      <Modal.Header className='font-semibold m-0'>
-        <div className='flex justify-between items-center mx-1 border-b'>
-          <ArrowLeft width={25} height={25} />
-          <p className='text-xs'>Crear una nueva Receta</p>
-          <div className='flex items-center'>
-            <p
-              className='text-xs sm:text-sm mr-2 font-light text-blue-300 cursor-pointer'
-              onClick={uploadingImagesToCloudinary}
-            >
-              Compartir
-            </p>
-            <Button size='sm' shape='circle' color='ghost' onClick={closeModal}>
-              ✕
-            </Button>
+    <>
+      <Modal
+        open={modalNewRecipe}
+        onClickBackdrop={closeModal}
+        className='w-11/12 max-w-5xl h-full lg:h-11/12 p-0 overflow-hidden'
+      >
+        <Modal.Header className='font-semibold m-0'>
+          <div className='flex justify-between items-center mx-1 border-b'>
+            <ArrowLeft width={25} height={25} />
+            <p className='text-xs'>Crear una nueva Receta</p>
+            <div className='flex items-center'>
+              <p className='text-xs sm:text-sm mr-2 font-light text-blue-300 cursor-pointer' onClick={saveRecipe}>
+                Compartir
+              </p>
+              <Button size='sm' shape='circle' color='ghost' onClick={closeModal}>
+                ✕
+              </Button>
+            </div>
           </div>
-        </div>
-      </Modal.Header>
-      <Modal.Body
-        className='flex flex-col lg:flex-row 
-                   h-[calc(100%-33px)] w-full
+        </Modal.Header>
+        <Modal.Body
+          className='flex flex-col lg:flex-row 
+        h-[calc(100%-33px)] w-full
                    md:w-5/6 lg:w-full
                    mx-auto gap-3 lg:gap-0
                    lg:p-0
                    overflow-y-auto'
-      >
-        <div
-          className='w-full h-1/4 lg:h-full lg:w-3/5 bg-cover 
+        >
+          <div
+            className='w-full h-1/4 lg:h-full lg:w-3/5 bg-cover 
                      bg-no-repeat bg-top
                      bg-[url("/dropzone.png")] bg-base-200'
-        >
-          <DropZone files={files} setFiles={setFiles} />
-        </div>
-        <div className='flex flex-col w-full lg:w-2/5 h-3/4 lg:h-full gap-3 px-3'>
-          <div className='form-control w-full'>
-            <label>
-              <span className='text-sm font-semibold'>Título de Receta</span>
-            </label>
-            <input
-              type='text'
-              value={recipe.title}
-              placeholder='Ingresar título de receta'
-              onChange={(e) => handleChange({ title: e.currentTarget.value })}
-              className='input input-bordered 
+          >
+            <DropZone files={files} setFiles={setFiles} />
+          </div>
+          <div className='flex flex-col w-full lg:w-2/5 h-3/4 lg:h-full gap-3 px-3'>
+            <div className='form-control w-full'>
+              <label>
+                <span className='text-sm font-semibold'>Título de Receta</span>
+              </label>
+              <input
+                type='text'
+                value={recipe.title}
+                placeholder='Ingresar título de receta'
+                onChange={(e) => handleChange({ title: e.currentTarget.value })}
+                className='input input-bordered 
                        h-10 w-full 
                        rounded-md bg-zinc-100
                        border-gray-300'
-            />
+              />
+            </div>
+            <SelectNationality handleChange={handleChange} />
+            <SelectDifficulty handleChange={handleChange} />
+            <SelectCategory handleChange={handleChange} />
+            <QuantityPortions numberServings={+recipe.portions} setNumberServings={handleChange} />
+            <AddIngredients ingredients={recipe.ingredients} handleChange={handleChange} />
+            <Preparation value={recipe.description} handleChange={handleChange} />
           </div>
-          <SelectNationality handleChange={handleChange} />
-          <SelectDifficulty handleChange={handleChange} />
-          <SelectCategory handleChange={handleChange} />
-          <QuantityPortions numberServings={+recipe.portions} setNumberServings={handleChange} />
-          <AddIngredients ingredients={recipe.ingredients} handleChange={handleChange} />
-          <Preparation value={recipe.description} handleChange={handleChange} />
-        </div>
-      </Modal.Body>
-    </Modal>
+        </Modal.Body>
+      </Modal>
+      <Toaster position='top-center' richColors />
+    </>
   );
 };
 export default ModalNewRecipe;
