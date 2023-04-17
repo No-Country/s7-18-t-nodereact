@@ -26,3 +26,4 @@ export { default as StarIcon } from './StarIcon';
 export { default as RemoveUserIcon } from './RemoveUserIcon';
 export { default as ChevronRight } from './ChevronRight';
 export { default as ChevronLeft } from './ChevronLeft';
+export { default as OpenLock } from './OpenLock';

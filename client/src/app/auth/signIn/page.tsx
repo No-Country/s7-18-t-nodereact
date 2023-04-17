@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation';
 import axios from '../../libs/axios';
 import { useAppDispatch } from '@/redux/hooks';
 import { IUser, setLogin } from '@/redux/slices/sliceUser';
+import { Loader } from '@/app/(group-page)/components';
 
 interface IForm {
   name: string;
@@ -36,7 +37,8 @@ const LoginPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    reset,
+    formState: { errors, isSubmitted },
   } = useForm<IForm>({
     resolver: yupResolver(isLogin ? schemaLogin : schemaRegister),
   });
@@ -46,8 +48,7 @@ const LoginPage = () => {
       email,
       password,
     });
-    localStorage.setItem('token', JSON.stringify(data.token));
-    if (data) {
+    if (data.token) {
       const res = await signIn('credentials', {
         redirect: false,
         email: data.email,
@@ -55,31 +56,33 @@ const LoginPage = () => {
         image: data.imgAvatar,
         callbackUrl: `${window.location.origin}`,
       });
-      const { data: profile } = await axios.get(`/users/profile/${data.id}`, {
+      const { data: profile } = await axios.get(`/users/profile/${data._id}`, {
         headers: { authorization: `Bearer ${data.token}` },
       });
-      const { token, password, ...restData } = profile;
+      const { token, ...restData } = profile;
       dispatch(setLogin({ token, user: restData }));
+      reset();
       res?.ok ? router.push('/home') : console.log(res?.error);
     }
   };
 
   const registerUser = async ({ email, password, name, location }) => {
     try {
-      const user = await axios.post(`/users/register`, {
+      const { data: user } = await axios.post(`/users/register`, {
         email,
         password,
         name,
         location,
       });
-      console.log('Register => ', user);
 
-      loginUser({
-        email,
-        password,
-      });
+      if (user) {
+        loginUser({
+          email,
+          password,
+        });
+      }
     } catch (error) {
-      console.log({ error });
+      console.log('reg => ', { error });
     }
   };
 
@@ -156,16 +159,18 @@ const LoginPage = () => {
             {isLogin ? (
               <Button
                 type='submit'
-                className='w-full shadow-md border border-gray-300 hover:border-[#FF8C00] hover:bg-none hover:text-[#FF8C00]'
+                className='flex gap-3 justify-center w-full shadow-md border border-gray-300 hover:border-[#FF8C00] hover:bg-none hover:text-[#FF8C00]'
               >
+                {isSubmitted && <Loader />}
                 <p className='text-lg text-center'>INICIAR SESIÓN</p>
               </Button>
             ) : (
               <Button
                 type='submit'
                 variant='outline-primary'
-                className='w-full border border-[#FF8C00] shadow-md hover:bg-gradient-to-r from-[#FF8C00] to-[#FFD700]'
+                className='flex gap-3 justify-center w-full border border-[#FF8C00] shadow-md hover:bg-gradient-to-r from-[#FF8C00] to-[#FFD700]'
               >
+                {isSubmitted && <Loader />}
                 <p className='text-lg text-center'>CREAR CUENTA</p>
               </Button>
             )}

@@ -6,6 +6,8 @@ export interface ModalsState {
   drawerMenuLeft: boolean;
   modalNewRecipe: boolean;
   modalDetailsRecipe: boolean;
+  modalSettingProfile: boolean;
+  modalChangePassword: boolean;
 }
 
 const initialState: ModalsState = {
@@ -13,6 +15,8 @@ const initialState: ModalsState = {
   drawerMenuLeft: false,
   modalNewRecipe: false,
   modalDetailsRecipe: false,
+  modalSettingProfile: false,
+  modalChangePassword: false,
 };
 
 export const modals = createSlice({

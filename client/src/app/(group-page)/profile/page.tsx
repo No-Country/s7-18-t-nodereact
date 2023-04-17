@@ -1,4 +1,4 @@
-import { ButtonAddRecipe, CardProfile, CardThumbnailsRecipe, CardStats } from '../components'; // common components
+import { ButtonAddRecipe, CardProfile, CardStats, ThumbnailsRecipes } from '../components'; // common components
 import { BodyCardProfile } from './components'; //profile components
 
 const recipes = new Array(20).fill('');
@@ -7,7 +7,7 @@ export default function page() {
   return (
     <div
       className='flex flex-col items-center my-10 gap-6 
-         overflow-x-hidden w-full md:w-[90%] xl:w-5/6 2xl:w-3/4 mx-auto'
+         overflow-x-hidden w-full md:w-4/6 xl:w-4/6 2xl:w-1/2 mx-auto'
     >
       <CardProfile>
         <BodyCardProfile />
@@ -17,11 +17,7 @@ export default function page() {
         <ButtonAddRecipe />
         <p className=''>Agregar Receta</p>
       </div>
-      <div className='flex flex-wrap justify-center gap-3 p-1 w-full'>
-        {recipes.map((el, idx) => (
-          <CardThumbnailsRecipe key={idx} />
-        ))}
-      </div>
+      <ThumbnailsRecipes recipes={recipes} />
     </div>
   );
 }

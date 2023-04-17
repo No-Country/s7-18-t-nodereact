@@ -28,8 +28,11 @@
     @apply btn btn-sm btn-outline border-[#ff823f] text-[#ff823f] rounded-md hover:bg-gradient-to-b from-[#ff823f] to-[#ffd700];
   }
   .btn-primary {
-    @apply bg-transparent shadow-md border border-[#ff823f] rounded-md hover:bg-gradient-to-r 
-    from-[#ff823f] to-[#ffd700] hover:text-white active:shadow-none;
+    @apply shadow-md border border-[#ff823f] rounded-md bg-gradient-to-r 
+    from-[#ff823f] to-[#ffd700] text-white text-sm cursor-pointer active:shadow-none font-bold tracking-wider hover:bg-gradient-to-l transition-colors;
+  }
+  .btn-primary-outline {
+    @apply bg-transparent shadow-md border border-gray-400 text-sm text-gray-400 rounded-md active:shadow-none hover:bg-orange-50 cursor-pointer;
   }
   .menu-item {
     @apply flex items-center gap-2 rounded-none py-2 px-4 hover:bg-orange-100 active:bg-gradient-to-r 

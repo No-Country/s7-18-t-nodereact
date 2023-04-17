@@ -25,7 +25,8 @@ export interface IOption {
   value: string;
 }
 
-interface IRecipe {
+export interface IRecipe {
+  _id?: string;
   title: string;
   preparation: string;
   category: string[];
@@ -34,6 +35,7 @@ interface IRecipe {
   portions: string;
   country: string;
   images: string[];
+  likes?: string[];
 }
 
 const initialRecipe: IRecipe = {
@@ -80,13 +82,8 @@ const ModalNewRecipe = () => {
     await uploadingImagesToCloudinary();
     toast.promise(axiosApi.post(`/posts/${user._id}`, { ...recipe }), {
       loading: 'Creando receta..',
-      success: (data) => {
-        console.log({ data });
-        return toast.success('Receta creada');
-      },
-      error: () => {
-        return toast.error('Hubo un error al crear la receta');
-      },
+      success: 'Receta creada',
+      error: 'Hubo un error al crear la receta',
     });
   };
 

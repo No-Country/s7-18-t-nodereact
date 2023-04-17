@@ -11,7 +11,7 @@ const Header = () => {
       <div className='ml-1 sm:ml-10'>
         <BurgerButton position={'Left'} />
         <div className='flex-0'>
-          <Link href={'/home'} className='btn btn-ghost normal-case text-2xl text-white h-16'>
+          <Link href={'/home'} className='cursor-pointer'>
             <Image width='200' height='60' src='/img/logo_appetit_brand.png' alt='logo' />
           </Link>
         </div>
