@@ -13,8 +13,7 @@ import {
     unfollowUser,
     getFollowing,
     addFavoriteUser,
-    removeFavoriteUser
-
+    removeFavoriteUser,
 } from "../controllers/userController.js ";
 
 const router = Router();
@@ -33,6 +32,7 @@ router.delete('/:userId/unfollow/:userToUnfollowId', authMiddleware, unfollowUse
 router.get('/:userId/following', authMiddleware, getFollowing);
 router.post('/:userId/favorite-users', authMiddleware, addFavoriteUser);
 router.delete('/:userId/favorite-users', authMiddleware, removeFavoriteUser);
+
 
 /**
  * @openapi
