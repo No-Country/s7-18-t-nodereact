@@ -1,18 +1,25 @@
+'use client';
+
 import { Statfollowed, Statfollowers, StatPublications } from '..';
+import { useAppSelector } from '@/redux/hooks';
 
 const CardStats = () => {
+  const {
+    user: { posts, followers, following },
+  } = useAppSelector((state) => state.userReducer);
+
   return (
     <div className='stats stats-horizontal shadow'>
       <div className='stat'>
-        <StatPublications textColor='Black' />
+        <StatPublications posts={posts} textColor='Black' />
       </div>
 
       <div className='stat'>
-        <Statfollowers textColor='Black' />
+        <Statfollowers followers={followers} textColor='Black' />
       </div>
 
       <div className='stat'>
-        <Statfollowed textColor='Black' />
+        <Statfollowed following={following} textColor='Black' />
       </div>
     </div>
   );
