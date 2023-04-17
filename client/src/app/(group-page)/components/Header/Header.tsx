@@ -3,6 +3,7 @@ import { InputSearch } from '..';
 import BurgerButton from './BurgerButton';
 import { HeartIcon } from '@/icons';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Header = () => {
   return (
@@ -10,8 +11,8 @@ const Header = () => {
       <div className='ml-1 sm:ml-10'>
         <BurgerButton position={'Left'} />
         <div className='flex-0'>
-          <Link href={'/home'} className='btn btn-ghost normal-case text-2xl text-white'>
-            Appétit
+          <Link href={'/home'} className='btn btn-ghost normal-case text-2xl text-white h-16'>
+            <Image width='200' height='60' src='/img/logo_appetit_brand.png' alt='logo' />
           </Link>
         </div>
       </div>
