@@ -66,8 +66,8 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     }],
-
-    {
+},
+{
         toObject: { virtuals: false }, //console
         toJSON: { virtuals: true }, //res
         timestamps: true,
