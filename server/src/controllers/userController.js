@@ -1,6 +1,5 @@
 import User from "../models/User.js"
 import generateJWT from "../helpers/generateJWT.js";
-// import generateId from "../helpers/generateId.js";
 import emailRegister from "../helpers/emailRegister.js";
 import emailNewPassword from "../helpers/forgottenPasswordEmail.js";
 import comparePassword from "../helpers/comparePassword.js";
@@ -26,11 +25,14 @@ const registerUser = async (req, res) => {
 
 const userProfile = async (req, res) => {
     try {
-        const profile = await User.findById(req.params.userId).lean();
+        
+        const profile = await User.findById(req.params.userId).lean().select("-password");
         if (!profile) {
             const error = new Error("El usuario no existe");
             res.status(404).json({ message: error.message });
+
         }
+        
         res.json(profile);
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -63,8 +65,8 @@ const authenticateUser = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
     if (result.isValid) {
-        const { id, email, name, img_avatar: imgAvatar } = result.user;
-        const userData = { email, id, name, imgAvatar };
+        const { _id, email, name, img_avatar: imgAvatar } = result.user;
+        const userData = { email, _id, name, imgAvatar };
         const token = generateJWT(userData);
         userData.token = token;
         res.json(userData);
@@ -138,70 +140,41 @@ const addFavoritePost = async (req, res) => {
     }
 }
 
-// const followUser = async (req, res) => {
-//     const { userId, userToFollowId } = req.body;
-//     console.log(userToFollowId)
-//     try {
-
-//         if (!userId || !userToFollowId) {
-//             res.status(400).json({ message: "Debe proporcionar los IDs de usuario" });
-//         }
-
-//         if (userId === userToFollowId) {
-//             res.status(400).json({ message: "No puedes seguirte a ti mismo" });
-//         }
-
-//         const user = await User.findById(userId);
-
-//         if (!user) {
-//             res.status(404).json({ message: "Usuario no encontrado" });
-//         }
-
-//         if (user.following.includes(userToFollowId)) {
-//             res.status(400).json({ message: "Ya sigues a este usuario" });
-//         }
-
-//         user.following.push(userToFollowId);
-//         await user.save();
-        
+const followUser = async (req, res) => {
     
-//         // VER PORQUE ENVÍA EL DATO Y NO LO GUARDA EN EL USUARIO AL QUE SE COMIENZA A SEGUIR.
-
-//         const userToFollow = await User.findById(userToFollowId);
-//         console.log(userToFollow)
-//         if (!userToFollow) {
-//             res.status(404).json({ message: "Usuario no encontrado" });
-//         }
-
-//         userToFollow.followers.push(userId);
-//         await userToFollow.save();
-
-//         res.status(200).json({ message: "Has comenzado a seguir a este usuario" });
-//     } catch (error) {
-//         res.status(400).json({ message: "Error en el servidor" });
-//     }
-// };
-
-const followUser = async (req,res) => {
-    const { userId } = req.params;
-    const currentUser = req.user; // usuario actual obtenido de la sesión
+    const { userId, userToFollowId } = req.body;
+    
     try {
-        const userToFollow = await User.findById(userId);
-        if (!userToFollow) {
-            return res.status(404).send('Usuario no encontrado');
+
+        if (!userId || !userToFollowId) {
+            res.status(400).json({ message: "Debe proporcionar los IDs de usuario" });
         }
-        if (currentUser.following.includes(userId)) {
-            return res.status(400).send('Ya estás siguiendo a este usuario');
+
+        if (userId === userToFollowId) {
+            res.status(400).json({ message: "No puedes seguirte a ti mismo" });
         }
-        currentUser.following.push(userToFollow.id);
-        userToFollow.followers.push(currentUser.id);
-        await Promise.all([currentUser.save(), userToFollow.save()]);
-        res.send('Usuario seguido correctamente');
-        } catch (error) {
-        console.error(error);
-        res.status(500).send('Error al seguir al usuario');
+
+        const user = await User.findById(userId);
+
+        if (!user) {
+            res.status(404).json({ message: "Usuario no encontrado" });
+        }
+
+        if (user.following.includes(userToFollowId)) {
+            res.status(400).json({ message: "Ya sigues a este usuario" });
+        }
+
+        user.following.push(userToFollowId);
+        await user.save();
+
+        res.status(200).json({ message: "Has comenzado a seguir a este usuario" });
+    } catch (error) {
+        res.status(400).json({ message: "Error en el servidor" });
     }
 };
+
+
+
 const unfollowUser = async (req, res) => {
     try {
         const { userId, userToUnfollowId } = req.body;
@@ -321,17 +294,6 @@ const removeFavoriteUser = async (req, res) => {
 };
 
 
-// const getUser = async (req, res) => {
-//     try {
-//         const {id} = req.params;
-//         const user = await profileService.get(id);
-//         if (user === 'error')
-//             return  res.status(400).json({msg: "Hay un problema con el id provisto"})
-//         res.json(user);
-//     } catch (e) {
-//         return res.status(500).json(e);
-//     }
-// };
 
 export {
     registerUser,
@@ -347,5 +309,4 @@ export {
     getFollowing,
     addFavoriteUser,
     removeFavoriteUser,
-    // getUser
 }
