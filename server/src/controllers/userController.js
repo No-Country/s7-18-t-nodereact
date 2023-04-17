@@ -155,8 +155,10 @@ const followUser = async (req, res) => {
         }
 
         const user = await User.findById(userId);
+        const userToFollow = await User.findById(userToFollowId); //Buscamos al usuario que deseamos seguir
 
-        if (!user) {
+
+        if (!user || !userToFollow) {
             res.status(404).json({ message: "Usuario no encontrado" });
         }
 
@@ -168,6 +170,11 @@ const followUser = async (req, res) => {
         await user.save();
 
         res.status(200).json({ message: "Has comenzado a seguir a este usuario" });
+
+        userToFollow.followers.push(userId); // Agregar el ID del usuario seguidor al arreglo de followers del otro usuario
+        await userToFollow.save(); //Guardar los cambios del otro usuario (usuario al que se sigue)
+
+        
     } catch (error) {
         res.status(400).json({ message: "Error en el servidor" });
     }
@@ -292,8 +299,6 @@ const removeFavoriteUser = async (req, res) => {
         res.status(400).json({ message: "Error en el servidor" });
     }
 };
-
-
 
 export {
     registerUser,
