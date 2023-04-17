@@ -1,22 +1,24 @@
 import { Router } from "express";
 import authMiddleware from "../middlewares/auth.js";
 import {
-  registerUser,
-  authenticateUser,
-  confirmUser,
-  userProfile,
-  forgottenPassword,
-  newUserPassword,
-  addSavedPost,
-  addFavoritePost,
-  followUser,
-  unfollowUser,
-  getFollowing,
-  addFavoriteUser,
-  removeFavoriteUser
+    registerUser,
+    authenticateUser,
+    confirmUser,
+    userProfile,
+    forgottenPassword,
+    newUserPassword,
+    addSavedPost,
+    addFavoritePost,
+    followUser,
+    unfollowUser,
+    getFollowing,
+    addFavoriteUser,
+    removeFavoriteUser
+
 } from "../controllers/userController.js ";
 
 const router = Router();
+
 
 router.post("/register", registerUser); // YA
 router.get("/confirm/:token", confirmUser); //YA
@@ -362,6 +364,7 @@ router.delete('/:userId/favorite-users', authMiddleware, removeFavoriteUser);
  *       scheme: bearer
  *       bearerFormat: JWT
  */
+
 
 
 export default router;

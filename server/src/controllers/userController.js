@@ -284,6 +284,7 @@ const removeFavoriteUser = async (req, res) => {
         res.status(400).json({ message: "Error en el servidor" });
     }
 };
+      
 
 export {
     registerUser,
