@@ -140,6 +140,7 @@ const addFavoritePost = async (req, res) => {
 
 // const followUser = async (req, res) => {
 //     const { userId, userToFollowId } = req.body;
+//     console.log(userToFollowId)
 //     try {
 
 //         if (!userId || !userToFollowId) {
@@ -187,21 +188,20 @@ const followUser = async (req,res) => {
     try {
         const userToFollow = await User.findById(userId);
         if (!userToFollow) {
-        return res.status(404).send('Usuario no encontrado');
+            return res.status(404).send('Usuario no encontrado');
         }
         if (currentUser.following.includes(userId)) {
-        return res.status(400).send('Ya estás siguiendo a este usuario');
+            return res.status(400).send('Ya estás siguiendo a este usuario');
         }
         currentUser.following.push(userToFollow.id);
         userToFollow.followers.push(currentUser.id);
         await Promise.all([currentUser.save(), userToFollow.save()]);
         res.send('Usuario seguido correctamente');
-    } catch (error) {
+        } catch (error) {
         console.error(error);
         res.status(500).send('Error al seguir al usuario');
     }
 };
-
 const unfollowUser = async (req, res) => {
     try {
         const { userId, userToUnfollowId } = req.body;
@@ -319,6 +319,7 @@ const removeFavoriteUser = async (req, res) => {
         res.status(400).json({ message: "Error en el servidor" });
     }
 };
+
 
 // const getUser = async (req, res) => {
 //     try {

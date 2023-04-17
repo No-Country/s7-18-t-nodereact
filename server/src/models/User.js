@@ -1,6 +1,7 @@
 import { model, Schema } from 'mongoose';
 import generateJWT from '../helpers/generateJWT.js';
 import bcrypt from "bcryptjs";
+import generateId from '../helpers/generateId.js';
 
 const UserSchema = new Schema({
     name: {
@@ -51,6 +52,10 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'post'
     }],
+    id: {
+        type: String,
+        default: generateId()
+    },
     token: {
         type: String,
         default: generateJWT()
@@ -67,11 +72,11 @@ const UserSchema = new Schema({
         ref: 'User'
     }],
 },
-    {
+{
         toObject: { virtuals: false }, //console
         toJSON: { virtuals: true }, //res
         timestamps: true,
-        versionKey: false
+        versionKey: false,
     }
 );
 
