@@ -308,5 +308,5 @@ export {
     unfollowUser,
     getFollowing,
     addFavoriteUser,
-    removeFavoriteUser,
+    removeFavoriteUser
 }
