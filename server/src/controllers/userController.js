@@ -62,8 +62,8 @@ const authenticateUser = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
     if (result.isValid) {
-        const { id, email, name, img_avatar: imgAvatar } = result.user;
-        const userData = { email, id, name, imgAvatar };
+        const { _id, email, name, img_avatar: imgAvatar } = result.user;
+        const userData = { email, _id, name, imgAvatar };
         const token = generateJWT(userData);
         userData.token = token;
         res.json(userData);
