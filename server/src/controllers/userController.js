@@ -181,38 +181,39 @@ const followUser = async (req, res) => {
 
 const unfollowUser = async (req, res) => {
     try {
-        const { userId, userToUnfollowId } = req.body;
+        const {userId} = req.params;
+        const { userToUnfollowId } = req.body;
 
         if (!userId || !userToUnfollowId) {
-            res.status(400).json({ message: "Debe proporcionar los dos IDs de usuario" });
+            return res.send({ message: "Debe proporcionar los IDs de usuario" });
         }
 
         if (userId === userToUnfollowId) {
-            res.status(400).json({ message: "No puedes dejar de seguirte a ti mismo" });
+            return res.send({ message: "No puedes dejar de seguirte a ti mismo" });
         }
 
         const user = await User.findById(userId);
+        const userToUnfollow=await User.findById(userToUnfollowId); //Buscar al usuario que se desea dejar de seguir
 
         if (!user) {
-            res.status(404).json({ message: "Usuario no encontrado" });
+            return res.send({ message: "Usuario no encontrado" });
         }
 
         if (!user.following.includes(userToUnfollowId)) {
-            res.status(400).json({ message: "No sigues a este usuario" });
+            return res.send({ message: "No sigues a este usuario" });
         }
 
-        user.following = user.following.filter(
-            (followedUserId) => followedUserId !== userToUnfollowId
-        );
-
+        user.following.pull(userToUnfollowId);
         await user.save();
+        res.status(200).json({ message: "Has dejado de seguir a este usuario" });
 
-        res.status(204).json({ message: "Has dejado de seguir a este usuario" });
+        userToUnfollow.followers.pull(userId);
+        await userToUnfollow.save();
+
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 };
-
 
 const getFollowing = async (req, res) => {
     try {

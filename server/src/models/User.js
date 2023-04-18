@@ -5,12 +5,6 @@ import bcrypt from "bcryptjs";
 
 
 const UserSchema = new Schema({
-    _id: {
-        type: String,
-        required: true,
-        unique: true,
-        default: () => generateId()
-    },
     name: {
         type: String,
         required: true
@@ -59,10 +53,10 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'post'
     }],
-    //id:{
-    //    type: String,
-    //    default: generateId(),
-    //},
+    id:{
+        type: String,
+        default: generateId(),
+    },
     token: {
         type: String,
         default: generateJWT()
