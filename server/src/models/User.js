@@ -3,6 +3,7 @@ import generateJWT from '../helpers/generateJWT.js';
 import generateId from '../helpers/generateId.js';
 import bcrypt from "bcryptjs";
 
+
 const UserSchema = new Schema({
     name: {
         type: String,
