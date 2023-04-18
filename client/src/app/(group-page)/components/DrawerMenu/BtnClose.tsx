@@ -13,7 +13,7 @@ const BtnClose = ({ pos }: Props) => {
   const drawer = pos === 'right' ? 'drawerMenuRight' : 'drawerMenuLeft';
   return (
     <button
-      className={`btn btn-square btn-ghost absolute top-1 ${dir} z-50`}
+      className={`btn btn-square btn-ghost absolute top-1 ${dir} z-50 text-white hover:text-red-500`}
       onClick={() => dispatch(hideModal(drawer))}
     >
       <svg className='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>

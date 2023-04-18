@@ -14,7 +14,7 @@ const LikesUsers = () => {
           </div>
         </div>
       </div>
-      <p className='text-xs'>Le gusta a usuario y a 20 personas más</p>
+      <p className='text-xs'>Les gusta a estos usuarios y a 20 personas más</p>
     </div>
   );
 };

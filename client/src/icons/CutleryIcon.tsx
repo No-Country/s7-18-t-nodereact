@@ -4,7 +4,7 @@ interface Props {
   color?: string;
 }
 
-const CutleryIcon = ({ width = '11', height = '14', color = '#EF6C02' }: Props) => {
+const CutleryIcon = ({ width = '14', height = '18', color = '#EF6C02' }: Props) => {
   return (
     <svg width={width} height={height} viewBox='0 0 11 14' fill='none'>
       <path

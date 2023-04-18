@@ -27,7 +27,9 @@ export interface IOption {
 
 export interface IRecipe {
   _id?: string;
+  author?: string;
   title: string;
+  description?: string;
   preparation: string;
   category: string[];
   difficulty: string;

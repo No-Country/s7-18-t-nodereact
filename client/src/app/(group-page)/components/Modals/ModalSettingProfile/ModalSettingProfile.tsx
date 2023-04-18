@@ -10,8 +10,8 @@ import { ModalChangePassword } from '../..';
 
 const items = [
   { title: 'Cambiar contraseña', modal: 'modalChangePassword' },
-  { title: 'Información personal', modal: 'modalChangePassword' },
-  { title: 'Información personal', modal: 'modalChangePassword' },
+  { title: 'Información personal', modal: '' },
+  { title: 'Privacidad', modal: '' },
 ];
 
 const ModalSettingProfile = () => {

@@ -7,8 +7,6 @@ interface Props {
   recipes: IRecipe[];
 }
 const ThumbnailsRecipes = ({ recipes }: Props) => {
-  console.log({ recipes });
-
   return (
     <div className='flex flex-wrap justify-center gap-3 p-1 w-full'>
       {recipes.map((el) => (

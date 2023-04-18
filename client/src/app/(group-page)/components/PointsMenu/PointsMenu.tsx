@@ -6,6 +6,7 @@ import { useState } from 'react';
 type TOption = {
   label: string;
   icon: React.ReactNode;
+  action: any;
 };
 
 interface Props {
@@ -26,7 +27,7 @@ const BoxOptions = ({ options }: Props) => {
     >
       {options &&
         options.map((option, index) => (
-          <div key={index} className='menu-item'>
+          <div key={index} className='menu-item' onClick={option.action}>
             {option.icon} {option.label}
           </div>
         ))}

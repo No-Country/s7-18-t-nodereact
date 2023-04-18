@@ -19,7 +19,7 @@ const Header = () => {
       <InputSearch />
       <div className='mr-3 sm:mr-10 gap-2'>
         <ButtonSearch />
-        <HeartIcon />
+        {/*  <HeartIcon /> */}
       </div>
     </div>
   );
