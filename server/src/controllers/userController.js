@@ -105,7 +105,6 @@ const newUserPassword = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
     try {
-        user.token = null;
         user.password = password;
         await user.save();
         res.json({ message: "Contraseña modificada correctamente" });
