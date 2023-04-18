@@ -24,7 +24,7 @@ router.post("/register", registerUser); // YA
 router.get("/confirm/:token", confirmUser); //YA
 router.post("/authenticate", authenticateUser); //YA
 router.put("/forgotten-password", forgottenPassword); //YA
-router.get("/forgotten-password/:token", newUserPassword); //YA
+router.post("/forgotten-password/:token", newUserPassword); //modificado 
 router.get("/profile/:userId", authMiddleware, userProfile); // YA, FALTA EL OBJETO QUE DEVUELVE
 router.post('/:userId/saved-posts', authMiddleware, addSavedPost); //YA
 router.post('/:userId/favorite-posts', authMiddleware, addFavoritePost); //YA
