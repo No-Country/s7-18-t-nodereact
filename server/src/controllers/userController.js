@@ -184,7 +184,8 @@ const followUser = async (req, res) => {
 
 const unfollowUser = async (req, res) => {
     try {
-        const { userId, userToUnfollowId } = req.body;
+        const {userId} = req.params;
+        const { userToUnfollowId } = req.body;
 
         if (!userId || !userToUnfollowId) {
             return res.send({ message: "Debe proporcionar los IDs de usuario" });
@@ -195,6 +196,7 @@ const unfollowUser = async (req, res) => {
         }
 
         const user = await User.findById(userId);
+        const userToUnfollow=await User.findById(userToUnfollowId); //Buscar al usuario que se desea dejar de seguir
 
         if (!user) {
             return res.send({ message: "Usuario no encontrado" });
@@ -204,13 +206,14 @@ const unfollowUser = async (req, res) => {
             return res.send({ message: "No sigues a este usuario" });
         }
 
-        user.following = user.following.filter(
-            (followedUserId) => followedUserId !== userToUnfollowId
-        );
-
+        user.following.pull(userToUnfollowId);
         await user.save();
-
         res.status(200).json({ message: "Has dejado de seguir a este usuario" });
+
+        userToUnfollow.followers.pull(userId);
+        await userToUnfollow.save();
+
+
     } catch (error) {
         res.status(400).json({ message: "Error en el servidor" });
     }
