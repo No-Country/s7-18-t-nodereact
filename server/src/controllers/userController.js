@@ -25,14 +25,14 @@ const registerUser = async (req, res) => {
 
 const userProfile = async (req, res) => {
     try {
-        
+
         const profile = await User.findById(req.params.userId).lean().select("-password");
         if (!profile) {
             const error = new Error("El usuario no existe");
             res.status(404).json({ message: error.message });
 
         }
-        
+
         res.json(profile);
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -140,13 +140,13 @@ const addFavoritePost = async (req, res) => {
 }
 
 const followUser = async (req, res) => {
-    
+
     const { userId, userToFollowId } = req.body;
-    
+
     try {
 
         if (!userId || !userToFollowId) {
-            return res.send({ message: "Debe proporcionar los IDs de usuario" });
+            return res.status(400).send({ message: "Debe proporcionar los IDs de usuario" });
         }
 
         if (userId === userToFollowId) {
@@ -168,15 +168,12 @@ const followUser = async (req, res) => {
 
         user.following.push(userToFollowId);
         await user.save();
-
         res.status(200).json({ message: "Has comenzado a seguir a este usuario" });
 
         userToFollow.followers.push(userId); // Agregar el ID del usuario seguidor al arreglo de followers del otro usuario
         await userToFollow.save(); //Guardar los cambios del otro usuario (usuario al que se sigue)
-
-        
     } catch (error) {
-        res.status(400).json({ message: "Error en el servidor" });
+        res.status(400).json({ message: error.message });
     }
 };
 
@@ -187,7 +184,7 @@ const unfollowUser = async (req, res) => {
         const { userId, userToUnfollowId } = req.body;
 
         if (!userId || !userToUnfollowId) {
-            res.status(400).json({ message: "Debe proporcionar los IDs de usuario" });
+            res.status(400).json({ message: "Debe proporcionar los dos IDs de usuario" });
         }
 
         if (userId === userToUnfollowId) {
@@ -210,9 +207,9 @@ const unfollowUser = async (req, res) => {
 
         await user.save();
 
-        res.status(200).json({ message: "Has dejado de seguir a este usuario" });
+        res.status(204).json({ message: "Has dejado de seguir a este usuario" });
     } catch (error) {
-        res.status(400).json({ message: "Error en el servidor" });
+        res.status(400).json({ message: error.message });
     }
 };
 
@@ -232,7 +229,7 @@ const getFollowing = async (req, res) => {
 
         res.status(200).json(user.following);
     } catch (error) {
-        res.status(400).json({ message: "Error en el servidor" });
+        res.status(400).json({ message: error.message });
     }
 };
 
@@ -264,7 +261,7 @@ const addFavoriteUser = async (req, res) => {
 
         res.status(200).json({ message: "Usuario agregado a favoritos correctamente" });
     } catch (error) {
-        res.status(400).json({ message: "Error en el servidor" });
+        res.status(400).json({ message: error.message });
     }
 };
 
@@ -296,7 +293,7 @@ const removeFavoriteUser = async (req, res) => {
         await user.save();
         res.status(200).json({ message: "Usuario eliminado de favoritos correctamente" });
     } catch (error) {
-        res.status(400).json({ message: "Error en el servidor" });
+        res.status(400).json({ message: error.message });
     }
 };
 
