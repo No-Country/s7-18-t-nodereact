@@ -95,3 +95,49 @@ const Post = model('post', postSchema);
 
 export default Post;
 
+/**
+ * @openapi
+ * components:
+ *   schema:
+ *     createPost:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           example: 6434daf028a9c3cf3a42f6e8
+ *         title:
+ *           type: string
+ *           example: Pasta Carbonara
+ *         description:
+ *           type: string
+ *           example: Here's how to make a simple and delicious Pasta Carbonara
+ *         category:
+ *           type: string
+ *           example: italian
+ *         difficulty:
+ *           type: string
+ *           example: easy
+ *         ingredients:
+ *           type: array
+ *           items:
+ *             type: string
+ *           example: ["spaghetti", "eggs", "bacon", "butter", "salt", "water"]
+ *         preparation:
+ *           type: string
+ *           example: 1. Cook Pasta. 2. Make sauce. 3. Put pasta on a plate 4. Enjoy
+ *         portions:
+ *           type: string
+ *           example: 2
+ *         country:
+ *           type: string
+ *           example: italy
+ *         images:
+ *           type: string
+ *           example: password123
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ */
+

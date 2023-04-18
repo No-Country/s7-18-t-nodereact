@@ -8,13 +8,15 @@ const options = {
   apis: [
     "./src/routes/userRoutes.js",
     "./src/models/User.js",
+    "./src/routes/postRoutes.js",
+    "./src/models/Post.js"
   ],
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "FüdPro API",
+      title: "Appetit API",
       version: "0.0.9",
-      description: "API for FüdPro, a food-based social network"
+      description: "API for Appetit, a food-based social network"
     }
   }
 };
