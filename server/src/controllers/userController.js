@@ -108,7 +108,6 @@ const newUserPassword = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
     try {
-        user.token = null;
         user.password = password;
         await user.save();
         res.json({ message: "Contraseña modificada correctamente" });
@@ -147,11 +146,11 @@ const followUser = async (req, res) => {
     try {
 
         if (!userId || !userToFollowId) {
-            res.status(400).json({ message: "Debe proporcionar los IDs de usuario" });
+            return res.send({ message: "Debe proporcionar los IDs de usuario" });
         }
 
         if (userId === userToFollowId) {
-            res.status(400).json({ message: "No puedes seguirte a ti mismo" });
+            return res.send({ message: "No puedes seguirte a ti mismo" });
         }
 
         const user = await User.findById(userId);
@@ -159,11 +158,12 @@ const followUser = async (req, res) => {
 
 
         if (!user || !userToFollow) {
-            res.status(404).json({ message: "Usuario no encontrado" });
+            return res.send({ message: "Usuario no encontrado" });
         }
 
         if (user.following.includes(userToFollowId)) {
-            res.status(400).json({ message: "Ya sigues a este usuario" });
+            return res.send({ message: "Ya sigues a este usuario" });
+
         }
 
         user.following.push(userToFollowId);

@@ -1,12 +1,12 @@
 import Post from '../models/Post.js';
+import User from '../models/User.js';
 
 const createPost = async (req, res) => {
-  //const id = req.user.id;
-  const { title, description, category, difficulty, ingredients, preparation, portions, country, images } = req.body;
+  const { id, title, description, category, difficulty, ingredients, preparation, portions, country, images } = req.body;
 
   try {
     let post = new Post({
-      //author: id, //por el momento comentado para hacer las pruebas.
+      author: id, 
       title,
       description,
       category,
@@ -20,7 +20,7 @@ const createPost = async (req, res) => {
 
     await post.save()
 
-    //await User.findByIdAndUpdate(userId, { $push: { posts: post._id } });
+    await User.findByIdAndUpdate(id, { $push: { posts: post._id } });
 
     res.send(post);
   } catch (error) {

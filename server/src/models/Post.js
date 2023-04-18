@@ -7,7 +7,7 @@ const postSchema = new Schema(
         author: {
             type: Schema.Types.ObjectId,
             ref: 'user',
-            //required: true //por el momento comentado para hacer las pruebas.
+            required: true
         },
         title: {
             type: String,
