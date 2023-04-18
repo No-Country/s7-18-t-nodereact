@@ -187,21 +187,21 @@ const unfollowUser = async (req, res) => {
         const { userId, userToUnfollowId } = req.body;
 
         if (!userId || !userToUnfollowId) {
-            res.status(400).json({ message: "Debe proporcionar los IDs de usuario" });
+            return res.send({ message: "Debe proporcionar los IDs de usuario" });
         }
 
         if (userId === userToUnfollowId) {
-            res.status(400).json({ message: "No puedes dejar de seguirte a ti mismo" });
+            return res.send({ message: "No puedes dejar de seguirte a ti mismo" });
         }
 
         const user = await User.findById(userId);
 
         if (!user) {
-            res.status(404).json({ message: "Usuario no encontrado" });
+            return res.send({ message: "Usuario no encontrado" });
         }
 
         if (!user.following.includes(userToUnfollowId)) {
-            res.status(400).json({ message: "No sigues a este usuario" });
+            return res.send({ message: "No sigues a este usuario" });
         }
 
         user.following = user.following.filter(
