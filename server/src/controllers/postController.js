@@ -1,12 +1,12 @@
 import Post from '../models/Post.js';
 
 const createPost = async (req, res) => {
-  //const id = req.user.id;
+  const id = req.user.id;
   const { title, description, category, difficulty, ingredients, preparation, portions, country, images } = req.body;
 
   try {
     let post = new Post({
-      //author: id, //por el momento comentado para hacer las pruebas.
+      author: id, //por el momento comentado para hacer las pruebas.
       title,
       description,
       category,
