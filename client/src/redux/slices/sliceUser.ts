@@ -53,18 +53,32 @@ export const user = createSlice({
     setLogin: (state: IUser, { payload }: PayloadAction<IUser>) => {
       state.user = payload.user;
       state.token = payload.token;
+      return state;
     },
     setLogout: (state: IUser) => {
       state = initialState;
+      return state;
     },
-    toggleFollowed: (state: IUser, { payload }) => {
-      state.user.following.includes(payload)
-        ? (state.user.following = [...state.user.following.filter((el) => el !== payload)])
-        : state.user.following.push(payload);
+    addFavoriteUsers: (state: IUser, { payload }) => {
+      state.user.favoriteUsers = [...state.user.favoriteUsers, payload];
+      return state;
+    },
+    removeFavoriteUsers: (state: IUser, { payload }) => {
+      state.user.favoriteUsers = [...state.user.favoriteUsers.filter((el) => el !== payload)];
+      return state;
+    },
+    addFollowing: (state: IUser, { payload }) => {
+      state.user.following = [...state.user.following, payload];
+      return state;
+    },
+    removeFollowing: (state: IUser, { payload }) => {
+      state.user.following = [...state.user.following.filter((el) => el !== payload)];
+      return state;
     },
   },
 });
 
-export const { setLogin, setLogout, toggleFollowed } = user.actions;
+export const { addFavoriteUsers, addFollowing, setLogin, setLogout, removeFavoriteUsers, removeFollowing } =
+  user.actions;
 
 export default user.reducer;

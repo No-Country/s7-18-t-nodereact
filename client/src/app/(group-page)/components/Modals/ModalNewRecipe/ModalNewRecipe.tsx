@@ -28,7 +28,7 @@ export interface IOption {
 
 export interface IRecipe {
   _id?: string;
-  author?: string;
+  author: string;
   title: string;
   description: string;
   preparation: string;
@@ -42,6 +42,7 @@ export interface IRecipe {
 }
 
 const initialRecipe: IRecipe = {
+  author: '',
   title: '',
   preparation: '',
   description: '',

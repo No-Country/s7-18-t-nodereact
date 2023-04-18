@@ -48,8 +48,8 @@ const AddIngredients = ({ handleChange, ingredients }: Props) => {
         </p>
       </section>
       <ul
-        className={`w-full h-[${ingredients?.length * 20}px] 
-                    max-h-[60px] lg:max-h-[100px]
+        className={`w-full h-[${ingredients?.length * 40}px] 
+                    max-h-[80px] lg:max-h-[120px]
                     xl:max-h-[120px]
                     overflow-auto`}
       >

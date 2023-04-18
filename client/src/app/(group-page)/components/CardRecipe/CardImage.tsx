@@ -4,23 +4,32 @@ import Image from 'next/image';
 import { IRecipe } from '../Modals/ModalNewRecipe/ModalNewRecipe';
 import BoxSocial from './BoxSocial';
 import { CutleryIcon } from '@/icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Options, Splide, SplideSlide } from '@splidejs/react-splide';
+import '@splidejs/react-splide/css';
 
 interface Props {
   recipe: IRecipe;
 }
 
 const CardImage = ({ recipe }: Props) => {
-  const [images, setState] = useState([...recipe.images]);
+  const [images, setImages] = useState<string[]>([]);
+  const [indexImage, setIndexImage] = useState<number>(0);
+
+  useEffect(() => {
+    setImages(recipe.images);
+  }, [recipe.images]);
+
   return (
-    <div className='relative flex flex-col justify-between w-full h-[360px] '>
+    <div className='relative flex flex-col overflow-hidden justify-between w-full h-[360px] rounded-2xl'>
       <Image
         width='600'
         height='600'
-        src={images[0]}
-        alt={recipe.title}
-        className='absolute top-0 left-0 w-full h-full z-0 object-cover'
+        src={images[indexImage]}
+        alt='image'
+        className='absolute top-0 left-0 w-full h-full z-0'
       />
+
       <header className='flex justify-between p-2'>
         <h3 className='font-semibold px-4 py-1 bg-white/50 rounded-full z-10'>{recipe.title}</h3>
         <div className='flex justify-center items-center w-[30px] h-[30px] rounded-full bg-white z-10'>
@@ -28,7 +37,18 @@ const CardImage = ({ recipe }: Props) => {
         </div>
       </header>
       <BoxSocial likes={recipe.likes || []} />
-      <footer className='w-full text-6xl text-center text-gray-200'>...</footer>
+      <div className='flex justify-center items-center gap-3 z-10 mb-3'>
+        {images.length > 1 &&
+          images.map((image, index) => (
+            <div
+              key={index}
+              className={`rounded-full ${
+                index === indexImage ? 'w-3 h-3 bg-orange-500 ' : 'w-2 h-2 bg-white'
+              }  cursor-pointer`}
+              onClick={() => setIndexImage(index)}
+            ></div>
+          ))}
+      </div>
     </div>
   );
 };
