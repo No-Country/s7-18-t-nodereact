@@ -28,7 +28,7 @@ router.get("/profile/:userId", userProfile); // YA, FALTA EL OBJETO QUE DEVUELVE
 router.post('/:userId/saved-posts', authMiddleware, addSavedPost); //YA
 router.post('/:userId/favorite-posts', authMiddleware, addFavoritePost); //YA
 router.post('/:userId/follow', authMiddleware, followUser);
-router.delete('/:userId/unfollow/:userToUnfollowId', authMiddleware, unfollowUser);
+router.delete('/unfollow/:userId', authMiddleware, unfollowUser);
 router.get('/:userId/following', authMiddleware, getFollowing);
 router.post('/:userId/favorite-users', authMiddleware, addFavoriteUser);
 router.delete('/:userId/favorite-users', authMiddleware, removeFavoriteUser);
