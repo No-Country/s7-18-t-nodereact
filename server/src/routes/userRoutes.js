@@ -13,16 +13,17 @@ import {
   unfollowUser,
   getFollowing,
   addFavoriteUser,
-  removeFavoriteUser
+  removeFavoriteUser,
 } from "../controllers/userController.js ";
 
 const router = Router();
+
 
 router.post("/register", registerUser); // YA
 router.get("/confirm/:token", confirmUser); //YA
 router.post("/authenticate", authenticateUser); //YA
 router.put("/forgotten-password", forgottenPassword); //YA
-router.get("/forgotten-password/:token", newUserPassword); //YA
+router.put("/forgotten-password/:token", newUserPassword); //modificado 
 router.get("/profile/:userId", userProfile); // YA, FALTA EL OBJETO QUE DEVUELVE
 router.post('/:userId/saved-posts', authMiddleware, addSavedPost); //YA
 router.post('/:userId/favorite-posts', authMiddleware, addFavoritePost); //YA

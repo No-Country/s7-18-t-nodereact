@@ -4,6 +4,7 @@ import emailRegister from "../helpers/emailRegister.js";
 import emailNewPassword from "../helpers/forgottenPasswordEmail.js";
 import comparePassword from "../helpers/comparePassword.js";
 
+
 const registerUser = async (req, res) => {
     const { email, name } = req.body;
     const existUser = await User.findOne({ email });
@@ -16,7 +17,7 @@ const registerUser = async (req, res) => {
         const user = new User(req.body);
         const savedUser = await user.save();
         emailRegister({ email, name, token: savedUser.token });
-        res.status(201).json({ id: savedUser.id, name: savedUser.name, email: savedUser.email });
+        res.status(201).json({ _id: savedUser.id, name: savedUser.name, email: savedUser.email });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
@@ -24,11 +25,14 @@ const registerUser = async (req, res) => {
 
 const userProfile = async (req, res) => {
     try {
-        const profile = await User.findById(req.params.userId).lean();
+
+        const profile = await User.findById(req.params.userId).lean().select("-password");
         if (!profile) {
             const error = new Error("El usuario no existe");
             res.status(404).json({ message: error.message });
+
         }
+
         res.json(profile);
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -61,8 +65,8 @@ const authenticateUser = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
     if (result.isValid) {
-        const { id, email, name, img_avatar: imgAvatar } = result.user;
-        const userData = { email, id, name, imgAvatar };
+        const { _id, email, name, img_avatar: imgAvatar } = result.user;
+        const userData = { email, _id, name, imgAvatar };
         const token = generateJWT(userData);
         userData.token = token;
         res.json(userData);
@@ -104,7 +108,6 @@ const newUserPassword = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
     try {
-        user.token = null;
         user.password = password;
         await user.save();
         res.json({ message: "Contraseña modificada correctamente" });
@@ -137,34 +140,44 @@ const addFavoritePost = async (req, res) => {
 }
 
 const followUser = async (req, res) => {
+
+    const { userId, userToFollowId } = req.body;
+
     try {
-        const { userId, userToFollowId } = req.body;
 
         if (!userId || !userToFollowId) {
-            res.status(400).json({ message: "Debe proporcionar los dos IDs de usuario" });
+            return res.status(400).send({ message: "Debe proporcionar los IDs de usuario" });
         }
 
         if (userId === userToFollowId) {
-            res.status(400).json({ message: "No puedes seguirte a ti mismo" });
+            return res.send({ message: "No puedes seguirte a ti mismo" });
         }
 
         const user = await User.findById(userId);
+        const userToFollow = await User.findById(userToFollowId); //Buscamos al usuario que deseamos seguir
 
-        if (!user) {
-            res.status(404).json({ message: "Usuario no encontrado" });
+
+        if (!user || !userToFollow) {
+            return res.send({ message: "Usuario no encontrado" });
         }
 
         if (user.following.includes(userToFollowId)) {
-            res.status(400).json({ message: "Ya sigues a este usuario" });
+            return res.send({ message: "Ya sigues a este usuario" });
+
         }
 
         user.following.push(userToFollowId);
         await user.save();
-        res.status(201).json({ message: "Has comenzado a seguir a este usuario" });
+        res.status(200).json({ message: "Has comenzado a seguir a este usuario" });
+
+        userToFollow.followers.push(userId); // Agregar el ID del usuario seguidor al arreglo de followers del otro usuario
+        await userToFollow.save(); //Guardar los cambios del otro usuario (usuario al que se sigue)
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 };
+
+
 
 const unfollowUser = async (req, res) => {
     try {

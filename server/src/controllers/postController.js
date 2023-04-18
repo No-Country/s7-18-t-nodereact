@@ -1,26 +1,26 @@
 import Post from '../models/Post.js';
+import User from '../models/User.js';
 
 const createPost = async (req, res) => {
-  //const id = req.user.id;
-  const { title, description, category, difficulty, ingredients, portions, country } = req.body;
-  //const images = req.files;
+  const { id, title, description, category, difficulty, ingredients, preparation, portions, country, images } = req.body;
 
   try {
     let post = new Post({
-      //author: id, //por el momento comentado para hacer las pruebas.
+      author: id, 
       title,
       description,
       category,
       difficulty,
       ingredients,
+      preparation,
       portions,
       country,
-      //images: images.map((image) => image.filename) //por el momento comentado para hacer las pruebas.
+      images
     });
 
     await post.save()
 
-    //await User.findByIdAndUpdate(userId, { $push: { posts: post._id } });
+    await User.findByIdAndUpdate(id, { $push: { posts: post._id } });
 
     res.send(post);
   } catch (error) {
@@ -38,15 +38,24 @@ const getPostByUserId = async (req, res) => {
     res.status(500).json({ message: 'Error al obtener los posts del usuario' });
   }
 }
-
+const getPosts = async (req,res) =>{
+  
+  try{
+    const post = await Post.find()
+    res.json(post)
+  }catch(error){
+    console.log(error.message)
+  }
+}
 const updatePost = async (req, res) => {
   const { id } = req.params;
-  const { title, description, category, difficulty, ingredients, portions, country } = req.body;
+  const { title, description, images, category, difficulty, ingredients, preparation, portions, country } = req.body;
+  //const images = req.files;
 
   try {
     let modifiedPost = await Post.findOneAndUpdate(
       { _id: id },
-      { title, description, category, difficulty, ingredients, portions, country }
+      { title, description, images, category, difficulty, ingredients, preparation, portions, country }
     );
 
     if (!modifiedPost) {
@@ -89,6 +98,7 @@ const likePost = async (req, res) => {
   }
 };
 
+
 const unlikePost = async (req, res) => {
   const postId = req.params.id;
   const userId = req.user.id;
@@ -120,5 +130,53 @@ const unlikePost = async (req, res) => {
   }
 };
 
+const getTopPosts = async (req, res) => {
+  try {
+    const topPosts = await Post.aggregate([
+      
+      { $unwind: "$likes" },
+      
+      { $group: { _id: "$_id", likes: { $sum: 1 } } },
+      
+      { $sort: { likes: -1 } },
+      
+      { $limit: 10 },
+      
+      { $lookup: { from: "posts", localField: "_id", foreignField: "_id", as: "post" } },
+      
+      { $unwind: "$post" },
+      
+      { $project: { _id: "$post._id", title: "$post.title", likes: 1 } }
+    ]);
 
-export { createPost, updatePost, getPostByUserId, likePost, unlikePost }
+    res.json(topPosts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+const getPostsByDate = async (req, res) => {
+  const limit = parseInt(req.query.limit) || 10; // Si no se especifica el límite, traer 10 por defecto
+  try {
+    const posts = await Post.find().sort({createdAt: -1}).limit(limit);
+    res.json(posts);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: 'Error al obtener los posts' });
+  }
+}
+
+
+export { 
+  createPost, 
+  updatePost, 
+  getPostByUserId, 
+  likePost,
+  getPosts,
+  unlikePost, 
+  getTopPosts,
+  getPostsByDate
+}
+
+
