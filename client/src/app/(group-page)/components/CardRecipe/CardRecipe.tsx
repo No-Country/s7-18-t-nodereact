@@ -4,7 +4,13 @@ import { AddUserIcon, AvatarIcon, EyeSlashIcon, RemoveUserIcon, StarIcon } from 
 import CardImage from './CardImage';
 import LikesUsers from './LikesUsers';
 import { IRecipe } from '../Modals/ModalNewRecipe/ModalNewRecipe';
-import { IProfile, toggleFollowed } from '@/redux/slices/sliceUser';
+import {
+  IProfile,
+  addFavoriteUsers,
+  addFollowing,
+  removeFavoriteUsers,
+  removeFollowing,
+} from '@/redux/slices/sliceUser';
 import { useEffect, useState } from 'react';
 import axiosApi from '@/app/libs/axios';
 import Image from 'next/image';
@@ -18,7 +24,7 @@ interface Props {
 
 const CardRecipe = ({ recipe }: Props) => {
   const [author, setAuthor] = useState<IProfile | null>(null);
-  const { _id, following, favorites } = useAppSelector((state) => state.userReducer.user);
+  const { _id, following, favoriteUsers } = useAppSelector((state) => state.userReducer.user);
   const token = useAppSelector((state) => state.userReducer.token);
   const dispatch = useAppDispatch();
 
@@ -26,43 +32,119 @@ const CardRecipe = ({ recipe }: Props) => {
     axiosApi.get(`/users/profile/${recipe.author}`).then(({ data }) => setAuthor(data));
   }, [recipe.author]);
 
-  const optionsMenu = [
-    {
-      label: favorites?.includes(recipe.author || '') ? 'Quitar de favoritos' : 'Añadir a favoritos',
-      icon: <StarIcon />,
-      action: () => {},
-    },
-    {
-      label: following?.includes(recipe.author || '') ? 'Dejar de seguir' : 'Seguir',
-      icon: following?.includes(recipe.author || '') ? <RemoveUserIcon /> : <AddUserIcon />,
+  /* 
+
       action: () => {
+        if (recipe.author === _id) return toast.error('No se puede agregar a favoritos a uno mismo');
         toast.promise(
-          following?.includes(recipe.author || '')
-            ? axiosApi.delete(`/users/unfollow/${_id}`, {
+          favoriteUsers?.includes(recipe.author)
+            ? axiosApi.delete(`/users/favorite-users`, {
                 headers: { authorization: `Bearer ${token}` },
                 data: {
-                  userToUnfollowId: recipe.author,
+                  userId: _id,
+                  userToRemoveId: recipe.author,
                 },
               })
             : axiosApi.post(
-                '/users/follow',
+                '/users/favorite-users',
                 {
                   userId: _id,
-                  userToFollowId: recipe.author,
+                  userToAddId: recipe.author,
                 },
                 {
                   headers: { authorization: `Bearer ${token}` },
                 }
               ),
           {
-            loading: 'Actualizando seguidores..',
+            loading: 'Actualizando favoritos..',
             success: () => {
-              dispatch(toggleFollowed(recipe.author));
-              return 'Seguidores actualizado';
+              console.log('paso f');
+              const actionDispatch = favoriteUsers?.includes(recipe.author) ? removeFavoriteUsers : addFavoriteUsers;
+              dispatch(actionDispatch(recipe.author));
+              return 'Favoritos actualizado';
             },
-            error: 'Hubo un error al actualizar seguidores',
+            error: 'Hubo un error al actualizar favoritos',
           }
         );
+      },
+*/
+
+  const optionsMenu = [
+    {
+      label: favoriteUsers?.includes(recipe.author) ? 'Quitar de favoritos' : 'Añadir a favoritos',
+      icon: <StarIcon />,
+      action: async () => {
+        if (recipe.author === _id) return toast.error('No se puede agregar a favoritos a uno mismo');
+        if (favoriteUsers?.includes(recipe.author)) {
+          try {
+            await axiosApi.delete(`/users/favorite-users`, {
+              headers: { authorization: `Bearer ${token}` },
+              data: {
+                userId: _id,
+                userToRemoveId: recipe.author,
+              },
+            });
+            dispatch(removeFavoriteUsers(recipe.author));
+            toast.success('Favoritos actualizado');
+          } catch (error) {
+            toast.error('Hubo un error al actualizar favoritos');
+          }
+        } else {
+          try {
+            axiosApi.post(
+              '/users/favorite-users',
+              {
+                userId: _id,
+                userToAddId: recipe.author,
+              },
+              {
+                headers: { authorization: `Bearer ${token}` },
+              }
+            ),
+              dispatch(addFavoriteUsers(recipe.author));
+            toast.success('Favoritos actualizado');
+          } catch (error) {
+            toast.error('Hubo un error al actualizar favoritos');
+          }
+        }
+      },
+    },
+    {
+      label: following?.includes(recipe.author) ? 'Dejar de seguir' : 'Seguir',
+      icon: following?.includes(recipe.author) ? <RemoveUserIcon /> : <AddUserIcon />,
+      action: async () => {
+        if (recipe.author === _id) return toast.error('No se puede seguirse a uno mismo');
+        if (following?.includes(recipe.author)) {
+          try {
+            await axiosApi.delete(`/users/unfollow/${_id}`, {
+              headers: { authorization: `Bearer ${token}` },
+              data: {
+                userToUnfollowId: recipe.author,
+              },
+            });
+            dispatch(removeFollowing(recipe.author));
+            toast.success('Seguidores actualizado');
+          } catch (error) {
+            toast.error('Hubo un error al actualizar Seguidores');
+          }
+        } else {
+          try {
+            await axiosApi.post(
+              '/users/follow',
+              {
+                userId: _id,
+                userToFollowId: recipe.author,
+              },
+              {
+                headers: { authorization: `Bearer ${token}` },
+              }
+            ),
+              dispatch(addFollowing(recipe.author));
+            toast.success('Seguidores actualizado');
+          } catch (error) {
+            toast.error('Hubo un error al actualizar Seguidores');
+          }
+        }
       },
     },
     {
@@ -74,7 +156,7 @@ const CardRecipe = ({ recipe }: Props) => {
 
   return (
     <>
-      <div className='flex flex-col w-full max-w-[440px] sm:p-6 rounded-xl shadow-md'>
+      <div className='flex flex-col w-full max-w-[440px] sm:p-6 rounded-2xl shadow-md'>
         <header className='flex px-3 w-full justify-between mb-5'>
           <div className='flex items-center'>
             {author?.img_avatar ? (
