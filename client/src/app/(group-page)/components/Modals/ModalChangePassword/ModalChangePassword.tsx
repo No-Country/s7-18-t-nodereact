@@ -41,7 +41,7 @@ const ModalChangePassword = () => {
   const onSubmit = ({ newPassword }: IForm) => {
     try {
       toast.promise(
-        axiosApi.post(`/users/forgotten-password/${token}`, {
+        axiosApi.put(`/users/forgotten-password/${token}`, {
           password: newPassword,
         }),
         {

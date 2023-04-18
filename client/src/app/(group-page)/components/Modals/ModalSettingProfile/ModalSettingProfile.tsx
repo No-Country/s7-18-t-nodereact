@@ -6,12 +6,12 @@ import { hideModal } from '@/redux/slices/sliceModals';
 import Item from './components/Item';
 import { useRef, useState } from 'react';
 import SwitchItem from './components/Switch';
-import { ModalChangePassword, ModalPersonalInformation } from '../..';
+import { ModalChangePassword } from '../..';
 
 const items = [
   { title: 'Cambiar contraseña', modal: 'modalChangePassword' },
-  { title: 'Información personal', modal: 'modalPersonalInformation' },
-  { title: 'Información personal', modal: 'modalChangePassword' },
+  { title: 'Información personal', modal: '' },
+  { title: 'Privacidad', modal: '' },
 ];
 
 const ModalSettingProfile = () => {
@@ -57,7 +57,6 @@ const ModalSettingProfile = () => {
         </div>
       </Dialog>
       <ModalChangePassword />
-      <ModalPersonalInformation />
     </>
   );
 };

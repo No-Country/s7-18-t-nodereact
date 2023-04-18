@@ -59,8 +59,7 @@ const LoginPage = () => {
       const { data: profile } = await axios.get(`/users/profile/${data._id}`, {
         headers: { authorization: `Bearer ${data.token}` },
       });
-      const { token, ...restData } = profile;
-      dispatch(setLogin({ token, user: restData }));
+      dispatch(setLogin({ token: data.token, user: profile }));
       reset();
       res?.ok ? router.push('/home') : console.log(res?.error);
     }
