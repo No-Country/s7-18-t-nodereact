@@ -4,4 +4,5 @@ export { default as SelectNationality } from './components/SelectNationality/Sel
 export { default as QuantityPortions } from './components/QuantityPortions/QuantityPortions';
 export { default as AddIngredients } from './components/AddIngredients/AddIngredients';
 export { default as Preparation } from './components/Preparation/Preparation';
+export { default as Description } from './components/Description/Description';
 export { default as DropZone } from './components/DropZone/DropZone';

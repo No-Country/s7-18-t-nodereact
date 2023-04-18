@@ -72,24 +72,9 @@ const CardRecipe = ({ recipe }: Props) => {
     },
   ];
 
-  /* 
-
-axiosApi.post(
-            '/users/follow',
-            {
-              userId: _id,
-              userToFollowId: recipe.author,
-            },
-            {
-              headers: { authorization: `Bearer ${token}` },
-            }
-          )
-
-*/
-
   return (
     <>
-      <div className='flex flex-col w-full max-w-[430px] sm:p-6 rounded-xl shadow-md'>
+      <div className='flex flex-col w-full max-w-[440px] sm:p-6 rounded-xl shadow-md'>
         <header className='flex px-3 w-full justify-between mb-5'>
           <div className='flex items-center'>
             {author?.img_avatar ? (
@@ -122,17 +107,3 @@ axiosApi.post(
   );
 };
 export default CardRecipe;
-
-/* 
-
- _id?: string;
-  title: string;
-  preparation: string;
-  category: string[];
-  difficulty: string;
-  ingredients: string[];
-  portions: string;
-  country: string;
-  images: string[];
-  likes?: string[];
-*/

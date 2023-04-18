@@ -18,6 +18,7 @@ import {
   AddIngredients,
   Preparation,
   DropZone,
+  Description,
 } from '.';
 
 export interface IOption {
@@ -29,7 +30,7 @@ export interface IRecipe {
   _id?: string;
   author?: string;
   title: string;
-  description?: string;
+  description: string;
   preparation: string;
   category: string[];
   difficulty: string;
@@ -43,6 +44,7 @@ export interface IRecipe {
 const initialRecipe: IRecipe = {
   title: '',
   preparation: '',
+  description: '',
   category: [],
   difficulty: '',
   ingredients: [],
@@ -56,6 +58,8 @@ const ModalNewRecipe = () => {
   const [files, setFiles] = useState<File[]>([]);
   const { modalNewRecipe } = useAppSelector((state) => state.modalsReducer);
   const { user } = useAppSelector((state) => state.userReducer);
+  const token = useAppSelector((state) => state.userReducer.token);
+
   const dispatch = useAppDispatch();
 
   const closeModal = () => dispatch(hideModal('modalNewRecipe'));
@@ -80,13 +84,23 @@ const ModalNewRecipe = () => {
     setRecipe((prev) => ({ ...prev, [Object.keys(data)[0]]: Object.values(data)[0] }));
 
   const saveRecipe = async () => {
+    const { preparation, ...restRecipe } = recipe;
     closeModal();
     await uploadingImagesToCloudinary();
-    toast.promise(axiosApi.post(`/posts/${user._id}`, { ...recipe }), {
-      loading: 'Creando receta..',
-      success: 'Receta creada',
-      error: 'Hubo un error al crear la receta',
-    });
+    toast.promise(
+      axiosApi.post(
+        `/posts`,
+        { id: user._id, preparation: preparation.split('\n'), ...restRecipe },
+        {
+          headers: { authorization: `Bearer ${token}` },
+        }
+      ),
+      {
+        loading: 'Creando receta..',
+        success: 'Receta creada',
+        error: 'Hubo un error al crear la receta',
+      }
+    );
   };
 
   return (
@@ -146,6 +160,7 @@ const ModalNewRecipe = () => {
             <SelectCategory handleChange={handleChange} />
             <QuantityPortions numberServings={+recipe.portions} setNumberServings={handleChange} />
             <AddIngredients ingredients={recipe.ingredients} handleChange={handleChange} />
+            <Description value={recipe.description} handleChange={handleChange} />
             <Preparation value={recipe.preparation} handleChange={handleChange} />
           </div>
         </Modal.Body>

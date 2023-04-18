@@ -15,11 +15,11 @@ const CardImage = ({ recipe }: Props) => {
   return (
     <div className='relative flex flex-col justify-between w-full h-[360px] '>
       <Image
-        width='500'
+        width='600'
         height='600'
         src={images[0]}
         alt={recipe.title}
-        className='absolute top-0 left-0 w-full h-full z-0'
+        className='absolute top-0 left-0 w-full h-full z-0 object-cover'
       />
       <header className='flex justify-between p-2'>
         <h3 className='font-semibold px-4 py-1 bg-white/50 rounded-full z-10'>{recipe.title}</h3>
