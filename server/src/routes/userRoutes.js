@@ -23,11 +23,11 @@ router.get("/confirm/:token", confirmUser); //YA
 router.post("/authenticate", authenticateUser); //YA
 router.put("/forgotten-password", forgottenPassword); //YA
 router.get("/forgotten-password/:token", newUserPassword); //YA
-router.get("/profile/:userId", authMiddleware, userProfile); // YA, FALTA EL OBJETO QUE DEVUELVE
+router.get("/profile/:userId", userProfile); // YA, FALTA EL OBJETO QUE DEVUELVE
 router.post('/:userId/saved-posts', authMiddleware, addSavedPost); //YA
 router.post('/:userId/favorite-posts', authMiddleware, addFavoritePost); //YA
-router.post('/:userId/follow', authMiddleware, followUser);
-router.delete('/:userId/unfollow/:userToUnfollowId', authMiddleware, unfollowUser);
+router.post('/follow', authMiddleware, followUser); //YA
+router.delete('/unfollow', authMiddleware, unfollowUser); //YA
 router.get('/:userId/following', authMiddleware, getFollowing);
 router.post('/:userId/favorite-users', authMiddleware, addFavoriteUser);
 router.delete('/:userId/favorite-users', authMiddleware, removeFavoriteUser);
@@ -197,7 +197,7 @@ router.delete('/:userId/favorite-users', authMiddleware, removeFavoriteUser);
  *           minimum: 1
  *         description: Token
  *     requestBody:
- *       description: Required fields to set up a new user.
+ *       description: Required fields to allow the user to create a new password.
  *       required: true
  *       content: 
  *         application/json:
@@ -233,8 +233,6 @@ router.delete('/:userId/favorite-users', authMiddleware, removeFavoriteUser);
  * /api/v1/users/profile/{userId}:
  *   get:
  *     summary: Returns a user profile based on the ID provided.
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: User ID
@@ -276,7 +274,7 @@ router.delete('/:userId/favorite-users', authMiddleware, removeFavoriteUser);
  *           minimum: 1
  *         description: User ID
  *     requestBody:
- *       description: Required fields to set up a new user.
+ *       description: Required fields to add a post to the user's Saved Posts list.
  *       required: true
  *       content: 
  *         application/json:
@@ -323,7 +321,7 @@ router.delete('/:userId/favorite-users', authMiddleware, removeFavoriteUser);
  *           minimum: 1
  *         description: User ID
  *     requestBody:
- *       description: Required fields to set up a new user.
+ *       description: Required fields to add post to the user's Favorites list
  *       required: true
  *       content: 
  *         application/json:
@@ -356,6 +354,140 @@ router.delete('/:userId/favorite-users', authMiddleware, removeFavoriteUser);
  *                 message:
  *                   type: string
  *                   example: Error
+ * /api/v1/users/follow:
+ *   post:
+ *     summary: adds an account to the user's Following list.
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       description: Required fields to follow another user.
+ *       required: true
+ *       content: 
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 example: nisdfusi0239239
+ *               userToFollowId:
+ *                 type: string
+ *                 example: dacni3029rdncxk
+ *     tags:
+ *       - [Users]
+ *     responses:
+ *       201:
+ *         description: Created success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Has comenzado a seguir a este usuario
+ *       400:
+ *         description: Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Debe proporcionar los dos IDs de usuario / No puedes seguirte a ti mismo / Ya sigues a este usuario
+ *       404:
+ *         description: Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Usuario no encontrado
+ * /api/v1/users/unfollow:
+ *   delete:
+ *     summary: Removes an account from the user's Following list.
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       description: Required fields to unfollow another user.
+ *       required: true
+ *       content: 
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 example: nisdfusi0239239
+ *               userToUnfollowId:
+ *                 type: string
+ *                 example: dacni3029rdncxk
+ *     tags:
+ *       - [Users]
+ *     responses:
+ *       204:
+ *         description: No content
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Has dejado de seguir a este usuario
+ *       400:
+ *         description: Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Debe proporcionar los dos IDs de usuario / No puedes dejar de seguirte a ti mismo / No sigues a este usuario
+ *       404:
+ *         description: Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Usuario no encontrado
+ * /api/v1/users/{userId}/following:
+ *   get:
+ *     summary: Returns the list of the accounts the user follows.
+ *     parameters:
+ *       - in: path
+ *         name: User ID
+ *         required: true
+ *         schema:
+ *           type: string
+ *           minimum: 1
+ *         description: ID
+ *     tags:
+ *       - [Users]
+ *     responses:
+ *       201:
+ *         description: Created success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schema/user-profile'
+ *       404:
+ *         description: Not Found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Usuario no encontrado
  *   securitySchemes:
  *     bearerAuth:
  *       type: http
@@ -363,5 +495,6 @@ router.delete('/:userId/favorite-users', authMiddleware, removeFavoriteUser);
  *       bearerFormat: JWT
  */
 
+//router.get('/:userId/following', authMiddleware, getFollowing);
 
 export default router;

@@ -1,6 +1,5 @@
 import User from "../models/User.js"
 import generateJWT from "../helpers/generateJWT.js";
-import generateId from "../helpers/generateId.js";
 import emailRegister from "../helpers/emailRegister.js";
 import emailNewPassword from "../helpers/forgottenPasswordEmail.js";
 import comparePassword from "../helpers/comparePassword.js";
@@ -142,7 +141,7 @@ const followUser = async (req, res) => {
         const { userId, userToFollowId } = req.body;
 
         if (!userId || !userToFollowId) {
-            res.status(400).json({ message: "Debe proporcionar los IDs de usuario" });
+            res.status(400).json({ message: "Debe proporcionar los dos IDs de usuario" });
         }
 
         if (userId === userToFollowId) {
@@ -161,9 +160,9 @@ const followUser = async (req, res) => {
 
         user.following.push(userToFollowId);
         await user.save();
-        res.status(200).json({ message: "Has comenzado a seguir a este usuario" });
+        res.status(201).json({ message: "Has comenzado a seguir a este usuario" });
     } catch (error) {
-        res.status(400).json({ message: "Error en el servidor" });
+        res.status(400).json({ message: error.message });
     }
 };
 
@@ -172,7 +171,7 @@ const unfollowUser = async (req, res) => {
         const { userId, userToUnfollowId } = req.body;
 
         if (!userId || !userToUnfollowId) {
-            res.status(400).json({ message: "Debe proporcionar los IDs de usuario" });
+            res.status(400).json({ message: "Debe proporcionar los dos IDs de usuario" });
         }
 
         if (userId === userToUnfollowId) {
@@ -195,9 +194,9 @@ const unfollowUser = async (req, res) => {
 
         await user.save();
 
-        res.status(200).json({ message: "Has dejado de seguir a este usuario" });
+        res.status(204).json({ message: "Has dejado de seguir a este usuario" });
     } catch (error) {
-        res.status(400).json({ message: "Error en el servidor" });
+        res.status(400).json({ message: error.message });
     }
 };
 
@@ -217,7 +216,7 @@ const getFollowing = async (req, res) => {
 
         res.status(200).json(user.following);
     } catch (error) {
-        res.status(400).json({ message: "Error en el servidor" });
+        res.status(400).json({ message: error.message });
     }
 };
 
@@ -249,7 +248,7 @@ const addFavoriteUser = async (req, res) => {
 
         res.status(200).json({ message: "Usuario agregado a favoritos correctamente" });
     } catch (error) {
-        res.status(400).json({ message: "Error en el servidor" });
+        res.status(400).json({ message: error.message });
     }
 };
 
@@ -281,7 +280,7 @@ const removeFavoriteUser = async (req, res) => {
         await user.save();
         res.status(200).json({ message: "Usuario eliminado de favoritos correctamente" });
     } catch (error) {
-        res.status(400).json({ message: "Error en el servidor" });
+        res.status(400).json({ message: error.message });
     }
 };
 
