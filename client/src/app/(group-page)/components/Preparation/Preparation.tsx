@@ -1,15 +1,17 @@
-const Preparation = () => {
+interface Props {
+  preparation: string[];
+}
+
+const Preparation = ({ preparation }: Props) => {
   return (
-    <div className='flex flex-col justify-start gap-4 w-[90%] lg:w-[80%] xl:w-1/2 mt-5'>
-      <h2 className='text-md font-bold'>Preparación</h2>
-      <p className='w-80 text-xs'>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
-      </p>
-      <p className='w-80 text-xs'>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Lorem
-        ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
-      </p>
-    </div>
+    <>
+      <h2 className='text-md font-bold my-3'>Preparación</h2>
+      <ul className='list-disc ml-6 text-xs mb-5'>
+        {preparation.map((line, idx) => (
+          <li key={idx}>{line}</li>
+        ))}
+      </ul>
+    </>
   );
 };
 export default Preparation;

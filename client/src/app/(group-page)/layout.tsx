@@ -1,12 +1,4 @@
-import {
-  DrawerMenuLeft,
-  Header,
-  ModalDetailsRecipe,
-  ModalNewRecipe,
-  ModalSearch,
-  SidebarFollow,
-  SidebarUser,
-} from './components';
+import { DrawerMenuLeft, Header, ModalNewRecipe, ModalSearch, SidebarFollow, SidebarUser } from './components';
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -25,7 +17,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <ModalSearch />
         <DrawerMenuLeft />
         <ModalNewRecipe />
-        <ModalDetailsRecipe />
       </body>
     </html>
   );

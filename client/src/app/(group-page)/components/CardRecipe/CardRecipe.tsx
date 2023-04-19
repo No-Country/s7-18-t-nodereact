@@ -32,43 +32,6 @@ const CardRecipe = ({ recipe }: Props) => {
     axiosApi.get(`/users/profile/${recipe.author}`).then(({ data }) => setAuthor(data));
   }, [recipe.author]);
 
-  /* 
-
-      action: () => {
-        if (recipe.author === _id) return toast.error('No se puede agregar a favoritos a uno mismo');
-        toast.promise(
-          favoriteUsers?.includes(recipe.author)
-            ? axiosApi.delete(`/users/favorite-users`, {
-                headers: { authorization: `Bearer ${token}` },
-                data: {
-                  userId: _id,
-                  userToRemoveId: recipe.author,
-                },
-              })
-            : axiosApi.post(
-                '/users/favorite-users',
-                {
-                  userId: _id,
-                  userToAddId: recipe.author,
-                },
-                {
-                  headers: { authorization: `Bearer ${token}` },
-                }
-              ),
-          {
-            loading: 'Actualizando favoritos..',
-            success: () => {
-              console.log('paso f');
-              const actionDispatch = favoriteUsers?.includes(recipe.author) ? removeFavoriteUsers : addFavoriteUsers;
-              dispatch(actionDispatch(recipe.author));
-              return 'Favoritos actualizado';
-            },
-            error: 'Hubo un error al actualizar favoritos',
-          }
-        );
-      },
-*/
-
   const optionsMenu = [
     {
       label: favoriteUsers?.includes(recipe.author) ? 'Quitar de favoritos' : 'Añadir a favoritos',
