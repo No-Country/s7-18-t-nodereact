@@ -5,8 +5,8 @@ import { IRecipe } from '../Modals/ModalNewRecipe/ModalNewRecipe';
 import BoxSocial from './BoxSocial';
 import { CutleryIcon } from '@/icons';
 import { useEffect, useState } from 'react';
-import { Options, Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
+import Link from 'next/link';
 
 interface Props {
   recipe: IRecipe;
@@ -32,9 +32,12 @@ const CardImage = ({ recipe }: Props) => {
 
       <header className='flex justify-between p-2'>
         <h3 className='font-semibold px-4 py-1 bg-white/50 rounded-full z-10'>{recipe.title}</h3>
-        <div className='flex justify-center items-center w-[30px] h-[30px] rounded-full bg-white z-10'>
+        <Link
+          href={`/detailRecipe/${recipe._id}`}
+          className='flex justify-center items-center w-[30px] h-[30px] rounded-full bg-white z-10'
+        >
           <CutleryIcon />
-        </div>
+        </Link>
       </header>
       <BoxSocial likes={recipe.likes || []} />
       <div className='flex justify-center items-center gap-3 z-10 mb-3'>

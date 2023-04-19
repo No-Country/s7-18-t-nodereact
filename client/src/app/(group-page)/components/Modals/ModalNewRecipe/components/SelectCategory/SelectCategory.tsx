@@ -4,9 +4,18 @@ import Select from 'react-select';
 import { IOption } from '../../ModalNewRecipe';
 
 const options = [
-  { label: 'Postres', value: 'Postres' },
-  { label: 'Pastas', value: 'Pastas' },
+  { label: 'Carnes', value: 'Carnes' },
   { label: 'Ensaladas', value: 'Ensaladas' },
+  { label: 'Entrada', value: 'Entrada' },
+  { label: 'Minutas', value: 'Minutas' },
+  { label: 'Pastas', value: 'Pastas' },
+  { label: 'Pescado', value: 'Pescado' },
+  { label: 'Plato fuerte', value: 'Plato fuerte' },
+  { label: 'Pollo', value: 'Pollo' },
+  { label: 'Postres', value: 'Postres' },
+  { label: 'Segundo', value: 'Segundo' },
+  { label: 'Vegano', value: 'Vegano' },
+  { label: 'Vegatariano', value: 'Vegatariano' },
 ];
 
 interface Props {
