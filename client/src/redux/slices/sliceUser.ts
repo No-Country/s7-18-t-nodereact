@@ -2,9 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 export interface IProfile {
-  name: string | null | undefined;
+  name: string;
   email: string | null | undefined;
-  img_avatar: string | null | undefined;
+  img_avatar: string;
   admin: boolean;
   createdAt: string | null | undefined;
   favoriteUsers: string[];
@@ -26,9 +26,9 @@ export interface IUser {
 
 const initialState: IUser = {
   user: {
-    name: null,
+    name: '',
     email: null,
-    img_avatar: null,
+    img_avatar: '',
     admin: false,
     createdAt: null,
     favoriteUsers: [],
