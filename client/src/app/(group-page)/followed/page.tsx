@@ -1,8 +1,8 @@
-import { CardFollowed, LikesUsers } from './components'; // Followerd page components
+import { LikesUsers, ListFolowed } from './components'; // Followerd page components
 
-const Followed = new Array(18).fill('');
+/* const Followed = new Array(18).fill(''); */
 
-const page = () => {
+const page = async () => {
   return (
     <div className='flex flex-col gap-5 w-11/12 md:w-4/5 lg:w-5/6 h-full mx-auto pt-8'>
       <div className='flex flex-col md:flex-row justify-between'>
@@ -21,9 +21,7 @@ const page = () => {
                    xl:gap-x-5 xl:justify-start
                    2xl:gap-x-9 3xl:gap-x-5'
       >
-        {Followed.map((el, idx) => (
-          <CardFollowed key={idx} />
-        ))}
+        <ListFolowed />
       </div>
     </div>
   );

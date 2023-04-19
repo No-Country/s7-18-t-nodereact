@@ -5,7 +5,7 @@ import { useAppSelector } from '@/redux/hooks';
 import { hideModal } from '@/redux/slices/sliceModals';
 import { Button, Modal } from 'react-daisyui';
 import { useAppDispatch } from '@/redux/hooks';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import axios from 'axios';
 import axiosApi from '@/app/libs/axios';
 import { Toaster, toast } from 'sonner';
@@ -27,7 +27,7 @@ export interface IOption {
 }
 
 export interface IRecipe {
-  _id?: string;
+  _id: string;
   author: string;
   title: string;
   description: string;
@@ -37,11 +37,12 @@ export interface IRecipe {
   ingredients: string[];
   portions: string;
   country: string;
-  images: string[];
+  images?: string[];
   likes?: string[];
 }
 
 const initialRecipe: IRecipe = {
+  _id: '',
   author: '',
   title: '',
   preparation: '',
@@ -51,7 +52,7 @@ const initialRecipe: IRecipe = {
   ingredients: [],
   portions: '1',
   country: '',
-  images: [],
+  //images: [],
 };
 
 const ModalNewRecipe = () => {
@@ -60,6 +61,7 @@ const ModalNewRecipe = () => {
   const { modalNewRecipe } = useAppSelector((state) => state.modalsReducer);
   const { user } = useAppSelector((state) => state.userReducer);
   const token = useAppSelector((state) => state.userReducer.token);
+  const imagesRef = useRef<string[]>([]);
 
   const dispatch = useAppDispatch();
 
@@ -76,9 +78,10 @@ const ModalNewRecipe = () => {
         .post('https://api.cloudinary.com/v1_1/dviha8xhw/image/upload', formData, {
           headers: { 'X-Requested-With': 'XMLHttpRequest' },
         })
-        .then(({ data }) => setRecipe((prev) => ({ ...prev, images: [...prev.images, data.secure_url] })));
+        .then(({ data }) => imagesRef.current.push(data.secure_url));
     });
     return await axios.all(uploaders);
+    //setRecipe((prev) => ({ ...prev, images: [...prev.images, data.secure_url] }))
   };
 
   const handleChange = (data: any) =>
@@ -86,22 +89,24 @@ const ModalNewRecipe = () => {
 
   const saveRecipe = async () => {
     const { preparation, ...restRecipe } = recipe;
-    closeModal();
-    await uploadingImagesToCloudinary();
-    toast.promise(
-      axiosApi.post(
+    try {
+      await uploadingImagesToCloudinary();
+      console.log(imagesRef.current);
+
+      const res = await axiosApi.post(
         `/posts`,
-        { id: user._id, preparation: preparation.split('\n'), ...restRecipe },
+        { id: user._id, preparation: preparation.split('\n'), ...restRecipe, images: [...imagesRef.current] },
         {
           headers: { authorization: `Bearer ${token}` },
         }
-      ),
-      {
-        loading: 'Creando receta..',
-        success: 'Receta creada',
-        error: 'Hubo un error al crear la receta',
-      }
-    );
+      );
+      console.log({ res });
+
+      toast.success('Receta creada');
+      closeModal();
+    } catch (error) {
+      toast.error('Hubo un error al crear la receta');
+    }
   };
 
   return (
