@@ -5,10 +5,12 @@ const optionsMenu = [
   {
     label: 'Eliminar',
     icon: <TrashIcon />,
+    action: () => {},
   },
   {
     label: 'Ocultar',
     icon: <EyeSlashIcon />,
+    action: () => {},
   },
 ];
 

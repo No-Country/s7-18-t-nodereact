@@ -16,8 +16,9 @@ export interface IProfile {
   posts: string[];
   savedPosts: string[];
   updatedAt: string | null | undefined;
-  _id: string | null | undefined;
+  _id: string;
   token: string | null | undefined;
+  bio?: string | null | undefined;
 }
 export interface IUser {
   user: IProfile;
@@ -40,7 +41,7 @@ const initialState: IUser = {
     posts: [],
     savedPosts: [],
     updatedAt: null,
-    _id: null,
+    _id: '',
     token: null,
   },
   token: null,
