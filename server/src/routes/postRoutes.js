@@ -1,14 +1,22 @@
 import express from 'express';
-import authMiddleware from "../middlewares/auth.js";
-import { createPost, getPostByUserId, updatePost, likePost, unlikePost, getTopPosts, getPostsByDate } from '../controllers/postController.js';
-
-
+import authMiddleware from '../middlewares/auth.js';
+import {
+  createPost,
+  getPostByUserId,
+  updatePost,
+  likePost,
+  unlikePost,
+  getTopPosts,
+  getPostsByDate,
+  getPostByPostId,
+} from '../controllers/postController.js';
 
 const router = express.Router();
 
 router.post('/', authMiddleware, createPost);
 router.put('/:id', updatePost);
 
+router.get('/:postId', getPostByPostId);
 router.get('/:userId/posts', getPostByUserId);
 router.post('/:id/like', likePost);
 router.delete('/posts/:id/unlike', unlikePost);
@@ -27,7 +35,7 @@ export default router;
  *     requestBody:
  *       description: Required fields to create a new post.
  *       required: true
- *       content: 
+ *       content:
  *         application/json:
  *           schema:
  *             $ref: '#/components/schema/createPost'
@@ -46,9 +54,8 @@ export default router;
  *           application/json:
  *             schema:
  *               type: object
- *               properties: 
+ *               properties:
  *                 message:
  *                   type: string
  *                   example: Usuario ya registrado
  */
-

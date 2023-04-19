@@ -1,5 +1,5 @@
-import { Router } from "express";
-import authMiddleware from "../middlewares/auth.js";
+import { Router } from 'express';
+import authMiddleware from '../middlewares/auth.js';
 import {
   registerUser,
   authenticateUser,
@@ -14,21 +14,21 @@ import {
   getFollowing,
   addFavoriteUser,
   removeFavoriteUser,
-} from "../controllers/userController.js ";
+} from '../controllers/userController.js ';
 
 const router = Router();
 
-
-router.post("/register", registerUser);
-router.get("/confirm/:token", confirmUser);
-router.post("/authenticate", authenticateUser);
-router.put("/forgotten-password", forgottenPassword);
-router.put("/forgotten-password/:token", newUserPassword);
-router.get("/profile/:userId", userProfile); // YA, FALTA EL OBJETO QUE DEVUELVE
+router.post('/register', registerUser);
+router.get('/confirm/:token', confirmUser);
+router.post('/authenticate', authenticateUser);
+router.put('/forgotten-password', forgottenPassword);
+router.put('/forgotten-password/:token', newUserPassword);
+router.get('/profile/:userId', userProfile); // YA, FALTA EL OBJETO QUE DEVUELVE
 router.post('/:userId/saved-posts', authMiddleware, addSavedPost);
 router.post('/:userId/favorite-posts', authMiddleware, addFavoritePost);
 router.post('/follow', authMiddleware, followUser);
-router.delete('/unfollow', authMiddleware, unfollowUser);
+//router.delete('/unfollow', authMiddleware, unfollowUser);
+router.delete('/unfollow/:userId', authMiddleware, unfollowUser);
 router.get('/:userId/following', authMiddleware, getFollowing);
 router.post('/favorite-users', authMiddleware, addFavoriteUser);
 router.delete('/favorite-users', authMiddleware, removeFavoriteUser);
