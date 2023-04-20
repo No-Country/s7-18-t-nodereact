@@ -17,25 +17,21 @@ Descrip.
 ## Integrantes 👩🏻‍💻👨🏽‍💻
 ✔️ **QA Tester:** Tatiana Montoya | [LinkedIn](.)
 
-✔️ **Diseñadora UX/UI:** María Belén Fernández Morales | [LinkedIn](.)
+✔️ **Diseñadora UX/UI:** María Belén Fernández Morales | [LinkedIn](https://www.linkedin.com/in/belen-fernandez-morales/)
 
-✔️ **Diseñadora UX/UI:** Jacqueline Higa | [LinkedIn](.)
+✔️ **Diseñadora UX/UI:** Jacqueline Higa | [LinkedIn](https://www.linkedin.com/in/jacqueline-higa-velasquez/)
 
-✔️ **Desarrollador front-end:** Kelly Chara | [LinkedIn](http://linkedin.com/in/kelly-chara) | [GitHub](.)
+✔️ **Desarrollador front-end:** Lucas Santamaria | [LinkedIn](https://www.linkedin.com/in/lucas-santamaria-ab1512225/) | [GitHub](https://github.com/LucasSantamaria76)
 
-✔️ **Desarrollador front-end:** Lucas Santamaria | [LinkedIn](.) | [GitHub](.)
+✔️ **Desarrollador front-end:** Gilmar Fasabi Morales | [LinkedIn](https://www.linkedin.com/in/gilmar-fasabi-morales/) | [GitHub](https://github.com/gijofam)
 
-✔️ **Desarrollador front-end:** Gilmar Fasabi Morales | [LinkedIn](.) | [GitHub](.)
-
-✔️ **Desarrollador front-end:** Víctor Olivera | [LinkedIn](.) | [GitHub](.)
-
-✔️ **Desarrollador back-end:** Marta Alcázar Redondo | [LinkedIn](.) | [GitHub](.)
+✔️ **Desarrollador back-end:** Marta Alcázar Redondo | [LinkedIn](https://www.linkedin.com/in/marta-alc%C3%A1zar-redondo/) | [GitHub](https://github.com/martaalcazarr)
 
 ✔️ **Desarrollador back-end:** Kimberlly Barraza | [LinkedIn](https://pe.linkedin.com/in/kimberllynbarrazat/es) | [GitHub](https://github.com/KNBT)
 
 ✔️ **Desarrollador back-end:** Miguel Bazarelli | [LinkedIn](http://linkedin.com/in/miguel-ernesto-bazzarelli-8b5029247) | [GitHub](https://github.com/Migbazz)
 
-✔️ **Desarrollador back-end:** Oscar Ardila | [LinkedIn](.) | [GitHub](.)
+✔️ **Desarrollador back-end:** Oscar Ardila | [LinkedIn](https://www.linkedin.com/in/oscarardila96/) | [GitHub](https://github.com/oscarardila96)
 
 ### Team Leader 👨‍🚀:
 ✔️ Matías Carballo.
