@@ -1,5 +1,5 @@
-import { CardFollower, LikesUsers } from './components'; // Followers page components
-const Followers = new Array(18).fill('');
+import { LikesUsers, ListFolowers } from './components'; // Followers page components
+//const Followers = new Array(18).fill('');
 
 const page = () => {
   return (
@@ -20,9 +20,7 @@ const page = () => {
                    xl:gap-x-5 xl:justify-start
                    2xl:gap-x-9 3xl:gap-x-5'
       >
-        {Followers.map((el, idx) => (
-          <CardFollower key={idx} />
-        ))}
+        <ListFolowers />
       </div>
     </div>
   );

@@ -4,7 +4,12 @@ import axios from 'axios';
 
 const getRecipes = async () => {
   try {
-    const { data } = await axios.get(`${process.env.SERVER_URL_BASE}/posts/posts/ordered`);
+    const { data } = await axios.get(`${process.env.SERVER_URL_BASE}/posts/posts/ordered`, {
+      //@ts-ignore
+      next: {
+        revalidate: 60,
+      },
+    });
     return data;
   } catch (error) {
     console.log('Error al obtener los posts');

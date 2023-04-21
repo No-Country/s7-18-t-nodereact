@@ -20,6 +20,7 @@ import {
   DropZone,
   Description,
 } from '.';
+import { addPost } from '@/redux/slices/sliceUser';
 
 export interface IOption {
   label: string;
@@ -37,8 +38,8 @@ export interface IRecipe {
   ingredients: string[];
   portions: string;
   country: string;
-  images?: string[];
-  likes?: string[];
+  images: string[];
+  likes: string[];
 }
 
 const initialRecipe: IRecipe = {
@@ -52,7 +53,8 @@ const initialRecipe: IRecipe = {
   ingredients: [],
   portions: '1',
   country: '',
-  //images: [],
+  images: [],
+  likes: [],
 };
 
 const ModalNewRecipe = () => {
@@ -62,7 +64,6 @@ const ModalNewRecipe = () => {
   const { user } = useAppSelector((state) => state.userReducer);
   const token = useAppSelector((state) => state.userReducer.token);
   const imagesRef = useRef<string[]>([]);
-
   const dispatch = useAppDispatch();
 
   const closeModal = () => dispatch(hideModal('modalNewRecipe'));
@@ -91,17 +92,16 @@ const ModalNewRecipe = () => {
     const { preparation, ...restRecipe } = recipe;
     try {
       await uploadingImagesToCloudinary();
-      console.log(imagesRef.current);
-
-      const res = await axiosApi.post(
+      const { data } = await axiosApi.post(
         `/posts`,
         { id: user._id, preparation: preparation.split('\n'), ...restRecipe, images: [...imagesRef.current] },
         {
           headers: { authorization: `Bearer ${token}` },
         }
       );
-      console.log({ res });
-
+      if (data) {
+        dispatch(addPost(data._id));
+      }
       toast.success('Receta creada');
       closeModal();
     } catch (error) {

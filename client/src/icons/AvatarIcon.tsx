@@ -8,9 +8,18 @@ interface Props {
 
 const AvatarIcon = ({ width = 40, height = 40, image = '/profile-icon-1.png' }: Props) => {
   return (
-    <div className='rounded-full overflow-hidden h-fit w-fit border-2 border-[#FF8C00]'>
-      <Image width={width} height={height} src={image} alt='avatar' />
-    </div>
+    <Image
+      width={width}
+      height={height}
+      src={image}
+      alt='avatar'
+      className={`rounded-full w-[${width}px] h-[${height}px] border-2 border-[#FF8C00]`}
+    />
   );
 };
 export default AvatarIcon;
+
+{
+  /* <div className={`rounded-full overflow-hidden w-[${width}px] h-[${height}px] border-2 border-[#FF8C00]`}>
+    </div> */
+}

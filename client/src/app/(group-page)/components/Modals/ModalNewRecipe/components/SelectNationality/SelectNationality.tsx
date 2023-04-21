@@ -36,7 +36,7 @@ const SelectNationality = ({ handleChange }: Props) => {
               <h3 className='ml-2'>{country.translations.spa.common}</h3>
             </div>
           ),
-          value: country.translations.spa.common,
+          value: country.cca2,
         }))
       );
     });

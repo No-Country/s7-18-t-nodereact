@@ -12,7 +12,7 @@ export default function page() {
       <CardStats />
       <div className='flex flex-wrap justify-center gap-3 p-1 w-full'>
         {recipes.map((el, idx) => (
-          <CardThumbnailsRecipe key={idx} />
+          <CardThumbnailsRecipe key={idx} recipe={el} />
         ))}
       </div>
     </div>

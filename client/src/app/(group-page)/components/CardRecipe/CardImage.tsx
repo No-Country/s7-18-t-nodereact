@@ -33,7 +33,10 @@ const CardImage = ({ recipe }: Props) => {
       <header className='flex justify-between p-2'>
         <h3 className='font-semibold px-4 py-1 bg-white/50 rounded-full z-10'>{recipe.title}</h3>
         <Link
-          href={`/detailRecipe/${recipe._id}`}
+          href={{
+                pathname: `/detailRecipe/${recipe._id}`,
+                query: { route: '/home' },
+              }}
           className='flex justify-center items-center w-[30px] h-[30px] rounded-full bg-white z-10'
         >
           <CutleryIcon />

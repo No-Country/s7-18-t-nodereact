@@ -76,10 +76,14 @@ export const user = createSlice({
       state.user.following = [...state.user.following.filter((el) => el !== payload)];
       return state;
     },
+    addPost: (state: IUser, { payload }) => {
+      state.user.posts = [...state.user.posts, payload];
+      return state;
+    },
   },
 });
 
-export const { addFavoriteUsers, addFollowing, setLogin, setLogout, removeFavoriteUsers, removeFollowing } =
+export const { addFavoriteUsers, addPost, addFollowing, setLogin, setLogout, removeFavoriteUsers, removeFollowing } =
   user.actions;
 
 export default user.reducer;

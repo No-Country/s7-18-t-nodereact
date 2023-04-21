@@ -16,7 +16,13 @@ const ProfileFollowers = ({ res }) => {
   }, [res]);
   return (
     <div className='flex flex-col justify-center items-center'>
-      <Image className='rounded-full' width={50} height={50} src={profile?.img_avatar || ''} alt='imagen de perfil' />
+      <Image
+        className='rounded-full w-12 h-12  border border-[#FF8C00]'
+        width={50}
+        height={50}
+        src={profile?.img_avatar || ''}
+        alt='imagen de perfil'
+      />
       <h3>{limitString(profile?.name, 10)}</h3>
     </div>
   );
