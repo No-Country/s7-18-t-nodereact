@@ -10,6 +10,7 @@ const nextConfig = {
       'lh3.googleusercontent.com',
       'ik.imagekit.io',
       'res.cloudinary.com',
+      'www.flagcdn.com',
     ],
   },
 };

@@ -128,7 +128,7 @@ const CardRecipe = ({ recipe }: Props) => {
                 height='40'
                 src={author?.img_avatar}
                 alt='author'
-                className='rounded-full border border-[#FF8C00]'
+                className='rounded-full w-10 h-10 border border-[#FF8C00]'
               />
             ) : (
               <AvatarIcon />

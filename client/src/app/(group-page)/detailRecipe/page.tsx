@@ -1,3 +1,4 @@
+//details recipe
 const DetailRecipe = async () => {
   return null;
 };
