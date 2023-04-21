@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  user-select: none;
+  font-family: 'Inter', sans-serif;
+}
+*::-webkit-scrollbar {
+  width: 4px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #ff823f;
+  border-radius: 10px;
+}
+
+@layer components {
+  .buttonSearch {
+    @apply btn btn-ghost flex-shrink-0 lg:hidden text-gray-500 hover:text-slate-800;
+  }
+  .searchMobile {
+    @apply flex gap-2 w-full border border-gray-200 rounded-full py-2 px-6;
+  }
+  .search {
+    @apply hidden lg:flex gap-2 w-[400px] border border-gray-200 rounded-full py-2 px-6;
+  }
+  .btn-personalized-outline {
+    @apply btn btn-sm btn-outline border-[#ff823f] text-[#ff823f] rounded-md hover:bg-gradient-to-b from-[#ff823f] to-[#ffd700];
+  }
+  .btn-primary {
+    @apply shadow-md border border-[#ff823f] rounded-md bg-gradient-to-r 
+    from-[#ff823f] to-[#ffd700] text-white text-sm cursor-pointer active:shadow-none font-bold tracking-wider hover:bg-gradient-to-l transition-colors;
+  }
+  .btn-primary-outline {
+    @apply bg-transparent shadow-md border border-gray-400 text-sm text-gray-400 rounded-md active:shadow-none hover:bg-orange-50 cursor-pointer;
+  }
+  .menu-item {
+    @apply flex items-center gap-2 rounded-none py-2 px-4 hover:bg-orange-100 active:bg-gradient-to-r 
+    from-[#ff823f] to-[#ffd700];
+  }
+  .textbox {
+    @apply rounded-md w-full outline-none border border-gray-400 transition-all text-sm lg:text-base xl:text-lg bg-slate-50 focus:shadow  p-2;
+  }
+}
