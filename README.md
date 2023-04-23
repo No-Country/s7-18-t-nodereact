@@ -4,7 +4,7 @@
 
 ## Breve descripción del proyecto 📜 (¿o cómo nace la idea?)
 
-Descrip.
+Hay muchos usuarios de redes sociales que se dedican a compartir sus recetas de cocina, así como hay usuarios que siguen este tipo de contenido, pero no existe una red social dedicada a ello, sino que los usuarios amantes de este tipo de contenido deben pasar por otro contenido que quizás es irrelevante para ellos, para acceder a sus recetas favoritas. Para que los amantes de la cocina tengan un lugar específico para buscar recetas y seguir a sus chefs favoritos, se crea Appetit, una red social de recetas. 
 
 ### Tecnologías 🚀:
 * FrontEnd: Next.js | Typescript | Taildwind | Redux-Toolkit |
