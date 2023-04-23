@@ -12,7 +12,9 @@ Hay muchos usuarios de redes sociales que se dedican a compartir sus recetas de 
 * Diseño UX: Figma.
 * Testing: X.
 
-### URL del proyecto desplegado 🔗:
+### Conoce nuestro proyecto: [Presentación y Mockups](https://www.canva.com/design/DAFge6IRZqo/-dvmrAwsrmSrb6Pc3ABlJA/view?utm_content=DAFge6IRZqo&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink#13)
+
+### URL del proyecto desplegado 🔗:  [Appetit](https://appetit-recetas.vercel.app/)
 
 ## Integrantes 👩🏻‍💻👨🏽‍💻
 ✔️ **QA Tester:** Tatiana Montoya | [LinkedIn](.)
