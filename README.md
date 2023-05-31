@@ -1,4 +1,4 @@
-<h1 align = "center">👨‍🍳 Nombre del proyecto: Appetit 🥘</h1>
+<h1 align = "center">👨‍🍳 Appetit 🥘</h1>
 
 <p align = "center">Un proyecto del equipo: S7-18-T-NodeReact.</p>
 
